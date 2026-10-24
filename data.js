@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:57:00+02:00",
+    updated: "2026-10-24T17:59:30+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : tensions à la dispersion (lacrymos, canon à eau, charges cours de Vincennes) ; heurts en régions.",
     window: { start: "13:00", end: "19:00" },
