@@ -5,9 +5,9 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T16:58:00+02:00",
+    updated: "2026-10-24T17:01:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "40 000 à Paris, cortège calme ; défilé sauvage av. Michel-Bizot, tentative d'accès au périph repoussée.",
+    tensionNote: "Paris calme, cortège arrivé à Vincennes ; la tension monte en régions (Chambéry, Nantes, Lyon, Rouen).",
     window: { start: "13:00", end: "19:00" },
     march: { start: "14:30", end: "18:30" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
@@ -23,6 +23,12 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "16:54", cat: "securite", sev: 3, incident: true, text: "La tension monte : lacrymogènes à Rouen, dispersions à Bordeaux et Tours.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "16:50", cat: "securite", sev: 4, incident: true, text: "Chambéry : violents affrontements entre groupes violents et forces de l'ordre dans le centre-ville.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "16:47", cat: "securite", sev: 3, text: "Nice : un groupe d'extrême droite se dirige vers le centre-ville pendant que la police tente de disperser la manifestation.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "16:42", cat: "securite", sev: 2, text: "Toulouse : la police peine à disperser les manifestants.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "16:41", cat: "securite", sev: 3, incident: true, text: "Nantes : des manifestants entrent dans le périmètre interdit, la tête du cortège repoussée à coups de grenades.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "16:34", cat: "cortege", sev: 1, text: "Paris : le gros du cortège est arrivé Porte de Vincennes, ambiance plutôt calme.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "16:47", cat: "politique", sev: 1, text: "Mélenchon salue « la plus grande manif » depuis le début du mouvement et juge que la manœuvre du changement de parcours a échoué.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "16:46", cat: "securite", sev: 1, text: "Paris : forces de l'ordre très présentes en tête et en queue de cortège, discrètes dans les rues voisines.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
     { t: "16:45", cat: "cortege", sev: 1, text: "Mayenne : le cortège quitte son itinéraire et bloque le rond-point du Zoom.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
@@ -231,6 +237,9 @@ window.MANIF_DATA = {
     { city: "Lyon", state: "interdit", text: "~10 000 manifestants dispersés dans les rues (CNews 16h40) ; mortiers contre les forces de l'ordre, lacrymogènes" },
     { city: "Nantes", state: "interdit", text: "Situation extrêmement tendue place du Commerce (16h39) ; 3 000 personnes hostiles, canon à eau et Centaure" },
     { city: "Bordeaux", state: "interdit", text: "15 500 manifestants ; projectiles sur les CRS et lacrymogènes (15h51)" },
+    { city: "Chambéry", state: "interdit", text: "Violents affrontements en centre-ville (16h50)" },
+    { city: "Toulouse", state: "vigilance", text: "La police peine à disperser les manifestants (16h42)" },
+    { city: "Nice", state: "vigilance", text: "Groupe d'extrême droite vers le centre, dispersion en cours (16h47)" },
     { city: "Rouen", state: "interdit", text: "Lacrymogènes rue Eau-de-Robec, zone interdite (16h19)" },
     { city: "Brest", state: "vigilance", text: "~10 000 personnes, cortège non autorisé, calme" },
     { city: "Limoges", state: "autorisé", text: "TA suspend l'interdiction des rassemblements et le couvre-feu" },
