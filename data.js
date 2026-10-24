@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T18:49:00+02:00",
+    updated: "2026-10-24T18:52:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : plus de 500 casseurs cours de Vincennes (préfecture), mortiers et lacrymogènes. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,8 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "18:37", cat: "securite", sev: 3, incident: true, text: "Paris : à la dispersion, un photographe de presse blessé à la tête par une grenade lacrymogène, évacué conscient.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "18:35", cat: "securite", sev: 3, incident: true, text: "Nice : violents affrontements en centre-ville entre manifestants et militants d'extrême droite venus « soutenir les policiers ».", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "18:00", cat: "securite", sev: 2, text: "Lyon : 29 interpellations à 18h.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "18:31", cat: "securite", sev: 4, incident: true, text: "Paris, cours de Vincennes : plus de 500 casseurs en fin de cortège selon la préfecture, tirs de mortiers sur les forces de l'ordre, interpellations en cours.", src: "ICI / CNews", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "18:30", cat: "securite", sev: 2, text: "Paris : des renforts policiers arrivent cours de Vincennes.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
@@ -262,6 +264,7 @@ window.MANIF_DATA = {
 
   // Incidents géolocalisés (vide pour l'instant). Ex : { t:"15:10", ll:[48.83,2.39], sev:3, text:"Heurts Pont National" }
   incidents: [
+    { t: "18:37", ll: [48.8470, 2.4085], sev: 3, text: "Photographe de presse blessé à la tête par une grenade lacrymogène à la dispersion (ICI)" },
     { t: "18:31", ll: [48.8478, 2.4060], sev: 4, text: "Plus de 500 casseurs en fin de cortège, mortiers, interpellations (préfecture via ICI)" },
     { t: "18:09", ll: [48.8476, 2.4020], sev: 3, text: "Tirs de mortiers, lacrymogènes et interpellations cours de Vincennes (France 3)" },
     { t: "18:08", ll: [48.8483, 2.3958], sev: 2, text: "Un groupe de manifestants arrive place de la Nation (Le Monde, via France 3)" },
@@ -293,7 +296,7 @@ window.MANIF_DATA = {
     { city: "Lille", state: "vigilance", text: "Canon à eau pour repousser les manifestants (17h10)" },
     { city: "Chambéry", state: "interdit", text: "Violents affrontements en centre-ville (16h50)" },
     { city: "Toulouse", state: "interdit", text: "26 500 selon la préfecture, 80 000 selon la CGT ; heurts, un blessé grave à la main" },
-    { city: "Nice", state: "vigilance", text: "30 interpellations selon le maire ; groupe d'extrême droite vers le centre (16h47)" },
+    { city: "Nice", state: "interdit", text: "Violents affrontements manifestants / extrême droite (18h35) ; 30 interpellations" },
     { city: "Rouen", state: "interdit", text: "Lacrymogènes rue Eau-de-Robec, zone interdite (16h19)" },
     { city: "Brest", state: "vigilance", text: "~10 000 personnes, cortège non autorisé, calme" },
     { city: "Limoges", state: "autorisé", text: "TA suspend l'interdiction des rassemblements et le couvre-feu" },
