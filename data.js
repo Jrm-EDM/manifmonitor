@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T18:04:00+02:00",
+    updated: "2026-10-24T18:07:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : seul point de tension Porte de Vincennes / cours de Vincennes (lacrymos, lanceur d'eau, charges) selon la préfecture.",
     window: { start: "13:00", end: "19:00" },
@@ -14,15 +14,17 @@ window.MANIF_DATA = {
   },
 
   kpis: [
-    { id: "paris", label: "Manifestants Paris", value: "110 000", delta: "selon la préfecture (40 000 à 15h55)", trend: "up", src: "Préfecture via ICI", at: "17:09" },
+    { id: "paris", label: "Manifestants Paris", value: "110 000", delta: "préfecture ; 250 000 selon la CGT (18h03)", trend: "up", src: "Préfecture via ICI", at: "17:09" },
     { id: "arrests", label: "Interpellations Paris", value: "65", delta: "135 en France à 13h (dernier chiffre national)", trend: "up", src: "CNews", at: "17:18" },
-    { id: "crowd", label: "Manifestants France", value: "218,500+".replace(",", " "), delta: "somme des comptages locaux (13 villes) ; dernier chiffre officiel : 35 000 à 13h", trend: "up", src: "Préfectures et presse, compil. ManifMonitor", at: "17:33" },
+    { id: "crowd", label: "Manifestants France", value: "218,500+".replace(",", " "), delta: "somme des comptages locaux ; « près de 800 000 » selon la CGT (18h03)", trend: "up", src: "Préfectures et presse, compil. ManifMonitor", at: "17:33" },
     { id: "controls", label: "Contrôles Paris", value: "3 000", delta: "selon la préfecture de police (635 à 12h28)", trend: "up", src: "Préfecture via France 3 / franceinfo", at: "17:20" },
     { id: "stations", label: "Stations de métro fermées", value: "24", delta: "+ ligne 2 coupée Barbès ↔ Nation", trend: "flat", src: "RATP via Presse-citron", at: "09:00" },
     { id: "police", label: "Policiers & gendarmes", value: "70 000", delta: "France entière, +20 % vs 17/10", trend: "up", src: "Gouvernement via Sortiraparis", at: "veille" }
   ],
 
   feed: [
+    { t: "18:03", cat: "cortege", sev: 2, text: "CGT : « près de 800 000 personnes mobilisées » en France, dont 250 000 à Paris (110 000 selon la préfecture).", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
+    { t: "18:01", cat: "securite", sev: 3, incident: true, text: "Paris : jets de projectiles sur les forces de l'ordre à la dispersion, riposte au lanceur d'eau et aux gaz lacrymogènes (préfecture).", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:47", cat: "securite", sev: 3, incident: true, text: "Porte de Vincennes : engin lanceur d'eau, grenades lacrymogènes et charges de CRS en fin de manifestation ; la préfecture parle de « l'unique point de tensions à Paris ».", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "17:53", cat: "securite", sev: 3, incident: true, text: "Paris : premières tensions à la dispersion, grenades lacrymogènes et canon à eau sur le cours de Vincennes ; charges de CRS porte de Vincennes, « jeu du chat et de la souris » avec les manifestants.", src: "France 3 Paris IDF / franceinfo", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html" },
     { t: "17:51", cat: "securite", sev: 3, incident: true, text: "Bordeaux : heurts place de la Bourse, pavés arrachés et mobilier urbain incendié.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
