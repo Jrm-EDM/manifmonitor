@@ -5,9 +5,9 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T15:42:00+02:00",
+    updated: "2026-10-24T15:55:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Cortège calme selon la préfecture, aucun incident majeur signalé à 13h.",
+    tensionNote: "Cortège calme ; tentative d'accès au périphérique repoussée (15h20), verbalisations à Bastille.",
     window: { start: "13:00", end: "19:00" },
     march: { start: "14:30", end: "18:30" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
@@ -23,6 +23,10 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "15:50", cat: "cortege", sev: 1, text: "CGT et Lutte ouvrière défilent sur le tracé imposé ; une partie des manifestants n'a pas encore quitté la place d'Italie.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
+    { t: "15:45", cat: "securite", sev: 2, text: "Militaires de Sentinelle déployés pour sécuriser des sites, notamment près du Louvre.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
+    { t: "15:30", cat: "securite", sev: 2, incident: true, text: "Place de la Bastille : personnes contrôlées, fouillées et verbalisées (135 €), le départ depuis Bastille étant interdit.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
+    { t: "15:20", cat: "securite", sev: 3, incident: true, text: "Une cinquantaine de personnes tentent de pénétrer sur le périphérique, reconduites sur le parcours par les forces de l'ordre.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html" },
     { t: "15:39", cat: "cortege", sev: 1, text: "Marseille : le cortège intersyndical s'est élancé dans le calme vers 14h des Réformés vers la porte d'Aix.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "15:21", cat: "cortege", sev: 1, text: "Le cortège parisien avance dans le calme ; slogans lycéens, quelques slogans hostiles à la police.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
     { t: "15:15", cat: "cortege", sev: 2, text: "Paris : la police estime le cortège à 10 000 personnes, chiffre en hausse, des manifestants convergent encore depuis la place d'Italie.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
@@ -145,7 +149,7 @@ window.MANIF_DATA = {
   // · 2 affrontements (lacrymos nourris, projectiles, charges) · 3 émeutes (incendies, pillages, barricades).
   // Une zone n'entre ici que sur signalement sourcé ; les zones « à risque » restent en heat 1 avec la mention.
   hotZones: [
-    { name: "Bastille", ll: [48.8532, 2.3691], r: 400, heat: 1, note: "Sous haute surveillance, RDV Gilets jaunes hors parcours annoncé. Risque : aucune violence signalée à 15h23." },
+    { name: "Bastille", ll: [48.8532, 2.3691], r: 400, heat: 1, note: "Contrôles, fouilles et verbalisations (135 €) vers 15h30, départ interdit. Pas de heurts signalés (France 3, 15h51)." },
     { name: "République", ll: [48.8674, 2.3637], r: 400, heat: 1, note: "Couvre-feu 23h, foyer des violences du 17/10. Risque : calme à 15h23." },
     { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 1, note: "Point de dispersion vers 18h30-19h, moment le plus sensible d'un cortège. Risque." }
   ],
