@@ -251,6 +251,24 @@ footer { border-top: 1px solid var(--line); background: var(--panel); padding: 8
 .corner.bl { bottom: 6px; left: 6px; border-bottom-width: 2px; border-left-width: 2px; }
 .corner.br { bottom: 6px; right: 6px; border-bottom-width: 2px; border-right-width: 2px; }
 .leaflet-top.leaflet-left { margin-top: 2px; }
+
+/* ---- mobile : la carte remonte, le haut de page se compacte ---- */
+@media (max-width: 760px) {
+  header { gap: 8px 12px; padding-block: 8px; }
+  header .tension .sub, #tnote, #subtitle, .updated { display: none; }
+  .brand { font-size: 18px; }
+  .clock { font-size: 15px; }
+  .tension .bars i { width: 10px; height: 12px; }
+  .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .kpi { padding: 6px 8px; border-right: 1px solid var(--line); }
+  .kpi:nth-child(3n) { border-right: 0; }
+  .kpi .l { font-size: 9.5px; letter-spacing: .06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .kpi .v { font-size: 21px; }
+  .kpi .d, .kpi .s { display: none; }
+  main { grid-auto-rows: 72vh auto auto; }
+  .col:not(.right) { max-height: 75vh; }
+  .coords, .corner { display: none; }
+}
 </style>
 </head>
 <body>
