@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T16:42:00+02:00",
+    updated: "2026-10-24T16:43:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "40 000 à Paris, cortège calme ; défilé sauvage av. Michel-Bizot, tentative d'accès au périph repoussée.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,8 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "16:40", cat: "securite", sev: 2, text: "Lyon : environ 10 000 manifestants seraient dispersés dans les rues, selon les équipes CNews sur place.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
+    { t: "16:39", cat: "securite", sev: 3, incident: true, text: "Nantes : situation « extrêmement tendue » place du Commerce.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "16:37", cat: "securite", sev: 2, text: "Manifestations toujours interdites à Nancy, Metz, Besançon, Belfort, Rouen, Le Havre et Toulon malgré plusieurs recours gagnés ailleurs.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "16:25", cat: "cortege", sev: 1, text: "Nancy : situation calme entre manifestants et police.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "16:15", cat: "securite", sev: 3, incident: true, text: "Nantes : 3 000 personnes hostiles au centre-ville, des individus utilisent des barrières pour empêcher les forces de l'ordre d'intervenir.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
@@ -223,8 +225,8 @@ window.MANIF_DATA = {
 
   cities: [
     { city: "Marseille", state: "autorisé", text: "17 000 manifestants selon la préfecture, cortège calme ; 1 000 à Aix malgré l'interdiction" },
-    { city: "Lyon", state: "interdit", text: "~2 000 manifestants dans le 7e malgré l'interdiction, mortiers contre les forces de l'ordre, lacrymogènes" },
-    { city: "Nantes", state: "interdit", text: "3 000 personnes hostiles, barrières contre les forces de l'ordre, canon à eau et Centaure (16h15)" },
+    { city: "Lyon", state: "interdit", text: "~10 000 manifestants dispersés dans les rues (CNews 16h40) ; mortiers contre les forces de l'ordre, lacrymogènes" },
+    { city: "Nantes", state: "interdit", text: "Situation extrêmement tendue place du Commerce (16h39) ; 3 000 personnes hostiles, canon à eau et Centaure" },
     { city: "Bordeaux", state: "interdit", text: "15 500 manifestants ; projectiles sur les CRS et lacrymogènes (15h51)" },
     { city: "Rouen", state: "interdit", text: "Lacrymogènes rue Eau-de-Robec, zone interdite (16h19)" },
     { city: "Brest", state: "vigilance", text: "~10 000 personnes, cortège non autorisé, calme" },
