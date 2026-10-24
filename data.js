@@ -4,6 +4,7 @@
 window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
+    archived: "samedi 24 octobre 2026, de 9h à 22h25", // retirer cette ligne pour repasser en direct
     date: "2026-10-24",
     updated: "2026-10-24T22:25:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
