@@ -5,9 +5,9 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T18:10:00+02:00",
+    updated: "2026-10-24T18:13:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Paris : seul point de tension Porte de Vincennes / cours de Vincennes (lacrymos, lanceur d'eau, charges) selon la préfecture.",
+    tensionNote: "Paris : affrontements cours de Vincennes (mortiers, lacrymos), groupe arrivé à Nation. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
     march: { start: "14:30", end: "17:00" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
@@ -16,13 +16,18 @@ window.MANIF_DATA = {
   kpis: [
     { id: "paris", label: "Manifestants Paris", value: "110 000", delta: "préfecture ; 250 000 selon la CGT (18h03)", trend: "up", src: "Préfecture via ICI", at: "17:09" },
     { id: "arrests", label: "Interpellations Paris", value: "65", delta: "135 en France à 13h (dernier chiffre national)", trend: "up", src: "CNews", at: "17:18" },
-    { id: "crowd", label: "Manifestants France", value: "218,500+".replace(",", " "), delta: "somme des comptages locaux ; « près de 800 000 » selon la CGT (18h03)", trend: "up", src: "Préfectures et presse, compil. ManifMonitor", at: "17:33" },
+    { id: "crowd", label: "Manifestants France", value: "410 000", delta: "ministère de l'Intérieur ; 800 000 selon la CGT", trend: "up", src: "Min. Intérieur via CNews / franceinfo", at: "18:10" },
     { id: "controls", label: "Contrôles Paris", value: "3 000", delta: "selon la préfecture de police (635 à 12h28)", trend: "up", src: "Préfecture via France 3 / franceinfo", at: "17:20" },
     { id: "stations", label: "Stations de métro fermées", value: "24", delta: "+ ligne 2 coupée Barbès ↔ Nation", trend: "flat", src: "RATP via Presse-citron", at: "09:00" },
     { id: "police", label: "Policiers & gendarmes", value: "70 000", delta: "France entière, +20 % vs 17/10", trend: "up", src: "Gouvernement via Sortiraparis", at: "veille" }
   ],
 
   feed: [
+    { t: "18:10", cat: "cortege", sev: 2, text: "Ministère de l'Intérieur : 410 000 manifestants en France samedi (800 000 selon la CGT).", src: "CNews / franceinfo", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
+    { t: "18:09", cat: "securite", sev: 3, incident: true, text: "Paris, cours de Vincennes : tirs de mortiers sur les forces de l'ordre, riposte aux gaz lacrymogènes, interpellations en cours.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
+    { t: "18:08", cat: "securite", sev: 3, text: "Paris : un groupe de manifestants arrive place de la Nation, malgré le barrage (selon Le Monde).", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
+    { t: "18:06", cat: "securite", sev: 3, incident: true, text: "Toulouse : une personne grièvement blessée à la main lors de heurts en fin de manifestation (préfecture).", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "18:05", cat: "securite", sev: 2, incident: true, text: "Grenoble : manifestants et casseurs en viennent aux mains, des individus tentent de dégrader des commerces (Le Dauphiné Libéré).", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "18:03", cat: "cortege", sev: 2, text: "CGT : « près de 800 000 personnes mobilisées » en France, dont 250 000 à Paris (110 000 selon la préfecture).", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "18:01", cat: "securite", sev: 3, incident: true, text: "Paris : jets de projectiles sur les forces de l'ordre à la dispersion, riposte au lanceur d'eau et aux gaz lacrymogènes (préfecture).", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:47", cat: "securite", sev: 3, incident: true, text: "Porte de Vincennes : engin lanceur d'eau, grenades lacrymogènes et charges de CRS en fin de manifestation ; la préfecture parle de « l'unique point de tensions à Paris ».", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
@@ -208,7 +213,7 @@ window.MANIF_DATA = {
   // · 2 affrontements (lacrymos nourris, projectiles, charges) · 3 émeutes (incendies, pillages, barricades).
   // Une zone n'entre ici que sur signalement sourcé ; les zones « à risque » restent en heat 1 avec la mention.
   hotZones: [
-    { name: "Cours de Vincennes / Nation", ll: [48.8475, 2.4000], r: 500, heat: 2, note: "Affrontements à la dispersion : lacrymogènes, canon à eau et charges de CRS (17h53, France 3 / franceinfo) ; accès à Nation barré par les gendarmes." },
+    { name: "Cours de Vincennes / Nation", ll: [48.8478, 2.3985], r: 550, heat: 2, note: "Tirs de mortiers, lacrymogènes et interpellations cours de Vincennes (18h09) ; un groupe atteint la place de la Nation (Le Monde)." },
     { name: "Avenue du Général-Michel-Bizot", ll: [48.8385, 2.4025], r: 300, heat: 1, note: "Cortège sauvage détaché du défilé officiel vers 15h55 (France 3 Paris IDF). Pas de heurts signalés." },
     { name: "Bastille", ll: [48.8532, 2.3691], r: 400, heat: 1, note: "Contrôles, fouilles et verbalisations (135 €) vers 15h30, départ interdit. Pas de heurts signalés (France 3, 15h51)." },
     { name: "République", ll: [48.8674, 2.3637], r: 400, heat: 1, note: "Couvre-feu 23h, foyer des violences du 17/10. Risque : calme à 15h23." },
@@ -249,6 +254,8 @@ window.MANIF_DATA = {
 
   // Incidents géolocalisés (vide pour l'instant). Ex : { t:"15:10", ll:[48.83,2.39], sev:3, text:"Heurts Pont National" }
   incidents: [
+    { t: "18:09", ll: [48.8476, 2.4020], sev: 3, text: "Tirs de mortiers, lacrymogènes et interpellations cours de Vincennes (France 3)" },
+    { t: "18:08", ll: [48.8483, 2.3958], sev: 2, text: "Un groupe de manifestants arrive place de la Nation (Le Monde, via France 3)" },
     { t: "17:53", ll: [48.8472, 2.4040], sev: 3, text: "Dispersion : grenades lacrymogènes et canon à eau sur le cours de Vincennes, charges de CRS (France 3 / franceinfo)" },
     { t: "17:33", ll: [48.8479, 2.3985], sev: 3, text: "Barrage de gendarmes pour empêcher les manifestants de rejoindre la place de la Nation (CNews)" },
     { t: "17:04", ll: [48.8466, 2.4045], sev: 3, text: "Manifestants repartent vers Nation par le cours de Vincennes ; CRS bloquent l'av. du Dr-Arnold-Netter (France 3)" },
@@ -276,7 +283,7 @@ window.MANIF_DATA = {
     { city: "Grenoble", state: "vigilance", text: "Vitrines brisées (17h33) ; blocage A480 plus tôt" },
     { city: "Lille", state: "vigilance", text: "Canon à eau pour repousser les manifestants (17h10)" },
     { city: "Chambéry", state: "interdit", text: "Violents affrontements en centre-ville (16h50)" },
-    { city: "Toulouse", state: "interdit", text: "26 500 manifestants ; affrontements devant les lycées des Arènes (17h42)" },
+    { city: "Toulouse", state: "interdit", text: "26 500 manifestants ; heurts, un blessé grave à la main (18h06)" },
     { city: "Nice", state: "vigilance", text: "30 interpellations selon le maire ; groupe d'extrême droite vers le centre (16h47)" },
     { city: "Rouen", state: "interdit", text: "Lacrymogènes rue Eau-de-Robec, zone interdite (16h19)" },
     { city: "Brest", state: "vigilance", text: "~10 000 personnes, cortège non autorisé, calme" },
