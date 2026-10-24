@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T18:46:00+02:00",
+    updated: "2026-10-24T18:49:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : plus de 500 casseurs cours de Vincennes (préfecture), mortiers et lacrymogènes. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
@@ -292,7 +292,7 @@ window.MANIF_DATA = {
     { city: "Grenoble", state: "vigilance", text: "Vitrines d'agences brisées (18h26), heurts manifestants/casseurs" },
     { city: "Lille", state: "vigilance", text: "Canon à eau pour repousser les manifestants (17h10)" },
     { city: "Chambéry", state: "interdit", text: "Violents affrontements en centre-ville (16h50)" },
-    { city: "Toulouse", state: "interdit", text: "26 500 manifestants ; heurts, un blessé grave à la main (18h06)" },
+    { city: "Toulouse", state: "interdit", text: "26 500 selon la préfecture, 80 000 selon la CGT ; heurts, un blessé grave à la main" },
     { city: "Nice", state: "vigilance", text: "30 interpellations selon le maire ; groupe d'extrême droite vers le centre (16h47)" },
     { city: "Rouen", state: "interdit", text: "Lacrymogènes rue Eau-de-Robec, zone interdite (16h19)" },
     { city: "Brest", state: "vigilance", text: "~10 000 personnes, cortège non autorisé, calme" },
