@@ -621,14 +621,34 @@ function render() { drawTv(); drawHeader(); drawKpis(); drawFilters(); drawFeed(
 render();
 setInterval(tickNow, 1000);
 
-/* rechargement de data.js toutes les 60 s */
-setInterval(() => {
+/* rechargement des données sans attendre le cache CDN (10 min sur GitHub Pages) :
+   on lit le dernier commit via l'API GitHub, puis on charge data.js figé à ce commit sur jsDelivr (pas de cache périmé).
+   En local ou si l'API ne répond pas, repli sur data.js?t=… */
+const REPO = "Jrm-EDM/manifmonitor";
+let lastSha = null;
+function loadData(src) {
   const s = document.createElement("script");
-  s.src = "data.js?t=" + Date.now();
+  s.src = src;
   s.onload = () => { if (window.MANIF_DATA.meta.updated !== D.meta.updated) { D = window.MANIF_DATA; render(); } s.remove(); };
   s.onerror = () => s.remove();
   document.body.appendChild(s);
-}, 60000);
+}
+async function refreshData() {
+  if (/artificiel\.ai|github\.io/.test(location.hostname)) {
+    try {
+      const r = await fetch(`https://api.github.com/repos/${REPO}/commits/main`, { headers: { Accept: "application/vnd.github.sha" }, cache: "no-store" });
+      if (r.ok) {
+        const sha = (await r.text()).trim();
+        if (sha !== lastSha) { lastSha = sha; loadData(`https://cdn.jsdelivr.net/gh/${REPO}@${sha}/data.js`); }
+        return;
+      }
+    } catch (e) {}
+  }
+  loadData("data.js?t=" + Date.now());
+}
+// 50 s : reste sous la limite de 60 appels/heure de l'API GitHub par visiteur
+setInterval(refreshData, 50000);
+refreshData();
 </script>
 </body>
 </html>

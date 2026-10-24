@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:01:00+02:00",
+    updated: "2026-10-24T17:04:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris calme, cortège arrivé à Vincennes ; la tension monte en régions (Chambéry, Nantes, Lyon, Rouen).",
     window: { start: "13:00", end: "19:00" },
@@ -23,7 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
-    { t: "16:54", cat: "securite", sev: 3, incident: true, text: "La tension monte : lacrymogènes à Rouen, dispersions à Bordeaux et Tours.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "16:54", cat: "securite", sev: 3, incident: true, text: "Rouen : nouveaux tirs de lacrymogènes près du palais de justice contre un cortège sauvage ; Bordeaux : cortège éclaté en petits groupes ; dispersions à Tours.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "16:50", cat: "securite", sev: 4, incident: true, text: "Chambéry : violents affrontements entre groupes violents et forces de l'ordre dans le centre-ville.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "16:47", cat: "securite", sev: 3, text: "Nice : un groupe d'extrême droite se dirige vers le centre-ville pendant que la police tente de disperser la manifestation.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "16:42", cat: "securite", sev: 2, text: "Toulouse : la police peine à disperser les manifestants.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
