@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T19:08:00+02:00",
+    updated: "2026-10-24T19:10:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : plus de 500 casseurs cours de Vincennes (préfecture), mortiers et lacrymogènes. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,8 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "19:07", cat: "securite", sev: 3, incident: true, text: "Nantes : le cortège bloqué au pont de la Loire, canon à eau et lacrymogènes, projectiles ; heurts aussi à Rennes, manifestants dans le périmètre interdit.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
+    { t: "19:01", cat: "securite", sev: 3, incident: true, text: "Toulouse : les heurts entre jeunes et forces de l'ordre se poursuivent, lacrymogènes et hélicoptère, « la tension reste très vive ».", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "19:04", cat: "politique", sev: 2, text: "BFMTV dénonce des attaques contre ses journalistes pendant la journée.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:03", cat: "cortege", sev: 1, text: "Pas-de-Calais : 500 manifestants, aucune dégradation ni blessé selon la préfecture.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:00", cat: "securite", sev: 3, incident: true, text: "Nice : 11 militants d'ultra-droite interpellés après des violences contre des manifestants, trois blessés.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
