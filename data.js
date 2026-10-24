@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:31:00+02:00",
+    updated: "2026-10-24T17:34:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : 110 000 manifestants, calme ; reflux vers Nation bloqué par les CRS. Tension en régions.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:30", cat: "securite", sev: 2, text: "Préfecture de police : les opérateurs de la BRI-PP sont mobilisés à Paris.", src: "CNews / @prefpolice", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:28", cat: "cortege", sev: 1, text: "Préfecture : le cortège parisien a atteint la porte de Vincennes à 17h00 ; 110 000 manifestants pour le pouvoir d'achat et les services publics, « situation calme dans l'ensemble de l'agglomération ».", src: "CNews / AFP", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:24", cat: "cortege", sev: 1, text: "Auxerre : malgré l'interdiction, des manifestants dénoncent des « libertés bafouées ».", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "17:19", cat: "securite", sev: 3, incident: true, text: "Bordeaux : affrontements place de la Bourse entre gendarmes mobiles, CRS et groupes violents ; Dijon : la permanence des Républicains vandalisée.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
