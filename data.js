@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:19:00+02:00",
+    updated: "2026-10-24T17:22:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : 110 000 manifestants, calme ; reflux vers Nation bloqué par les CRS. Tension en régions.",
     window: { start: "13:00", end: "19:00" },
@@ -15,7 +15,7 @@ window.MANIF_DATA = {
 
   kpis: [
     { id: "paris", label: "Manifestants Paris", value: "110 000", delta: "selon la préfecture (40 000 à 15h55)", trend: "up", src: "Préfecture via ICI", at: "17:09" },
-    { id: "arrests", label: "Interpellations (France)", value: "135", delta: "dont 17 à Paris (armes, mortiers)", trend: "flat", src: "L. Nuñez, point presse", at: "13:00" },
+    { id: "arrests", label: "Interpellations Paris", value: "65", delta: "135 en France à 13h (dernier chiffre national)", trend: "up", src: "CNews", at: "17:18" },
     { id: "crowd", label: "Manifestants France (13h)", value: "35 000", delta: "dernier comptage national publié", trend: "down", src: "Min. Intérieur via franceinfo", at: "13:00" },
     { id: "controls", label: "Contrôles gares/transports", value: "635", delta: "saisies de matériel interdit", trend: "up", src: "Préfecture via Euronews", at: "12:28" },
     { id: "stations", label: "Stations de métro fermées", value: "24", delta: "+ ligne 2 coupée Barbès ↔ Nation", trend: "flat", src: "RATP via Presse-citron", at: "09:00" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:18", cat: "securite", sev: 2, text: "Paris : 65 interpellations réalisées par les forces de l'ordre.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:09", cat: "cortege", sev: 2, text: "Paris : la préfecture de police compte 110 000 personnes dans le cortège, qui reste calme.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "17:11", cat: "securite", sev: 3, incident: true, text: "Nantes : la situation se tend, des manifestants tentent de se rapprocher de la préfecture.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:10", cat: "securite", sev: 3, incident: true, text: "Lille : canon à eau déployé pour repousser les manifestants.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
