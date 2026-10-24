@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T18:28:00+02:00",
+    updated: "2026-10-24T18:31:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : affrontements cours de Vincennes (mortiers, lacrymos), groupe arrivé à Nation. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,9 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "18:24", cat: "securite", sev: 3, incident: true, text: "Porte de Vincennes : tirs de mortiers sur les forces de l'ordre, riposte aux lacrymogènes ; la BRAV-M arrive pendant la dispersion.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
+    { t: "18:22", cat: "securite", sev: 1, text: "Le cinéma UGC Les Halles fermé depuis 16h à la demande de la préfecture de police.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
+    { t: "18:21", cat: "politique", sev: 1, text: "Marseille : le maire Benoît Payan reste en cellule de crise toute la nuit, centre-ville « sanctuarisé », incidents « assez légers ».", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "18:15", cat: "transports", sev: 2, text: "Porte de Vincennes : on peut quitter la zone, mais sortir en transports est difficile, notamment place de la Nation.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "18:10", cat: "cortege", sev: 2, text: "Ministère de l'Intérieur : 410 000 manifestants en France samedi (800 000 selon la CGT).", src: "CNews / franceinfo", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "18:09", cat: "securite", sev: 3, incident: true, text: "Paris, cours de Vincennes : tirs de mortiers sur les forces de l'ordre, riposte aux gaz lacrymogènes, interpellations en cours.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
@@ -218,7 +221,7 @@ window.MANIF_DATA = {
     { name: "Avenue du Général-Michel-Bizot", ll: [48.8385, 2.4025], r: 300, heat: 1, note: "Cortège sauvage détaché du défilé officiel vers 15h55 (France 3 Paris IDF). Pas de heurts signalés." },
     { name: "Bastille", ll: [48.8532, 2.3691], r: 400, heat: 1, note: "Contrôles, fouilles et verbalisations (135 €) vers 15h30, départ interdit. Pas de heurts signalés (France 3, 15h51)." },
     { name: "République", ll: [48.8674, 2.3637], r: 400, heat: 1, note: "Couvre-feu 23h, foyer des violences du 17/10. Risque : calme à 15h23." },
-    { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 2, note: "Dispersion tendue : charges de CRS et lacrymogènes (17h53)." }
+    { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 2, note: "Dispersion tendue : mortiers sur les forces de l\'ordre, lacrymogènes, lanceur d\'eau, BRAV-M sur place (18h24)." }
   ],
 
   // Dégâts du 17 octobre (et nuit du 18) à Paris, lieux cités par la presse. type : incendie · pillage · barricade · affrontement · degradation
