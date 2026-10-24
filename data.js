@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:37:00+02:00",
+    updated: "2026-10-24T17:40:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : 110 000 manifestants, calme ; reflux vers Nation bloqué par les CRS. Tension en régions.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,8 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:38", cat: "securite", sev: 3, incident: true, text: "Strasbourg : manifestation sauvage de 6 500 personnes, incidents au moment de la dispersion (L'Alsace).", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "17:37", cat: "securite", sev: 2, text: "Nice : le maire Éric Ciotti annonce 30 interpellations.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "17:33", cat: "securite", sev: 3, text: "Paris : les gendarmes forment un barrage pour empêcher les manifestants de rejoindre la place de la Nation.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:30", cat: "securite", sev: 2, text: "Préfecture de police : les opérateurs de la BRI-PP sont mobilisés à Paris.", src: "CNews / @prefpolice", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:28", cat: "cortege", sev: 1, text: "Préfecture : le cortège parisien a atteint la porte de Vincennes à 17h00 ; 110 000 manifestants pour le pouvoir d'achat et les services publics, « situation calme dans l'ensemble de l'agglomération ».", src: "CNews / AFP", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
@@ -259,10 +261,11 @@ window.MANIF_DATA = {
     { city: "Nantes", state: "interdit", text: "Pillages de magasins, 6 interpellations (17h24) ; manifestants vers la préfecture, canon à eau et Centaure" },
     { city: "Bordeaux", state: "interdit", text: "Affrontements place de la Bourse (17h19) ; 15 500 manifestants" },
     { city: "Dijon", state: "vigilance", text: "Permanence des Républicains vandalisée (17h19)" },
+    { city: "Strasbourg", state: "interdit", text: "Manif sauvage de 6 500 personnes, incidents à la dispersion (17h38)" },
     { city: "Lille", state: "vigilance", text: "Canon à eau pour repousser les manifestants (17h10)" },
     { city: "Chambéry", state: "interdit", text: "Violents affrontements en centre-ville (16h50)" },
     { city: "Toulouse", state: "vigilance", text: "La police peine à disperser les manifestants (16h42)" },
-    { city: "Nice", state: "vigilance", text: "Groupe d'extrême droite vers le centre, dispersion en cours (16h47)" },
+    { city: "Nice", state: "vigilance", text: "30 interpellations selon le maire ; groupe d'extrême droite vers le centre (16h47)" },
     { city: "Rouen", state: "interdit", text: "Lacrymogènes rue Eau-de-Robec, zone interdite (16h19)" },
     { city: "Brest", state: "vigilance", text: "~10 000 personnes, cortège non autorisé, calme" },
     { city: "Limoges", state: "autorisé", text: "TA suspend l'interdiction des rassemblements et le couvre-feu" },
