@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T18:22:00+02:00",
+    updated: "2026-10-24T18:25:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : affrontements cours de Vincennes (mortiers, lacrymos), groupe arrivé à Nation. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
