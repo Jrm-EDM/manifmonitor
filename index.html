@@ -271,6 +271,21 @@ footer { border-top: 1px solid var(--line); background: var(--panel); padding: 8
   .coords, .corner { display: none; }
 }
 .maplock { position: absolute; z-index: 650; left: 50%; bottom: 14px; transform: translateX(-50%); font: 600 10.5px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--fg); background: color-mix(in srgb, var(--bg) 88%, transparent); border: 1px solid var(--fg); padding: 7px 12px; cursor: pointer; white-space: nowrap; }
+#frmap { height: 300px; max-width: 100%; background: #0b0f15; border: 1px solid #2c3a4f; }
+#frmap .leaflet-tile-pane { filter: brightness(.9) contrast(1.1); }
+.frdot { border-radius: 50%; }
+.frdot.h0 { background: color-mix(in srgb, var(--s1) 70%, transparent); border: 1px solid var(--s1); }
+.frdot.h1 { background: color-mix(in srgb, var(--heat1) 45%, transparent); border: 1px solid var(--heat1); box-shadow: 0 0 8px var(--heat1); }
+.frdot.h2 { background: radial-gradient(circle, #fff 0 12%, var(--heat2) 35%, color-mix(in srgb, var(--heat2) 25%, transparent) 70%); box-shadow: 0 0 14px var(--heat2); animation: heat 1.6s ease-in-out infinite; }
+.frdot.h3 { background: radial-gradient(circle, #fff 0 12%, var(--heat3) 35%, color-mix(in srgb, var(--heat3) 25%, transparent) 70%); box-shadow: 0 0 20px var(--heat3); animation: heat 1s ease-in-out infinite; }
+.frname { position: absolute; top: 50%; transform: translateY(-50%); white-space: nowrap; color: var(--fg); font: 600 9.5px var(--mono); text-transform: uppercase; letter-spacing: .04em; text-shadow: 0 0 3px #000, 0 0 2px #000; pointer-events: none; }
+.frlabel { background: transparent !important; border: 0 !important; box-shadow: none !important; color: var(--fg) !important; font: 600 9.5px var(--mono) !important; text-transform: uppercase; letter-spacing: .04em; padding: 0 2px !important; text-shadow: 0 0 3px #000, 0 0 2px #000; }
+.frlabel::before { display: none; }
+.frtip { font: 11px/1.35 var(--mono) !important; max-width: 220px; white-space: normal !important; }
+.frlegend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 6px; font: 10px var(--mono); color: var(--muted); text-transform: uppercase; }
+.frlegend span { display: inline-flex; align-items: center; gap: 5px; }
+.frlegend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.frlegend i.h0 { background: var(--s1); } .frlegend i.h1 { background: var(--heat1); } .frlegend i.h2 { background: var(--heat2); } .frlegend i.h3 { background: var(--heat3); }
 </style>
 </head>
 <body>
@@ -311,7 +326,7 @@ footer { border-top: 1px solid var(--line); background: var(--panel); padding: 8
 
   <aside class="col right" aria-label="Contexte">
     <div class="sec live-tv"><h3><span class="live">DIRECT TV</span></h3><div class="chans" id="chans"></div><div class="tv"><iframe id="tv" title="Direct vidéo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div><a id="tvlink" class="note" target="_blank" rel="noopener">Ouvrir sur YouTube ↗</a></div>
-    <div class="sec"><h3>Transports</h3><div id="transports"></div></div>
+    <div class="sec"><h3>Tensions en France</h3><div id="frmap" role="img" aria-label="Carte des tensions en France"></div><div class="frlegend"><span><i class="h0"></i>calme</span><span><i class="h1"></i>tension</span><span><i class="h2"></i>heurts</span><span><i class="h3"></i>pillages / feux</span></div></div>
     <div class="sec"><h3>Couvre-feu & interdictions</h3><p class="note" id="curfew"></p></div>
     <div class="sec"><h3>Autres villes</h3><div id="cities"></div></div>
     <div class="sec agenda"><h3>Prochaines dates</h3><div id="agenda"></div></div>
@@ -556,6 +571,44 @@ if (isNarrow) {
 }
 $("bparis").onclick = () => map.flyToBounds(parisRing, { padding: [20, 20], duration: 1.2 });
 
+
+/* ---------- carte de France (vue macro des tensions) ---------- */
+const CITY_LL = { "Paris": [48.857, 2.352], "Marseille": [43.296, 5.37], "Lyon": [45.764, 4.835], "Nantes": [47.218, -1.554], "Bordeaux": [44.838, -0.579],
+  "Dijon": [47.322, 5.041], "Strasbourg": [48.573, 7.752], "Saint-Étienne": [45.44, 4.387], "Grenoble": [45.188, 5.724], "Lille": [50.629, 3.057],
+  "Rennes": [48.117, -1.678], "Toulon": [43.124, 5.928], "Chambéry": [45.564, 5.917], "Toulouse": [43.605, 1.444], "Nice": [43.71, 7.262],
+  "Rouen": [49.443, 1.1], "Brest": [48.39, -4.486], "Limoges": [45.833, 1.262], "Le Havre": [49.494, 0.108], "Orléans": [47.903, 1.909],
+  "Tours": [47.394, 0.685], "Montpellier": [43.611, 3.877], "Clermont-Ferrand": [45.778, 3.087], "Aix": [43.529, 5.447], "Nancy": [48.692, 6.184], "Metz": [49.12, 6.176], "Mayenne": [48.303, -0.614], "Auxerre": [47.798, 3.567] };
+// niveau de tension déduit du texte (0 calme · 1 tension · 2 heurts · 3 pillages/feux)
+function cityHeat(txt) {
+  const t = (txt || "").toLowerCase();
+  if (/pill|incendi|feux|barricade|vitrines? bris/.test(t)) return 3;
+  if (/affront|heurt|mortier|black bloc|blessé|projectile|violen|rixe|agress/.test(t)) return 2;
+  if (/lacrymo|canon à eau|tendu|tension|dispers|bloqu|interdit/.test(t)) return 1;
+  return 0;
+}
+let frMap = null, frLayer = null;
+function drawFrance() {
+  if (!$("frmap")) return;
+  if (!frMap) {
+    frMap = L.map("frmap", { zoomControl: false, attributionControl: false, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, touchZoom: false, zoomSnap: .1 });
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", { maxZoom: 10 }).addTo(frMap);
+    frMap.fitBounds([[42.3, -4.8], [51.1, 8.3]], { padding: [4, 4] });
+    frLayer = L.layerGroup().addTo(frMap);
+  }
+  frLayer.clearLayers();
+  const parisHeat = Math.max(0, ...(D.hotZones || []).map(z => z.heat || 0));
+  const pts = (D.cities || []).filter(c => CITY_LL[c.city]).map(c => ({ name: c.city, ll: CITY_LL[c.city], heat: cityHeat(c.text), text: c.text }));
+  pts.push({ name: "Paris", ll: CITY_LL.Paris, heat: Math.max(parisHeat, 2), text: D.meta.tensionNote });
+  pts.sort((a, b) => a.heat - b.heat).forEach(p => {
+    const size = [10, 14, 20, 26][p.heat];
+    const m = L.marker(p.ll, { icon: L.divIcon({ className: "", iconSize: [size, size], iconAnchor: [size / 2, size / 2],
+      html: `<div class="frdot h${p.heat}" style="width:${size}px;height:${size}px"></div>` + (p.heat >= 2 || p.name === "Paris" ? `<span class="frname" style="left:${size + 3}px">${esc(p.name)}</span>` : "") }) })
+      .bindTooltip(`<b>${esc(p.name)}</b><br>${esc(p.text || "")}`, { direction: "top", offset: [0, -size / 2], className: "frtip" });
+    m.addTo(frLayer);
+  });
+}
+addEventListener("resize", () => frMap && frMap.invalidateSize());
+
 /* ---------- panneaux ---------- */
 function drawHeader() {
   const m = D.meta;
@@ -596,7 +649,7 @@ function drawFeed() {
   D.feed.forEach(f => seen.add(f.t + f.text));
 }
 function drawSide() {
-  $("transports").innerHTML = D.transports.map(t => `<div class="row"><span class="badge ${t.state}">${esc(t.line)}</span><span>${esc(t.text)}</span></div>`).join("");
+  drawFrance();
   $("cities").innerHTML = D.cities.map(c => `<div class="row" style="grid-template-columns:70px minmax(0,1fr)"><span class="badge ${c.state}">${esc(c.state)}</span><span><b>${esc(c.city)}</b> · ${esc(c.text)}</span></div>`).join("");
   $("agenda").innerHTML = D.agenda.map(a => `<div class="row"><span>${esc(a.d)}</span><span>${esc(a.text)}</span></div>`).join("");
   $("sources").innerHTML = D.sources.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} ↗</a>`).join("");

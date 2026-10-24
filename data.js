@@ -321,7 +321,6 @@ window.MANIF_DATA = {
     { city: "Limoges", state: "autorisé", text: "TA suspend l'interdiction des rassemblements et le couvre-feu" },
     { city: "Le Havre", state: "interdit", text: "Interdiction ville ou centre" },
     { city: "Orléans", state: "autorisé", text: "Contre le congrès du RN : 13 000 à 26 000 manifestants ; congrès ouvert à 15h21" },
-    { city: "Grenoble", state: "vigilance", text: "Blocage de l'A480 : accident, 2 blessés légers (14h43)" },
     { city: "Île-de-France", state: "vigilance", text: "Actions mobiles attendues : ronds-points, stations-service, dépôts pétroliers, péages" }
   ],
 
