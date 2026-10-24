@@ -370,14 +370,35 @@ const svg = (k, s) => { const { d, f } = ICONS[k]; return `<svg viewBox="-2 -2 2
 const map = L.map("map", { zoomControl: true, zoomSnap: .25 }).setView([48.848, 2.36], 12.75);
 // mobile : vue initiale cadrée sur le tracé du cortège
 const isNarrow = matchMedia("(max-width: 760px)").matches;
-function frameRoute() {
-  map.invalidateSize();
+function fitPad() {
   // sur grand écran, on réserve la place de la légende dépliée à droite
   const legend = !isNarrow && !$("layers")?.classList.contains("closed") ? ($("layers")?.offsetWidth || 0) + 16 : 24;
-  map.fitBounds(window.MANIF_DATA.route, { paddingTopLeft: [24, 48], paddingBottomRight: [legend, 40], maxZoom: 15 });
+  return { paddingTopLeft: [24, 48], paddingBottomRight: [legend, 40] };
 }
-// vue initiale cadrée sur le tracé ; recadrage après mise en page (taille finale du conteneur sur mobile)
-frameRoute(); addEventListener("load", frameRoute); setTimeout(frameRoute, 400);
+function frameRoute() {
+  map.invalidateSize();
+  map.fitBounds((window.D || window.MANIF_DATA).route, { ...fitPad(), maxZoom: 15 });
+}
+// points chauds : zones de niveau ≥ 2 + incidents des 90 dernières minutes (à défaut : tracé)
+function hotPoints() {
+  const d = window.D || window.MANIF_DATA, now = parisNowMin();
+  const pts = (d.hotZones || []).filter(z => z.heat >= 2).map(z => z.ll)
+    .concat((d.incidents || []).filter(i => { const m = mins(i.t); return now - m >= 0 && now - m <= 90; }).map(i => i.ll));
+  return pts;
+}
+function frameHot() {
+  map.invalidateSize();
+  const pts = hotPoints();
+  if (!pts.length) return frameRoute();
+  if (pts.length === 1) return map.setView(pts[0], 15);
+  map.fitBounds(pts, { ...fitPad(), maxZoom: 15.5 });
+}
+function parisNowMin() { const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" })); return d.getHours() * 60 + d.getMinutes(); }
+// cadrage automatique sur les points chauds tant que le visiteur n'a pas bougé la carte lui-même
+let autoFrame = true, framing = false;
+function autoHot() { if (!autoFrame) return; framing = true; frameHot(); setTimeout(() => framing = false, 600); }
+map.on("dragstart zoomstart", () => { if (!framing) autoFrame = false; });
+autoHot(); addEventListener("load", autoHot); setTimeout(autoHot, 400);
 L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
   maxZoom: 16, attribution: "Esri, HERE, Garmin, © OpenStreetMap"
 }).addTo(map);
@@ -520,7 +541,9 @@ function drawMap() {
 Object.values(groups).forEach(o => o.g.on("add", () => setTimeout(sizeGeo)));
 $("bhead").onclick = () => map.flyTo(headSplit().pt, 15, { duration: 1.2 });
 $("bhead").insertAdjacentHTML("beforebegin", `<button class="chip" id="broute">Tout le parcours</button>`);
-$("broute").onclick = frameRoute;
+$("broute").onclick = () => { autoFrame = false; frameRoute(); };
+$("broute").insertAdjacentHTML("beforebegin", `<button class="chip" id="bhot">Points chauds</button>`);
+$("bhot").onclick = () => { autoFrame = true; autoHot(); };
 // mobile : carte verrouillée par défaut pour que le doigt fasse défiler la page ; un tap la déverrouille, le défilement la reverrouille
 if (isNarrow) {
   const lockMap = on => {
@@ -618,7 +641,7 @@ function drawTv() {
   if ($("tv").getAttribute("src") !== src) $("tv").setAttribute("src", src);
   $("tvlink").href = `https://www.youtube.com/watch?v=${tvChan}`;
 }
-function render() { drawTv(); drawHeader(); drawKpis(); drawFilters(); drawFeed(); drawSide(); drawTimeline(); drawMap(); first = false; }
+function render() { drawTv(); drawHeader(); drawKpis(); drawFilters(); drawFeed(); drawSide(); drawTimeline(); drawMap(); if (!first) autoHot(); first = false; }
 render();
 setInterval(tickNow, 1000);
 
