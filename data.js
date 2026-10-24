@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T22:04:00+02:00",
+    updated: "2026-10-24T22:07:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : manifestation entièrement dispersée (19h58) ; ~1 000 interpellations en France, pillages à Marseille, calme revenu à Toulon (64 interpellations).",
     window: { start: "13:00", end: "19:00" },
