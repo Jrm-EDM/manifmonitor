@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T19:04:00+02:00",
+    updated: "2026-10-24T19:08:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : plus de 500 casseurs cours de Vincennes (préfecture), mortiers et lacrymogènes. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
@@ -15,7 +15,7 @@ window.MANIF_DATA = {
 
   kpis: [
     { id: "paris", label: "Manifestants Paris", value: "110 000", delta: "préfecture ; 250 000 selon la CGT (18h03)", trend: "up", src: "Préfecture via ICI", at: "17:09" },
-    { id: "arrests", label: "Interpellations Paris", value: "65", delta: "135 en France à 13h (dernier chiffre national)", trend: "up", src: "CNews", at: "17:18" },
+    { id: "arrests", label: "Interpellations Paris", value: "65", delta: "dont 40 gardes à vue (6 mineurs) ; 135 en France à 13h", trend: "up", src: "CNews", at: "17:18" },
     { id: "crowd", label: "Manifestants France", value: "410 000", delta: "ministère de l'Intérieur ; 800 000 selon la CGT", trend: "up", src: "Min. Intérieur via CNews / franceinfo", at: "18:10" },
     { id: "controls", label: "Contrôles Paris", value: "3 000", delta: "selon la préfecture de police (635 à 12h28)", trend: "up", src: "Préfecture via France 3 / franceinfo", at: "17:20" },
     { id: "stations", label: "Stations de métro fermées", value: "24", delta: "+ ligne 2 coupée Barbès ↔ Nation", trend: "flat", src: "RATP via Presse-citron", at: "09:00" },
@@ -23,6 +23,20 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "19:04", cat: "politique", sev: 2, text: "BFMTV dénonce des attaques contre ses journalistes pendant la journée.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "19:03", cat: "cortege", sev: 1, text: "Pas-de-Calais : 500 manifestants, aucune dégradation ni blessé selon la préfecture.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "19:00", cat: "securite", sev: 3, incident: true, text: "Nice : 11 militants d'ultra-droite interpellés après des violences contre des manifestants, trois blessés.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "18:54", cat: "securite", sev: 2, incident: true, text: "Seine-Maritime : 7 160 manifestants (15 000 le 17/10) ; rixes entre groupes rue des Carmes à Rouen vers 17h.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "18:53", cat: "securite", sev: 3, incident: true, text: "Lyon : feux allumés par des éléments perturbateurs, dont une benne à verre.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "18:17", cat: "securite", sev: 3, incident: true, text: "Paris, porte de Vincennes : de nombreux manifestants pacifiques pris au milieu des affrontements, mouvements de foule.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "18:16", cat: "securite", sev: 3, incident: true, text: "Paris, cours de Vincennes : une concession automobile visée par des casseurs, vitrines attaquées ; sécurisée par les forces de l'ordre, les casseurs ne sont pas entrés.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "17:48", cat: "securite", sev: 2, text: "Toulon : le cortège (850 personnes) s'est disloqué vers 16h ; centre commercial Mayol et Galeries Lafayette fermés.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "17:16", cat: "securite", sev: 3, incident: true, text: "Grenoble : 400 individus masqués « en black bloc » attaquent les forces de l'ordre aux mortiers et projectiles (préfecture).", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "17:07", cat: "securite", sev: 2, text: "Paris : 40 personnes en garde à vue, dont six mineurs, selon le parquet.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "17:06", cat: "cortege", sev: 1, text: "Lille : 15 000 manifestants selon la préfecture.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "16:41", cat: "securite", sev: 3, incident: true, text: "Marseille : face-à-face tendu, gaz lacrymogènes ; un incendie éteint par les pompiers en marge du cortège.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "16:40", cat: "securite", sev: 3, incident: true, text: "Rennes : gaz lacrymogènes place de la République.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "12:31", cat: "securite", sev: 2, text: "Paris : la place de la Bastille évacuée par la police, sans heurts.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "18:37", cat: "securite", sev: 3, incident: true, text: "Paris : à la dispersion, un photographe de presse blessé à la tête par une grenade lacrymogène, évacué conscient.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "18:35", cat: "securite", sev: 3, incident: true, text: "Nice : violents affrontements en centre-ville entre manifestants et militants d'extrême droite venus « soutenir les policiers ».", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "18:00", cat: "securite", sev: 2, text: "Lyon : 29 interpellations à 18h.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
@@ -264,6 +278,7 @@ window.MANIF_DATA = {
 
   // Incidents géolocalisés (vide pour l'instant). Ex : { t:"15:10", ll:[48.83,2.39], sev:3, text:"Heurts Pont National" }
   incidents: [
+    { t: "18:16", ll: [48.8479, 2.4065], sev: 3, text: "Concession automobile visée par des casseurs, sécurisée par les forces de l'ordre (BFMTV)" },
     { t: "18:37", ll: [48.8470, 2.4085], sev: 3, text: "Photographe de presse blessé à la tête par une grenade lacrymogène à la dispersion (ICI)" },
     { t: "18:31", ll: [48.8478, 2.4060], sev: 4, text: "Plus de 500 casseurs en fin de cortège, mortiers, interpellations (préfecture via ICI)" },
     { t: "18:09", ll: [48.8476, 2.4020], sev: 3, text: "Tirs de mortiers, lacrymogènes et interpellations cours de Vincennes (France 3)" },
@@ -293,10 +308,12 @@ window.MANIF_DATA = {
     { city: "Strasbourg", state: "interdit", text: "Manif sauvage de 6 500 personnes, incidents à la dispersion (17h38)" },
     { city: "Saint-Étienne", state: "interdit", text: "A72 bloquée puis dégagée aux lacrymogènes (17h30)" },
     { city: "Grenoble", state: "vigilance", text: "Vitrines d'agences brisées (18h26), heurts manifestants/casseurs" },
-    { city: "Lille", state: "vigilance", text: "Canon à eau pour repousser les manifestants (17h10)" },
+    { city: "Lille", state: "vigilance", text: "15 000 manifestants ; projectiles sur les CRS, canon à eau" },
+    { city: "Rennes", state: "vigilance", text: "Lacrymogènes place de la République (16h40)" },
+    { city: "Toulon", state: "interdit", text: "Cortège disloqué, centres commerciaux fermés (850 manifestants)" },
     { city: "Chambéry", state: "interdit", text: "Violents affrontements en centre-ville (16h50)" },
     { city: "Toulouse", state: "interdit", text: "26 500 selon la préfecture, 80 000 selon la CGT ; heurts, un blessé grave à la main" },
-    { city: "Nice", state: "interdit", text: "Violents affrontements manifestants / extrême droite (18h35) ; 30 interpellations" },
+    { city: "Nice", state: "interdit", text: "Agression de manifestants par l'ultra-droite : 11 interpellés, 3 blessés (19h)" },
     { city: "Rouen", state: "interdit", text: "Lacrymogènes rue Eau-de-Robec, zone interdite (16h19)" },
     { city: "Brest", state: "vigilance", text: "~10 000 personnes, cortège non autorisé, calme" },
     { city: "Limoges", state: "autorisé", text: "TA suspend l'interdiction des rassemblements et le couvre-feu" },
@@ -336,6 +353,7 @@ window.MANIF_DATA = {
     { name: "Euronews — live", url: "https://fr.euronews.com/2026/10/24/france-acte-ii-de-la-colere-sociale-la-manifestation-contre-le-congres-du-rn-debute-a-orle" },
     { name: "CNews — direct", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { name: "Sortiraparis — parcours & fermetures", url: "https://www.sortiraparis.com/en/news/in-paris/articles/355171-october-24-demonstration-in-paris-route-closures-and-closed-stations-what-you-need-to-know" },
+    { name: "BFMTV — direct", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { name: "Préfecture de police (X)", url: "https://x.com/prefpolice" },
     { name: "RATP — trafic", url: "https://www.ratp.fr/infos-trafic" },
     { name: "Sytadin — routes IDF", url: "https://www.sytadin.fr/" }
