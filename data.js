@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T21:19:00+02:00",
+    updated: "2026-10-24T21:22:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : manifestation entièrement dispersée (19h58) ; ~1 000 interpellations en France, pillages à Marseille, calme revenu à Toulon (64 interpellations).",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "21:19", cat: "securite", sev: 2, text: "Caen : 16 interpellations en marge de la manifestation, selon la préfecture du Calvados (14 annoncées plus tôt).", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "21:03", cat: "securite", sev: 2, text: "Toulon : calme revenu selon la préfecture du Var ; bilan de 20h30 : 64 interpellations, 20 gardes à vue.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "21:00", cat: "transports", sev: 1, text: "Lyon : le métro TCL rouvre plus tôt que prévu, avant 22h.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "20:46", cat: "securite", sev: 3, incident: true, text: "Bouches-du-Rhône : la préfecture condamne « dégradations et pillages » en fin de cortège à Marseille ; trois commerces pillés ou dégradés.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
