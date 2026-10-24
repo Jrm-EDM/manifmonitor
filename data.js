@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:22:00+02:00",
+    updated: "2026-10-24T17:25:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : 110 000 manifestants, calme ; reflux vers Nation bloqué par les CRS. Tension en régions.",
     window: { start: "13:00", end: "19:00" },
@@ -17,12 +17,15 @@ window.MANIF_DATA = {
     { id: "paris", label: "Manifestants Paris", value: "110 000", delta: "selon la préfecture (40 000 à 15h55)", trend: "up", src: "Préfecture via ICI", at: "17:09" },
     { id: "arrests", label: "Interpellations Paris", value: "65", delta: "135 en France à 13h (dernier chiffre national)", trend: "up", src: "CNews", at: "17:18" },
     { id: "crowd", label: "Manifestants France (13h)", value: "35 000", delta: "dernier comptage national publié", trend: "down", src: "Min. Intérieur via franceinfo", at: "13:00" },
-    { id: "controls", label: "Contrôles gares/transports", value: "635", delta: "saisies de matériel interdit", trend: "up", src: "Préfecture via Euronews", at: "12:28" },
+    { id: "controls", label: "Contrôles Paris", value: "3 000", delta: "selon la préfecture de police (635 à 12h28)", trend: "up", src: "Préfecture via France 3 / franceinfo", at: "17:20" },
     { id: "stations", label: "Stations de métro fermées", value: "24", delta: "+ ligne 2 coupée Barbès ↔ Nation", trend: "flat", src: "RATP via Presse-citron", at: "09:00" },
     { id: "police", label: "Policiers & gendarmes", value: "70 000", delta: "France entière, +20 % vs 17/10", trend: "up", src: "Gouvernement via Sortiraparis", at: "veille" }
   ],
 
   feed: [
+    { t: "17:24", cat: "securite", sev: 3, incident: true, text: "Nantes : pillage de magasins signalé par la préfecture, six interpellations.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "17:23", cat: "justice", sev: 2, text: "Le parquet de Paris saisit l'IGPN après qu'un photographe a été grièvement blessé par une grenade policière le 17 octobre ; son avocat parle de « tentative d'homicide volontaire ».", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "17:22", cat: "cortege", sev: 1, text: "Paris : la dispersion a commencé Porte de Vincennes. Préfecture : situation « calme », 110 000 manifestants (autant que le 17 octobre), 65 interpellations, 3 000 contrôles.", src: "France 3 Paris IDF / franceinfo", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
     { t: "17:18", cat: "securite", sev: 2, text: "Paris : 65 interpellations réalisées par les forces de l'ordre.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:09", cat: "cortege", sev: 2, text: "Paris : la préfecture de police compte 110 000 personnes dans le cortège, qui reste calme.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "17:11", cat: "securite", sev: 3, incident: true, text: "Nantes : la situation se tend, des manifestants tentent de se rapprocher de la préfecture.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
@@ -193,7 +196,7 @@ window.MANIF_DATA = {
     { name: "Avenue du Général-Michel-Bizot", ll: [48.8385, 2.4025], r: 300, heat: 1, note: "Cortège sauvage détaché du défilé officiel vers 15h55 (France 3 Paris IDF). Pas de heurts signalés." },
     { name: "Bastille", ll: [48.8532, 2.3691], r: 400, heat: 1, note: "Contrôles, fouilles et verbalisations (135 €) vers 15h30, départ interdit. Pas de heurts signalés (France 3, 15h51)." },
     { name: "République", ll: [48.8674, 2.3637], r: 400, heat: 1, note: "Couvre-feu 23h, foyer des violences du 17/10. Risque : calme à 15h23." },
-    { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 1, note: "Tête du cortège arrivée vers 16h16 : la dispersion commence, moment le plus sensible. Pas d'incident signalé." }
+    { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 1, note: "Dispersion en cours (17h20), moment le plus sensible ; situation calme selon la préfecture." }
   ],
 
   // Dégâts du 17 octobre (et nuit du 18) à Paris, lieux cités par la presse. type : incendie · pillage · barricade · affrontement · degradation
@@ -247,7 +250,7 @@ window.MANIF_DATA = {
   cities: [
     { city: "Marseille", state: "autorisé", text: "17 000 manifestants selon la préfecture, cortège calme ; 1 000 à Aix malgré l'interdiction" },
     { city: "Lyon", state: "interdit", text: "~10 000 manifestants dispersés dans les rues (CNews 16h40) ; mortiers contre les forces de l'ordre, lacrymogènes" },
-    { city: "Nantes", state: "interdit", text: "Manifestants vers la préfecture (17h11), place du Commerce très tendue ; canon à eau et Centaure" },
+    { city: "Nantes", state: "interdit", text: "Pillages de magasins, 6 interpellations (17h24) ; manifestants vers la préfecture, canon à eau et Centaure" },
     { city: "Bordeaux", state: "interdit", text: "15 500 manifestants ; projectiles sur les CRS et lacrymogènes (15h51)" },
     { city: "Lille", state: "vigilance", text: "Canon à eau pour repousser les manifestants (17h10)" },
     { city: "Chambéry", state: "interdit", text: "Violents affrontements en centre-ville (16h50)" },
