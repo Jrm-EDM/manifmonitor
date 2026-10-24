@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T19:16:00+02:00",
+    updated: "2026-10-24T19:19:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : plus de 500 casseurs cours de Vincennes (préfecture), mortiers et lacrymogènes. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "19:18", cat: "securite", sev: 3, incident: true, text: "Nice : 61 personnes interpellées à 19h ; le groupe d'ultra-droite s'est dispersé dans le Vieux-Nice, manifestants dispersés sur la plage quai des États-Unis.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:11", cat: "politique", sev: 2, text: "La CGT (800 000 manifestants revendiqués) appelle « la grève à prendre le relais » et lance un appel à la grève pour le 5 novembre.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:07", cat: "securite", sev: 3, incident: true, text: "Nantes : le cortège bloqué au pont de la Loire, canon à eau et lacrymogènes, projectiles ; heurts aussi à Rennes, manifestants dans le périmètre interdit.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "19:01", cat: "securite", sev: 3, incident: true, text: "Toulouse : les heurts entre jeunes et forces de l'ordre se poursuivent, lacrymogènes et hélicoptère, « la tension reste très vive ».", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
@@ -316,7 +317,7 @@ window.MANIF_DATA = {
     { city: "Toulon", state: "interdit", text: "Cortège disloqué, centres commerciaux fermés (850 manifestants)" },
     { city: "Chambéry", state: "interdit", text: "Violents affrontements en centre-ville (16h50)" },
     { city: "Toulouse", state: "interdit", text: "26 500 selon la préfecture, 80 000 selon la CGT ; heurts, un blessé grave à la main" },
-    { city: "Nice", state: "interdit", text: "Agression de manifestants par l'ultra-droite : 11 interpellés, 3 blessés (19h)" },
+    { city: "Nice", state: "interdit", text: "61 interpellations à 19h ; agression de manifestants par l'ultra-droite, 3 blessés" },
     { city: "Rouen", state: "interdit", text: "Lacrymogènes rue Eau-de-Robec, zone interdite (16h19)" },
     { city: "Brest", state: "vigilance", text: "~10 000 personnes, cortège non autorisé, calme" },
     { city: "Limoges", state: "autorisé", text: "TA suspend l'interdiction des rassemblements et le couvre-feu" },
