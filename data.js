@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:07:00+02:00",
+    updated: "2026-10-24T17:10:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : des manifestants repartent vers Nation, bloqués par les CRS ; tension en régions (Chambéry, Nantes, Rouen).",
     window: { start: "13:00", end: "19:00" },
