@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T20:01:00+02:00",
+    updated: "2026-10-24T20:04:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : manifestation entièrement dispersée (19h58) ; ~1 000 interpellations en France, pillages à Marseille, tensions à Toulon.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,8 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "20:02", cat: "securite", sev: 2, incident: true, text: "Montpellier : 6 300 manifestants malgré l'interdiction, 8 interpellations, 2 CRS blessés, pas de dégradation signalée.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "20:02", cat: "securite", sev: 2, text: "Caen : 14 interpellations en marge de la manifestation.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:59", cat: "securite", sev: 3, incident: true, text: "Toulon : fin de manifestation sous tension, 150 individus défient la police et incendient des poubelles ; 55 interpellations dont 33 mineurs, 11 gardes à vue ; couvre-feu pour les mineurs ce soir.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:58", cat: "cortege", sev: 2, text: "Paris : la manifestation est entièrement dispersée cours de Vincennes.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:56", cat: "politique", sev: 2, text: "Nuñez : « dans au moins deux villes », des militants d'ultradroite cherchaient à affronter des militants d'ultragauche.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
@@ -328,6 +330,8 @@ window.MANIF_DATA = {
     { city: "Saint-Étienne", state: "interdit", text: "A72 bloquée puis dégagée aux lacrymogènes (17h30)" },
     { city: "Grenoble", state: "interdit", text: "~10 000 manifestants, 400 black blocs repoussés aux lacrymos ; vitrines d'agences brisées" },
     { city: "Clermont-Ferrand", state: "vigilance", text: "Un blessé grave à la main (19h23) ; lacrymogènes sur un cortège sauvage à midi" },
+    { city: "Montpellier", state: "interdit", text: "6 300 manifestants, 8 interpellations, 2 CRS blessés" },
+    { city: "Caen", state: "interdit", text: "14 interpellations" },
     { city: "Lille", state: "vigilance", text: "15 000 manifestants ; projectiles sur les CRS, canon à eau" },
     { city: "Rennes", state: "vigilance", text: "Lacrymogènes place de la République (16h40)" },
     { city: "Toulon", state: "interdit", text: "Poubelles incendiées, 55 interpellations dont 33 mineurs (19h30) ; couvre-feu mineurs" },
