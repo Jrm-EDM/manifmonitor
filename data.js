@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T15:55:00+02:00",
+    updated: "2026-10-24T15:58:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Cortège calme ; tentative d'accès au périphérique repoussée (15h20), verbalisations à Bastille.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,8 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "15:57", cat: "cortege", sev: 1, text: "Greta Thunberg serait présente dans le cortège parisien.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "15:55", cat: "cortege", sev: 1, text: "Porte d'Italie : des étudiants des Mureaux disent manifester aussi contre une réponse policière jugée disproportionnée ; le cortège avance dans le calme.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "15:50", cat: "cortege", sev: 1, text: "CGT et Lutte ouvrière défilent sur le tracé imposé ; une partie des manifestants n'a pas encore quitté la place d'Italie.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
     { t: "15:45", cat: "securite", sev: 2, text: "Militaires de Sentinelle déployés pour sécuriser des sites, notamment près du Louvre.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
     { t: "15:30", cat: "securite", sev: 2, incident: true, text: "Place de la Bastille : personnes contrôlées, fouillées et verbalisées (135 €), le départ depuis Bastille étant interdit.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
