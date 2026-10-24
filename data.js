@@ -16,7 +16,7 @@ window.MANIF_DATA = {
   kpis: [
     { id: "paris", label: "Manifestants Paris", value: "110 000", delta: "selon la préfecture (40 000 à 15h55)", trend: "up", src: "Préfecture via ICI", at: "17:09" },
     { id: "arrests", label: "Interpellations Paris", value: "65", delta: "135 en France à 13h (dernier chiffre national)", trend: "up", src: "CNews", at: "17:18" },
-    { id: "crowd", label: "Manifestants France (13h)", value: "35 000", delta: "dernier comptage national publié", trend: "down", src: "Min. Intérieur via franceinfo", at: "13:00" },
+    { id: "crowd", label: "Manifestants France", value: "218,500+".replace(",", " "), delta: "somme des comptages locaux (13 villes) ; dernier chiffre officiel : 35 000 à 13h", trend: "up", src: "Préfectures et presse, compil. ManifMonitor", at: "17:33" },
     { id: "controls", label: "Contrôles Paris", value: "3 000", delta: "selon la préfecture de police (635 à 12h28)", trend: "up", src: "Préfecture via France 3 / franceinfo", at: "17:20" },
     { id: "stations", label: "Stations de métro fermées", value: "24", delta: "+ ligne 2 coupée Barbès ↔ Nation", trend: "flat", src: "RATP via Presse-citron", at: "09:00" },
     { id: "police", label: "Policiers & gendarmes", value: "70 000", delta: "France entière, +20 % vs 17/10", trend: "up", src: "Gouvernement via Sortiraparis", at: "veille" }
