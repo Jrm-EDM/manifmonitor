@@ -3,738 +3,387 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ManifMonitor Paris</title>
+<title>ManifMonitor Bilan</title>
+<meta name="description" content="Bilan comparé des mobilisations du 17 et du 24 octobre 2026, et prochain rendez-vous le 5 novembre.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%221%22%20x2%3D%220%22%20y2%3D%220%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff2a2a%22/%3E%3Cstop%20offset%3D%22.6%22%20stop-color%3D%22%23ff6a2b%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffc145%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d%3D%22M16.6%202.5c.9%204.6%206.6%207.5%206.6%2014.2A7.4%207.4%200%200%201%2016%2024.3a7.3%207.3%200%200%201-7.4-7.5c0-3.1%201.6-5.3%203.3-6.8.1%202.7%201.2%204.3%202.7%204.9-1-4.6.2-9.2%202-12.4z%22%20fill%3D%22url%28%23g%29%22/%3E%3Cpath%20d%3D%22M16%2029.5c-2.8%200-4.6-1.9-4.6-4.3%200-2.2%201.6-3.6%202.8-4.7%200%201.6.8%202.5%201.8%202.8.1-1.8.8-3.3%202.2-4.6.6%202.4%202.4%203.5%202.4%206.4%200%202.5-1.9%204.4-4.6%204.4z%22%20fill%3D%22%23ffd27a%22/%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* Salle de veille : barre d'état, rangée de compteurs, puis carte au centre entre fil (gauche) et contexte (droite), frise de la journée en bas. */
+/* Page bilan entre deux mobilisations : bandeau du prochain rendez-vous, puis infographie 17/10 vs 24/10. Le direct est archivé dans live.html. */
 :root {
   --bg: #0d1117;
   --panel: #131a23;
   --panel-2: #18212c;
   --line: #243041;
+  --grid: #1d2733;
   --fg: #dfe6ee;
   --muted: #8593a5;
-  --accent: #4f8dff;      /* bleu : contour de Paris, dispositif policier */
-  --march: #2cf5b8;       /* menthe : cortège */
-  --night: #b7a4ff;       /* lavande : couvre-feu */
-  --past: #d9a066;        /* ocre : dégâts du 17 octobre (archive) */
-  --heat1: #ff6a2b;       /* zones chaudes : tension */
-  --heat2: #ff2a2a;       /*               affrontements */
-  --heat3: #ff0a54;       /*               émeutes */
-  --s1: #6b7d93;          /* info */
-  --s2: #e2b340;          /* notable */
-  --s3: #f07a2b;          /* alerte */
-  --s4: #ff3b4f;          /* critique */
-  --ok: #3fbf7f;
+  --accent: #4f8dff;
+  --d17: #b9783a;         /* série 17 octobre (validée sur --panel) */
+  --d24: #12a87c;         /* série 24 octobre */
+  --march: #2cf5b8;       /* menthe du direct : bandeau prochain rendez-vous */
+  --warn: #e2b340;
+  --s4: #ff3b4f;
   --display: "Barlow Condensed", "Arial Narrow", sans-serif;
   --body: "IBM Plex Sans", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
-html, body { height: 100%; margin: 0; }
-body { background: var(--bg); color: var(--fg); font: 14px/1.45 var(--body); display: flex; flex-direction: column; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--body); }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
 
-/* barre d'état */
-header { display: flex; align-items: center; gap: 20px; padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); border-bottom: 1px solid var(--line); background: var(--panel); flex-wrap: wrap; }
+header { border-bottom: 1px solid var(--line); background: var(--panel); }
+header .wrap { display: flex; align-items: center; gap: 16px; padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; }
 .brand { font: 700 22px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; }
 .brand b { color: var(--s4); }
-.sub { color: var(--muted); font-size: 12px; }
-.live { display: inline-flex; align-items: center; gap: 6px; font: 600 12px var(--mono); color: var(--s4); letter-spacing: .1em; }
-.live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--s4); animation: pulse 1.4s infinite; }
-@keyframes pulse { 50% { opacity: .25; } }
-@media (prefers-reduced-motion: reduce) { .live::before { animation: none; } }
+.sub { color: var(--muted); font-size: 13px; }
 .spacer { flex: 1; }
-.clock { font: 500 20px var(--mono); font-variant-numeric: tabular-nums; }
-.tension { display: flex; align-items: center; gap: 8px; }
-.tension .bars { display: flex; gap: 3px; }
-.tension .bars i { width: 14px; height: 18px; background: var(--line); border-radius: 2px; }
-.tension .lbl { font: 600 13px var(--display); letter-spacing: .08em; text-transform: uppercase; }
-.updated { font: 12px var(--mono); color: var(--muted); }
-.updated.stale { color: var(--s3); }
+.archive { font: 600 13px var(--display); letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; color: var(--fg); }
+.archive:hover { border-color: var(--accent); text-decoration: none; }
 
-/* compteurs */
-.kpis { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
-.kpi { padding: 10px 14px; border-right: 1px solid var(--line); min-width: 0; }
-.kpi:last-child { border-right: 0; }
-.kpi .l { font: 600 11px var(--display); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
-.kpi .v { font: 700 30px/1.1 var(--display); font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: 6px; }
-.kpi .tr { font-size: 14px; }
-.tr.up { color: var(--s3); } .tr.down { color: var(--ok); } .tr.flat { color: var(--muted); }
-.kpi .d { font-size: 12px; color: var(--fg); opacity: .8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.kpi .s { font: 10.5px var(--mono); color: var(--muted); }
+/* bandeau du prochain rendez-vous */
+.next { border-bottom: 1px solid var(--line); background:
+  radial-gradient(1200px 260px at 10% -40%, color-mix(in srgb, var(--march) 22%, transparent), transparent 70%), var(--panel-2); }
+.next .wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 28px; align-items: center; padding-top: 22px; padding-bottom: 22px; }
+.count { text-align: center; border: 1px solid color-mix(in srgb, var(--march) 55%, var(--line)); border-radius: 10px; padding: 10px 18px; min-width: 120px; }
+.count .j { font: 700 46px/1 var(--display); color: var(--march); font-variant-numeric: tabular-nums; }
+.count .u { font: 600 12px var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.next .kicker { font: 600 13px var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--march); }
+.next h1 { margin: 2px 0 6px; font: 700 clamp(26px, 4vw, 40px)/1.05 var(--display); text-transform: uppercase; letter-spacing: .02em; }
+.next p { margin: 0; max-width: 78ch; }
+.next .meta { margin-top: 8px; font-size: 13px; color: var(--muted); }
+.next .meta b { color: var(--fg); font-weight: 600; }
 
-/* grille principale */
-main { flex: 1; min-height: 0; display: grid; grid-template-columns: 340px minmax(0, 1fr) 330px; }
-.col { min-height: 0; overflow-y: auto; border-right: 1px solid var(--line); background: var(--panel); }
-.col.right { border-right: 0; border-left: 1px solid var(--line); }
-.ph { position: sticky; top: 0; z-index: 2; background: var(--panel); display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); font: 700 13px var(--display); letter-spacing: .12em; text-transform: uppercase; }
-.ph .n { font: 11px var(--mono); color: var(--muted); letter-spacing: 0; }
+.follow { margin-top: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; font-size: 14px; }
+.xbtn { display: inline-flex; align-items: center; gap: 8px; background: var(--fg); color: #0a0e13; font: 700 15px var(--display); letter-spacing: .06em; text-transform: uppercase; padding: 9px 16px; border-radius: 999px; }
+.xbtn:hover { text-decoration: none; background: #fff; }
+.notice { margin: 20px 0 0; display: flex; gap: 10px; align-items: flex-start; border: 1px solid color-mix(in srgb, var(--warn) 50%, var(--line)); background: color-mix(in srgb, var(--warn) 9%, var(--panel)); border-radius: 8px; padding: 10px 14px; font-size: 14px; }
+.notice svg { flex: none; margin-top: 2px; color: var(--warn); }
 
-.filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
-.chip { font: 500 11px var(--mono); padding: 3px 8px; border: 1px solid var(--line); border-radius: 3px; background: transparent; color: var(--muted); cursor: pointer; }
-.chip[aria-pressed="true"] { color: var(--fg); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); }
+section { margin: 28px 0; }
+.sh { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+h2 { margin: 0; font: 700 24px/1.1 var(--display); letter-spacing: .06em; text-transform: uppercase; }
+.lede { margin: 4px 0 0; color: var(--muted); font-size: 14px; max-width: 70ch; }
 
-.item { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 10px; padding: 10px 14px 10px 11px; border-bottom: 1px solid var(--line); border-left: 3px solid var(--s1); }
-.item.sev2 { border-left-color: var(--s2); } .item.sev3 { border-left-color: var(--s3); } .item.sev4 { border-left-color: var(--s4); background: color-mix(in srgb, var(--s4) 8%, transparent); }
-.item.incident { background: color-mix(in srgb, var(--s4) 16%, var(--panel)); border-left-color: var(--s4); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--s4) 45%, transparent); }
-.item.incident time { color: var(--s4); }
-.item.incident .tag::before { content: "INCIDENT · "; color: var(--s4); font-weight: 600; }
-.item.new { animation: flash 2.5s ease-out; }
-@keyframes flash { from { background: color-mix(in srgb, var(--accent) 30%, transparent); } }
-.item time { font: 500 13px var(--mono); font-variant-numeric: tabular-nums; }
-.item time small { display: block; color: var(--muted); font-size: 10px; }
-.item p { margin: 0 0 4px; }
-.item .meta { font: 10.5px var(--mono); color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; }
-.tag { text-transform: uppercase; letter-spacing: .06em; }
+/* légende + contrôles, sur une ligne au-dessus des graphiques */
+.controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.legend { display: flex; gap: 14px; font-size: 13px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+.seg button { font: 600 13px var(--display); letter-spacing: .06em; text-transform: uppercase; background: transparent; color: var(--muted); border: 0; padding: 6px 11px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--panel-2); color: var(--fg); }
 
-/* carte */
-.mapwrap { position: relative; min-height: 0; }
-#map { position: absolute; inset: 0; background: #0a0e13; }
-.layers { position: absolute; top: 10px; right: 10px; z-index: 500; background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; display: grid; gap: 4px; font-size: 12px; }
-.layers label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.layers { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,.45); }
-.layers .ico { display: inline-flex; width: 18px; justify-content: center; filter: drop-shadow(0 1px 1px #000); }
-.mbtns { display: flex; gap: 6px; margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+/* cartes de comparaison */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px 12px; min-width: 0; }
+.card .l { font: 600 14px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.card .ratio { font: 700 26px/1.1 var(--display); margin: 2px 0 10px; font-variant-numeric: tabular-nums; }
+.card .ratio small { font: 500 13px var(--body); color: var(--muted); margin-left: 6px; }
+.row { display: grid; grid-template-columns: 48px minmax(0, 1fr) 84px; align-items: center; gap: 10px; padding: 3px 0; }
+.row .d { font: 500 12px var(--mono); color: var(--muted); }
+.row .v { font: 600 15px var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+.track { position: relative; height: 22px; cursor: default; }
+.track::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--grid); }
+.bar { position: absolute; left: 0; top: 4px; height: 14px; border-radius: 0 4px 4px 0; transition: width .5s ease; }
+.bar.a { background: var(--d17); }
+.bar.b { background: var(--d24); }
+.bar.pending { background: repeating-linear-gradient(135deg, var(--line) 0 4px, transparent 4px 8px); border: 1px dashed var(--muted); width: 100% !important; opacity: .7; }
+.card .n { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+.hero { display: flex; flex-direction: column; justify-content: center; }
+.hero .big { font: 700 44px/1 var(--display); font-variant-numeric: tabular-nums; }
+.hero .big em { font-style: normal; color: var(--d24); }
 
-/* marqueurs : picto nu en relief (biseau + ombre au sol) */
-.mk { position: relative; cursor: pointer; line-height: 0; }
-.mk3d { display: inline-block; line-height: 0; transform: translateY(-5px); transition: transform .15s;
-  filter: drop-shadow(0 -0.6px 0 rgba(255,255,255,.55)) drop-shadow(0 1px 0 rgba(0,0,0,.55)) drop-shadow(0 1.5px 0 rgba(0,0,0,.45)) drop-shadow(0 2px 0 rgba(0,0,0,.35)); }
-.mk-shadow { position: absolute; left: 15%; right: 15%; bottom: -3px; height: 26%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.75), transparent); transition: transform .15s, opacity .15s; }
-.mk:hover .mk3d { transform: translateY(-9px) scale(1.12); }
-.mk:hover .mk-shadow { transform: scale(.8); opacity: .6; }
-.layers .ico.mk3d { transform: none; }
-.mk-tip, .mk-label { position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); white-space: nowrap; font: 600 12px/1.2 var(--body); color: var(--fg); background: color-mix(in srgb, var(--panel-2) 94%, transparent); border: 1px solid var(--line); padding: 4px 7px; border-radius: 4px; pointer-events: none; opacity: 0; transition: opacity .15s; box-shadow: 0 6px 16px rgba(0,0,0,.5); }
-.mk:hover .mk-tip { opacity: 1; }
-.mk-label { opacity: 1; left: calc(100% + 6px); bottom: auto; top: 50%; transform: translateY(-60%); font: 700 13px var(--display); letter-spacing: .05em; text-transform: uppercase; border-color: color-mix(in srgb, var(--march) 60%, transparent); }
-.mk-head .mk3d { animation: bob 1.8s ease-in-out infinite; }
-.mk-head .mk-shadow { animation: shadowbob 1.8s ease-in-out infinite; }
-@keyframes bob { 50% { transform: translateY(-11px); filter: drop-shadow(0 -0.6px 0 rgba(255,255,255,.55)) drop-shadow(0 2px 0 rgba(0,0,0,.5)) drop-shadow(0 0 10px var(--march)); } }
-@keyframes shadowbob { 50% { transform: scale(.7); opacity: .5; } }
-@media (prefers-reduced-motion: reduce) { .mk-head .mk3d, .mk-head .mk-shadow { animation: none; } }
+/* villes */
+.cities { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.city { display: grid; grid-template-columns: 96px minmax(0, 1fr) 64px; gap: 12px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--grid); }
+.city:last-child { border-bottom: 0; }
+.city .name { font: 600 16px var(--display); letter-spacing: .04em; }
+.city .pair { display: grid; gap: 2px; }
+.city .track { height: 16px; }
+.city .bar { top: 2px; height: 12px; }
+.city .lab { position: absolute; top: 0; font: 500 11.5px/16px var(--mono); color: var(--muted); white-space: nowrap; padding-left: 6px; }
+.city .chg { font: 600 14px var(--mono); text-align: right; }
+.axis { display: grid; grid-template-columns: 96px minmax(0, 1fr) 64px; gap: 12px; font: 11px var(--mono); color: var(--muted); }
+.axis .ticks { position: relative; height: 16px; }
+.axis .ticks span { position: absolute; transform: translateX(-50%); }
+.axis .ticks span:first-child { transform: none; }
 
-/* direct TV */
-.live-tv h3 { display: flex; }
-.chans { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
-.tv { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: #000; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
-.tv iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-#tvlink { display: inline-block; margin-top: 6px; font-size: 11.5px; }
+/* contrastes */
+.contrast { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.contrast th, .contrast td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.contrast tr:last-child td { border-bottom: 0; }
+.contrast thead th { font: 600 13px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); background: var(--panel-2); }
+.contrast thead th i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: 0; }
+.contrast td.k { font: 700 15px var(--display); letter-spacing: .06em; text-transform: uppercase; width: 130px; }
+.contrast .s { display: block; margin-top: 4px; font: 11px var(--mono); color: var(--muted); }
 
-/* éléments géographiques en relief */
-.disc { border-radius: 50%; pointer-events: none; }
-.disc-hot { position: relative; background: radial-gradient(circle, #fff3 0%, color-mix(in srgb, var(--c) 95%, #fff) 8%, color-mix(in srgb, var(--c) 75%, transparent) 26%, color-mix(in srgb, var(--c) 35%, transparent) 52%, color-mix(in srgb, var(--c) 10%, transparent) 70%, transparent 71%);
-  box-shadow: 0 0 60px 10px color-mix(in srgb, var(--c) 40%, transparent); mix-blend-mode: screen; animation: heat 2.4s ease-in-out infinite; }
-.disc-hot::before, .disc-hot::after { content: ""; position: absolute; inset: 15%; border-radius: 50%; border: 2px solid var(--c); opacity: 0; animation: shock 2.4s ease-out infinite; }
-.disc-hot::after { animation-delay: 1.2s; }
-.disc-hot.heat2 { animation-duration: 1.6s; } .disc-hot.heat2::before, .disc-hot.heat2::after { animation-duration: 1.6s; }
-.disc-hot.heat3 { animation: flicker .5s steps(2) infinite, heat 1s ease-in-out infinite; } .disc-hot.heat3::before, .disc-hot.heat3::after { animation-duration: 1s; border-width: 3px; }
-@keyframes heat { 50% { filter: brightness(1.35) saturate(1.3); } }
-@keyframes shock { 0% { transform: scale(.4); opacity: .95; } 100% { transform: scale(1.35); opacity: 0; } }
-@keyframes flicker { 50% { opacity: .82; } }
-.mk-hot .mk3d { filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 2px 0 rgba(0,0,0,.6)); }
-@media (prefers-reduced-motion: reduce) { .disc-hot, .disc-hot::before, .disc-hot::after { animation: none; } }
-.disc-secured { border: 3px solid color-mix(in srgb, var(--accent) 85%, #fff); background: radial-gradient(circle, color-mix(in srgb, var(--accent) 4%, transparent) 60%, color-mix(in srgb, var(--accent) 18%, transparent));
-  box-shadow: 0 4px 0 -1px #0a1a3a, 0 8px 12px rgba(0,0,0,.6), inset 0 2px 4px rgba(255,255,255,.18), inset 0 -3px 6px rgba(0,0,0,.4); opacity: .8; }
-.disc-curfew { border: 2px dashed var(--night); background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--night) 16%, transparent) 0 5px, transparent 5px 11px); box-shadow: 0 6px 14px rgba(0,0,0,.5); }
+/* tableau (vue accessible) */
+.tbl { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+.tbl th, .tbl td { padding: 8px 12px; border-bottom: 1px solid var(--line); text-align: left; }
+.tbl td.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.tbl .s { font: 11px var(--mono); color: var(--muted); }
+[hidden] { display: none !important; }
 
-/* parcours en ruban surélevé */
-.route-casing { filter: drop-shadow(0 0 1px rgba(0,0,0,.8)); }
-.route-done { filter: drop-shadow(0 0 5px var(--march)) drop-shadow(0 0 14px color-mix(in srgb, var(--march) 45%, transparent)); }
-.route-todo { animation: march 1.2s linear infinite; }
-@keyframes march { to { stroke-dashoffset: -8; } }
-@media (prefers-reduced-motion: reduce) { .route-todo { animation: none; } }
-.paris-edge { filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 2px var(--accent)); }
+.sources { columns: 2 320px; padding-left: 18px; margin: 0; font-size: 14px; }
+footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30px; color: var(--muted); font-size: 13px; }
 
-.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--panel-2); color: var(--fg); border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(0,0,0,.5); }
-.leaflet-popup-content { font: 13px/1.4 var(--body); margin: 10px 12px; }
-.leaflet-popup-content b { font-family: var(--display); font-size: 15px; letter-spacing: .03em; }
-.leaflet-container a.leaflet-popup-close-button { color: var(--muted); }
-.leaflet-bar a { background: var(--panel-2); color: var(--fg); border-color: var(--line); }
-.leaflet-control-attribution { background: color-mix(in srgb, var(--panel) 85%, transparent) !important; color: var(--muted); }
-.leaflet-control-attribution a { color: var(--muted); }
-#map::after { z-index: 400; content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55)); }
-.maptag { position: absolute; left: 10px; bottom: 10px; z-index: 500; font: 10.5px var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 90%, transparent); padding: 4px 8px; border-radius: 3px; border: 1px solid var(--line); }
+#tip { position: fixed; z-index: 50; pointer-events: none; background: #0a0e13; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; max-width: 300px; font-size: 13px; box-shadow: 0 6px 24px rgba(0,0,0,.45); opacity: 0; transition: opacity .12s; }
+#tip.on { opacity: 1; }
+#tip .t { font: 600 12px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+#tip .v { font: 600 17px var(--mono); }
+#tip .s { color: var(--muted); font-size: 12px; margin-top: 2px; }
+#tip i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; }
 
-/* colonne droite */
-.sec { padding: 10px 14px 14px; border-bottom: 1px solid var(--line); }
-.sec h3 { margin: 0 0 8px; font: 700 13px var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-.row { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 8px; padding: 5px 0; font-size: 12.5px; align-items: start; }
-.badge { font: 600 11px var(--mono); padding: 2px 5px; border-radius: 3px; text-align: center; border: 1px solid; }
-.badge.coupé, .badge.interdit { color: var(--s4); border-color: color-mix(in srgb, var(--s4) 50%, transparent); }
-.badge.dévié, .badge.vigilance, .badge.\? { color: var(--s2); border-color: color-mix(in srgb, var(--s2) 50%, transparent); }
-.badge.ok, .badge.autorisé { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 50%, transparent); }
-.row b { font-weight: 600; }
-.agenda .row { grid-template-columns: 112px minmax(0, 1fr); }
-.agenda .row span:first-child { font: 11.5px var(--mono); color: var(--s2); }
-.src a { display: block; padding: 3px 0; font-size: 12.5px; }
-.note { font-size: 12.5px; color: var(--muted); margin: 0; }
-
-/* frise */
-footer { border-top: 1px solid var(--line); background: var(--panel); padding: 8px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); }
-.tl-h { display: flex; justify-content: space-between; font: 700 12px var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-.tl { position: relative; height: 58px; }
-.tl .axis { position: absolute; left: 0; right: 0; top: 30px; height: 2px; background: var(--line); }
-.tl .win { position: absolute; top: 26px; height: 10px; background: color-mix(in srgb, var(--accent) 35%, transparent); border: 1px solid var(--accent); border-radius: 2px; }
-.tl .cf { position: absolute; top: 26px; height: 10px; background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--night) 45%, transparent) 0 4px, transparent 4px 8px); border: 1px solid color-mix(in srgb, var(--night) 70%, transparent); }
-.tl .tick { position: absolute; top: 40px; font: 10px var(--mono); color: var(--muted); transform: translateX(-50%); }
-.tl .ms { position: absolute; top: 0; transform: translateX(-50%); font-size: 10.5px; white-space: nowrap; color: var(--fg); }
-.tl .ms::after { content: ""; position: absolute; left: 50%; top: 16px; width: 1px; height: 12px; background: var(--muted); }
-.tl .ev { position: absolute; top: 27px; width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%); background: var(--s1); }
-.tl .now { position: absolute; top: 14px; bottom: 6px; width: 2px; background: var(--s4); }
-.tl .now::before { content: "MAINTENANT"; position: absolute; top: -14px; left: 4px; font: 600 9.5px var(--mono); color: var(--s4); letter-spacing: .08em; }
-
-@media (max-width: 1200px) {
-  .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .kpi:nth-child(3) { border-right: 0; }
-  .kpi:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
-  main { grid-template-columns: 300px minmax(0, 1fr); }
-  .col.right { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); }
-  body { height: auto; }
-  main { grid-auto-rows: 70vh auto; }
+@media (max-width: 640px) {
+  .next .wrap { grid-template-columns: 1fr; }
+  .count { justify-self: start; display: flex; gap: 10px; align-items: baseline; padding: 6px 14px; }
+  .count .j { font-size: 34px; }
+  .cards { grid-template-columns: 1fr; }
+  .city, .axis { grid-template-columns: 74px minmax(0, 1fr) 54px; gap: 8px; }
+  .contrast thead { display: none; }
+  .contrast tr { display: block; border-bottom: 1px solid var(--line); }
+  .contrast td { display: block; border: 0; padding: 6px 14px; }
+  .contrast td.k { padding-top: 12px; width: auto; }
+  .contrast td[data-d]::before { content: attr(data-d); display: block; font: 600 12px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 }
-@media (max-width: 760px) {
-  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .kpi { border-right: 0; border-bottom: 1px solid var(--line); }
-  main { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 60vh auto auto; }
-  .mapwrap { order: -1; }
-  .col { max-height: none; border-right: 0; }
-  .tl .ms { display: none; }
-}
-
-/* ---- zone carte : registre salle de crise, angles nets, typo technique ---- */
-.kpi.stale .v { color: var(--muted); }
-.kpi.stale .s { color: var(--s2); }
-.chip, .badge, .tv, .layers, .maptag, .mk-tip, .mk-label, .leaflet-popup-content-wrapper, .leaflet-bar, .leaflet-bar a, .leaflet-control-scale-line { border-radius: 0 !important; }
-.layers { padding: 0; gap: 0; background: color-mix(in srgb, var(--bg) 88%, transparent); border: 1px solid #2c3a4f; box-shadow: none; font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .04em; }
-.ltoggle { display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 10px; font: 600 10.5px var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--fg); background: color-mix(in srgb, var(--panel-2) 85%, transparent); border: 0; border-bottom: 1px solid #2c3a4f; cursor: pointer; }
-.ltoggle span:first-child { flex: 1; text-align: left; }
-.lcount { color: var(--muted); letter-spacing: .04em; }
-.lcaret { transition: transform .15s; }
-.layers.closed { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 0 18px color-mix(in srgb, var(--accent) 45%, transparent); animation: lpulse 2.2s ease-in-out infinite; }
-.layers.closed .ltoggle { border-bottom: 0; color: #fff; background: color-mix(in srgb, var(--accent) 28%, var(--bg)); }
-.layers.closed .lcaret { transform: rotate(-90deg); }
-.layers.closed .lbody { display: none; }
-@keyframes lpulse { 50% { box-shadow: 0 0 0 1px var(--accent), 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent); } }
-@media (prefers-reduced-motion: reduce) { .layers.closed { animation: none; } }
-.layers label { padding: 5px 10px; border-bottom: 1px solid color-mix(in srgb, #2c3a4f 50%, transparent); }
-.layers label:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
-.layers input[type="checkbox"] { appearance: none; width: 11px; height: 11px; margin: 0; border: 1px solid var(--muted); background: transparent; display: grid; place-content: center; cursor: pointer; }
-.layers input[type="checkbox"]:checked { border-color: var(--fg); background: var(--fg); box-shadow: inset 0 0 0 2px var(--bg); }
-.mbtns { margin: 0; padding: 8px 10px; border-top: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.mbtns .chip { text-align: center; padding: 4px 6px; }
-.layers { width: 240px; }
-@media (max-width: 760px) { .layers { width: auto; max-width: calc(100% - 20px); } .layers:not(.closed) { width: 240px; } }
-.chip { font: 500 10.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-.mk-tip, .mk-label { font: 500 11px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .05em; background: var(--bg); border: 1px solid #3a4a62; box-shadow: none; padding: 3px 6px; }
-.mk-label { font: 600 11px var(--mono); border-color: var(--march); border-left-width: 3px; }
-.leaflet-popup-content-wrapper { background: var(--bg); border: 1px solid #3a4a62; border-top: 2px solid var(--fg); box-shadow: 0 0 0 1px #000; }
-.leaflet-popup-tip { background: var(--bg); border: 1px solid #3a4a62; box-shadow: none; }
-.leaflet-popup-content { font: 12px/1.45 var(--mono); }
-.leaflet-popup-content b { display: block; margin-bottom: 4px; font: 700 12px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-.leaflet-bar { border: 1px solid #2c3a4f !important; box-shadow: none !important; }
-.leaflet-bar a { background: var(--bg); font: 400 16px var(--mono); }
-.leaflet-control-scale-line { background: color-mix(in srgb, var(--bg) 80%, transparent); color: var(--muted); border-color: var(--muted); font: 10px var(--mono); }
-.maptag { font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .08em; background: var(--bg); border-color: #2c3a4f; }
-.coords { position: absolute; left: 10px; top: 10px; margin-left: 44px; z-index: 500; font: 500 10.5px var(--mono); color: var(--muted); background: color-mix(in srgb, var(--bg) 85%, transparent); border: 1px solid #2c3a4f; padding: 4px 8px; letter-spacing: .04em; font-variant-numeric: tabular-nums; pointer-events: none; }
-.mapgrid { position: absolute; inset: 0; z-index: 401; pointer-events: none; opacity: .5;
-  background-image: linear-gradient(color-mix(in srgb, var(--accent) 9%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--accent) 9%, transparent) 1px, transparent 1px);
-  background-size: 96px 96px; }
-.corner { position: absolute; z-index: 402; width: 18px; height: 18px; pointer-events: none; border: 0 solid var(--fg); opacity: .7; }
-.corner.tl { top: 6px; left: 6px; border-top-width: 2px; border-left-width: 2px; }
-.corner.tr { top: 6px; right: 6px; border-top-width: 2px; border-right-width: 2px; }
-.corner.bl { bottom: 6px; left: 6px; border-bottom-width: 2px; border-left-width: 2px; }
-.corner.br { bottom: 6px; right: 6px; border-bottom-width: 2px; border-right-width: 2px; }
-.leaflet-top.leaflet-left { margin-top: 2px; }
-
-/* ---- mobile : la carte remonte, le haut de page se compacte ---- */
-@media (max-width: 760px) {
-  header { gap: 8px 12px; padding-block: 8px; }
-  header .tension .sub, #tnote, #subtitle, .updated { display: none; }
-  .brand { font-size: 18px; }
-  .clock { font-size: 15px; }
-  .tension .bars i { width: 10px; height: 12px; }
-  .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .kpi { padding: 6px 8px; border-right: 1px solid var(--line); }
-  .kpi:nth-child(3n) { border-right: 0; }
-  .kpi .l { font-size: 9.5px; letter-spacing: .06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .kpi .v { font-size: 21px; }
-  .kpi .d, .kpi .s { display: none; }
-  main { grid-auto-rows: 52vh auto auto; }
-  .col:not(.right) { max-height: 60vh; }
-  .coords, .corner { display: none; }
-}
-.maplock { position: absolute; z-index: 650; left: 50%; bottom: 14px; transform: translateX(-50%); font: 600 10.5px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--fg); background: color-mix(in srgb, var(--bg) 88%, transparent); border: 1px solid var(--fg); padding: 7px 12px; cursor: pointer; white-space: nowrap; }
-#frmap { height: 300px; max-width: 100%; background: #0b0f15; border: 1px solid #2c3a4f; }
-#frmap .leaflet-tile-pane { filter: brightness(.9) contrast(1.1); }
-.frdot { border-radius: 50%; }
-.frdot.h0 { background: color-mix(in srgb, var(--s1) 70%, transparent); border: 1px solid var(--s1); }
-.frdot.h1 { background: color-mix(in srgb, var(--heat1) 45%, transparent); border: 1px solid var(--heat1); box-shadow: 0 0 8px var(--heat1); }
-.frdot.h2 { background: radial-gradient(circle, #fff 0 12%, var(--heat2) 35%, color-mix(in srgb, var(--heat2) 25%, transparent) 70%); box-shadow: 0 0 14px var(--heat2); animation: heat 1.6s ease-in-out infinite; }
-.frdot.h3 { background: radial-gradient(circle, #fff 0 12%, var(--heat3) 35%, color-mix(in srgb, var(--heat3) 25%, transparent) 70%); box-shadow: 0 0 20px var(--heat3); animation: heat 1s ease-in-out infinite; }
-.frname { position: absolute; top: 50%; transform: translateY(-50%); white-space: nowrap; color: var(--fg); font: 600 9.5px var(--mono); text-transform: uppercase; letter-spacing: .04em; text-shadow: 0 0 3px #000, 0 0 2px #000; pointer-events: none; }
-.frlabel { background: transparent !important; border: 0 !important; box-shadow: none !important; color: var(--fg) !important; font: 600 9.5px var(--mono) !important; text-transform: uppercase; letter-spacing: .04em; padding: 0 2px !important; text-shadow: 0 0 3px #000, 0 0 2px #000; }
-.frlabel::before { display: none; }
-.frtip { font: 11px/1.35 var(--mono) !important; max-width: 220px; white-space: normal !important; }
-.frlegend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 6px; font: 10px var(--mono); color: var(--muted); text-transform: uppercase; }
-.frlegend span { display: inline-flex; align-items: center; gap: 5px; }
-.frlegend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-.frlegend i.h0 { background: var(--s1); } .frlegend i.h1 { background: var(--heat1); } .frlegend i.h2 { background: var(--heat2); } .frlegend i.h3 { background: var(--heat3); }
+@media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
 </style>
 </head>
 <body>
 <header>
-  <div>
-    <div class="brand">Manif<b>·</b>Monitor <span style="color:var(--muted)">Paris</span></div>
-    <div class="sub" id="subtitle"></div>
-  </div>
-  <span class="live">EN DIRECT</span>
-  <div class="spacer"></div>
-  <div class="tension" title="Niveau de tension (évaluation éditoriale)">
-    <div class="bars" id="tbars"></div>
-    <div><div class="lbl" id="tlabel"></div><div class="sub" id="tnote" style="max-width:320px"></div></div>
-  </div>
-  <div style="text-align:right">
-    <div class="clock" id="clock">--:--:--</div>
-    <div class="updated" id="updated"></div>
+  <div class="wrap">
+    <div class="brand">Manif<b>Monitor</b></div>
+    <div class="sub">Bilan des mobilisations des 17 et 24 octobre 2026</div>
+    <div class="spacer"></div>
+    <a class="archive" href="https://x.com/intent/follow?screen_name=Krypt0man" target="_blank" rel="noopener">Suivre @Krypt0man</a>
+    <a class="archive" href="live.html">Archive du direct du 24/10 →</a>
   </div>
 </header>
 
-<section class="kpis" id="kpis"></section>
+<div class="next" role="region" aria-label="Prochain rendez-vous">
+  <div class="wrap">
+    <div class="count" aria-live="polite"><div class="j" id="cdJ">–</div><div class="u" id="cdU">jours</div></div>
+    <div>
+      <div class="kicker">Prochain rendez-vous</div>
+      <h1 id="nxTitle"></h1>
+      <p id="nxText"></p>
+      <div class="meta" id="nxMeta"></div>
+      <div class="follow">
+        <a class="xbtn" href="https://x.com/intent/follow?screen_name=Krypt0man" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Suivre @Krypt0man
+        </a>
+        <span>Abonnez-vous pour recevoir le lien des prochains dashboards dès leur mise en ligne.</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-<main>
-  <aside class="col" aria-label="Fil d'actualité">
-    <div class="ph">Fil en direct <span class="n" id="feedn"></span></div>
-    <div class="filters" id="filters"></div>
-    <div id="feed"></div>
-  </aside>
-
-  <div class="mapwrap">
-    <div id="map" role="application" aria-label="Carte de Paris"></div>
-    <div class="layers" id="layers"></div>
-    <div class="maptag">Tracé approximatif · positions indicatives</div>
-    <div class="mapgrid" aria-hidden="true"></div><i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
-    <button class="maplock" id="maplock" hidden>Toucher pour manipuler la carte</button>
-    <div class="coords" id="coords">48.8566 N · 2.3522 E</div>
+<main class="wrap">
+  <div class="notice" id="notice" role="status">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    <div id="noticeText"></div>
   </div>
 
-  <aside class="col right" aria-label="Contexte">
-    <div class="sec live-tv"><h3><span class="live">DIRECT TV</span></h3><div class="chans" id="chans"></div><div class="tv"><iframe id="tv" title="Direct vidéo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div><a id="tvlink" class="note" target="_blank" rel="noopener">Ouvrir sur YouTube ↗</a></div>
-    <div class="sec"><h3>Tensions en France</h3><div id="frmap" role="img" aria-label="Carte des tensions en France"></div><div class="frlegend"><span><i class="h0"></i>calme</span><span><i class="h1"></i>tension</span><span><i class="h2"></i>heurts</span><span><i class="h3"></i>pillages / feux</span></div></div>
-    <div class="sec"><h3>Couvre-feu & interdictions</h3><p class="note" id="curfew"></p></div>
-    <div class="sec"><h3>Autres villes</h3><div id="cities"></div></div>
-    <div class="sec agenda"><h3>Prochaines dates</h3><div id="agenda"></div></div>
-    <div class="sec src"><h3>Sources directes</h3><div id="sources"></div></div>
-  </aside>
+  <section aria-labelledby="h-cmp">
+    <div class="sh">
+      <div>
+        <h2 id="h-cmp">Deux samedis en chiffres</h2>
+        <p class="lede">Chaque carte compare les deux journées sur sa propre échelle. Survolez une barre pour voir la source.</p>
+      </div>
+      <div class="controls">
+        <div class="legend" aria-label="Légende">
+          <span><i style="background:var(--d17)"></i>17 octobre</span>
+          <span><i style="background:var(--d24)"></i>24 octobre</span>
+        </div>
+        <div class="seg" role="group" aria-label="Origine des chiffres de manifestants">
+          <button type="button" data-src="off" aria-pressed="true">Autorités</button>
+          <button type="button" data-src="alt" aria-pressed="false">Syndicats</button>
+        </div>
+        <div class="seg" role="group" aria-label="Affichage">
+          <button type="button" data-view="chart" aria-pressed="true">Graphique</button>
+          <button type="button" data-view="table" aria-pressed="false">Tableau</button>
+        </div>
+      </div>
+    </div>
+    <div class="cards" id="cards"></div>
+    <table class="tbl" id="cmpTable" hidden></table>
+  </section>
+
+  <section aria-labelledby="h-city">
+    <div class="sh">
+      <div>
+        <h2 id="h-city">Les cortèges ville par ville</h2>
+        <p class="lede" id="cityNote"></p>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Trier les villes">
+          <button type="button" data-sort="a" aria-pressed="true">Taille au 17/10</button>
+          <button type="button" data-sort="b" aria-pressed="false">Taille au 24/10</button>
+          <button type="button" data-sort="chg" aria-pressed="false">Évolution</button>
+        </div>
+      </div>
+    </div>
+    <div class="cities" id="cities"></div>
+  </section>
+
+  <section aria-labelledby="h-diff">
+    <div class="sh"><div><h2 id="h-diff">Ce qui a changé</h2><p class="lede">Moins de manifestants, deux fois et demie plus d'interpellations à la même heure, et aucun bâtiment public attaqué.</p></div></div>
+    <table class="contrast" id="contrast"></table>
+  </section>
+
+  <section aria-labelledby="h-src">
+    <div class="sh"><h2 id="h-src">Sources</h2></div>
+    <ul class="sources" id="sources"></ul>
+  </section>
 </main>
 
 <footer>
-  <div class="tl-h"><span>Journée du 24 oct. · 08h → 02h</span><span id="tlwin"></span></div>
-  <div class="tl" id="tl"></div>
+  <div class="wrap">ManifMonitor, veille indépendante à partir de sources publiques. Mis à jour le <span id="upd"></span>. Le direct reprendra la veille de la prochaine mobilisation ; l'archive du 24 octobre reste consultable <a href="live.html">ici</a>.</div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="paris.js"></script>
-<script src="metro.js"></script>
-<script src="data.js"></script>
+<div id="tip" role="tooltip"></div>
+
+<script src="bilan.js"></script>
 <script>
-const CATS = { all: "Tout", cortege: "Cortège", securite: "Sécurité", politique: "Politique", justice: "Justice", transports: "Transports" };
-const TENSION = ["", "Calme", "Vigilance", "Tendu", "Émeutes", "Crise"];
-const SEVC = ["", "var(--s1)", "var(--s2)", "var(--s3)", "var(--s4)"];
-const TREND = { up: "▲", down: "▼", flat: "■" };
-let D = window.MANIF_DATA, filter = "all", seen = new Set(), first = true;
-const $ = id => document.getElementById(id);
-const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const mins = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+(function () {
+  const B = window.BILAN;
+  const $ = (s) => document.querySelector(s);
+  const fmt = (n) => n == null ? "—" : n.toLocaleString("fr-FR").replace(/ | /g, " ");
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  let srcMode = "off", view = "chart", sortKey = "a";
 
-/* ---------- carte (vue de dessus, relief porté par les éléments) ---------- */
-const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-/* pictos SVG nus (viewBox 24) : la forme porte le sens, la couleur le renforce */
-const ICONS = { // tracés au trait (famille Lucide), f = remplissage léger
-  start:    { d: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/>', f: 1 },
-  end:      { d: '<path d="M12 13V2l8 4-8 4"/><path d="M20.56 10.22a9 9 0 1 1-12.55-5.29"/><path d="M8 10a5 5 0 1 0 8.9 2.02"/>' },
-  banned:   { d: '<circle cx="12" cy="12" r="10"/><path d="M4.9 4.9l14.2 14.2"/>' },
-  secured:  { d: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', f: 1 },
-  hot:      { d: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>', f: 1 },
-  curfew:   { d: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>', f: 1 },
-  pillage:  { d: '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>', f: 1 },
-  incendie: { d: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/><path d="M4 21h16"/>' },
-  barricade:{ d: '<rect x="2" y="6" width="20" height="8" rx="1"/><path d="M17 14v7M7 14v7M17 3v3M7 3v3M10 14L2.3 6.3M14 6l7.7 7.7M8 6l8 8"/>' },
-  affrontement: { d: '<path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M14.5 6.5L18 3h3v3l-3.5 3.5"/><path d="M5 14l4 4M7 17l-3 3M3 19l2 2"/>' },
-  degradation: { d: '<path d="M15 12l-8.5 8.5a2.12 2.12 0 1 1-3-3L12 9"/><path d="M17.64 15L22 10.64"/><path d="M20.91 11.7l-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/>' },
-  metroAll: { d: '<circle cx="12" cy="12" r="10"/><path d="M7.5 16.5v-9l4.5 5.5 4.5-5.5v9"/>' },
-  metro:    { d: '<circle cx="12" cy="12" r="10"/><path d="M7.5 16.5v-9l4.5 5.5 4.5-5.5v9"/>' },
-  venue:    { d: '<path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="M12 2l8 5H4z"/>' },
-  incident: { d: '<path d="M21.73 18l-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><path d="M12 9v4M12 17h.01"/>', f: 1 },
-  head:     { d: '<path d="M3 11l18-5v12L3 14z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>', f: 1 }
-};
-const PIN = { // couleur, taille
-  start: ["--march", 30], end: ["--fg", 30], head: ["--march", 36], banned: ["--s4", 24], secured: ["--accent", 22],
-  hot: ["--heat2", 30], curfew: ["--night", 24], metro: ["--s2", 22], metroAll: ["--muted", 15], pillage: ["--past", 20], incendie: ["--past", 20], barricade: ["--past", 20], affrontement: ["--past", 20], degradation: ["--past", 20], venue: ["--s1", 22], incident: ["--s4", 28]
-};
-const HEAT = ["", "tension", "affrontements", "émeutes"];
-const svg = (k, s) => { const { d, f } = ICONS[k]; return `<svg viewBox="-2 -2 28 28" width="${s}" height="${s}" fill="none" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="4" aria-hidden="true">`
-  + `<g stroke="#070a0f" stroke-width="5.5">${d}</g>` + (f ? `<g fill="currentColor" fill-opacity=".28" stroke="none">${d}</g>` : "") + `<g stroke="currentColor" stroke-width="2.2">${d}</g></svg>`; };
-
-const map = L.map("map", { zoomControl: true, zoomSnap: .25 }).setView([48.848, 2.36], 12.75);
-// mobile : vue initiale cadrée sur le tracé du cortège
-const isNarrow = matchMedia("(max-width: 760px)").matches;
-function fitPad() {
-  // sur grand écran, on réserve la place de la légende dépliée à droite
-  const legend = !isNarrow && !$("layers")?.classList.contains("closed") ? ($("layers")?.offsetWidth || 0) + 16 : 24;
-  return { paddingTopLeft: [24, 48], paddingBottomRight: [legend, 40] };
-}
-function frameRoute() {
-  map.invalidateSize();
-  map.fitBounds((window.D || window.MANIF_DATA).route, { ...fitPad(), maxZoom: 15 });
-}
-// points chauds : zones de niveau ≥ 2 + incidents des 90 dernières minutes (à défaut : tracé)
-function hotPoints() {
-  const d = window.D || window.MANIF_DATA, now = parisNowMin();
-  const pts = (d.hotZones || []).filter(z => z.heat >= 2).map(z => z.ll)
-    .concat((d.incidents || []).filter(i => { const m = mins(i.t); return now - m >= 0 && now - m <= 90; }).map(i => i.ll));
-  return pts;
-}
-function frameHot() {
-  map.invalidateSize();
-  const pts = hotPoints();
-  if (!pts.length) return frameRoute();
-  if (pts.length === 1) return map.setView(pts[0], 15);
-  map.fitBounds(pts, { ...fitPad(), maxZoom: 15.5 });
-}
-function parisNowMin() { const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" })); return d.getHours() * 60 + d.getMinutes(); }
-// cadrage automatique sur les points chauds tant que le visiteur n'a pas bougé la carte lui-même
-let autoFrame = true, framing = false;
-function autoHot() { if (!autoFrame) return; framing = true; frameHot(); setTimeout(() => framing = false, 600); }
-map.on("dragstart zoomstart", () => { if (!framing) autoFrame = false; });
-autoHot(); addEventListener("load", autoHot); setTimeout(autoHot, 400);
-L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
-  maxZoom: 16, attribution: "Esri, HERE, Garmin, © OpenStreetMap"
-}).addTo(map);
-L.control.scale({ imperial: false, position: "bottomright" }).addTo(map);
-map.on("mousemove", e => { $("coords").textContent = `${e.latlng.lat.toFixed(4)} N · ${e.latlng.lng.toFixed(4)} E · Z${map.getZoom()}`; });
-map.createPane("labels").style.zIndex = 450;
-map.getPane("labels").style.pointerEvents = "none";
-L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}", { maxZoom: 16, pane: "labels", opacity: .7 }).addTo(map);
-
-// Paris : extérieur assombri, contour lumineux
-const parisRing = window.PARIS_GEO.geometry.coordinates[0].map(([x, y]) => [y, x]);
-L.polygon([[[85, -180], [85, 180], [-85, 180], [-85, -180]], parisRing], { stroke: false, fillColor: "#04060a", fillOpacity: .62, interactive: false }).addTo(map);
-L.polygon(parisRing, { color: css("--accent"), weight: 2, fill: false, className: "paris-edge", interactive: false }).addTo(map);
-
-const groups = {
-  route:    { label: "Parcours officiel", icon: "start", g: L.layerGroup().addTo(map) },
-  banned:   { label: "Lieux / parcours interdits", icon: "banned", g: L.layerGroup().addTo(map) },
-  curfew:   { label: "Couvre-feu 23h–6h", icon: "curfew", g: L.layerGroup().addTo(map) },
-  secured:  { label: "Points sécurisés", icon: "secured", g: L.layerGroup() },
-  hot:      { label: "Zones chaudes (violences)", icon: "hot", g: L.layerGroup().addTo(map) },
-  metroAll: { label: "Stations de métro", icon: "metroAll", g: L.layerGroup() },
-  oct17:    { label: "Dégâts du 17 octobre", icon: "incendie", g: L.layerGroup() },
-  venues:   { label: "Lieux fermés", icon: "venue", g: L.layerGroup() },
-  incidents:{ label: "Incidents", icon: "incident", g: L.layerGroup().addTo(map) }
-};
-$("layers").innerHTML = `<button class="ltoggle" id="ltoggle" aria-expanded="true" aria-controls="lbody"><span>Couches</span><span class="lcount" id="lcount"></span><span class="lcaret" aria-hidden="true">▾</span></button><div class="lbody" id="lbody">` + Object.entries(groups).map(([k, o]) =>
-  `<label><input type="checkbox" id="ly-${k}" ${map.hasLayer(o.g) ? "checked" : ""}><span class="ico mk3d" style="color:var(${PIN[o.icon][0]})">${svg(o.icon, 16)}</span>${o.label}</label>`).join("")
-  + `<div class="mbtns"><button class="chip" id="bhead">Suivre le cortège</button><button class="chip" id="bparis">Tout Paris</button></div></div>`;
-// légende repliable : fermée par défaut sur mobile, état mémorisé par visiteur
-function setLegend(open) {
-  $("layers").classList.toggle("closed", !open);
-  $("ltoggle").setAttribute("aria-expanded", open);
-  $("lcount").textContent = `${Object.keys(groups).filter(k => $("ly-" + k).checked).length}/${Object.keys(groups).length}`;
-  try { localStorage.setItem("mm-legend", open ? "1" : "0"); } catch (e) {}
-}
-let legendPref = null; try { legendPref = localStorage.getItem("mm-legend"); } catch (e) {}
-setLegend(legendPref ? legendPref === "1" : !matchMedia("(max-width: 760px)").matches);
-$("ltoggle").onclick = () => setLegend($("layers").classList.contains("closed"));
-Object.entries(groups).forEach(([k, o]) => $("ly-" + k).addEventListener("change", e => { e.target.checked ? o.g.addTo(map) : map.removeLayer(o.g); setLegend(true); }));
-
-// picto en relief : ombre au sol + picto surélevé
-function pin(kind, name, opts = {}) {
-  const [col, size] = PIN[kind];
-  const label = opts.label ? `<span class="mk-label">${esc(name)}</span>` : `<span class="mk-tip">${esc(name)}</span>`;
-  return L.divIcon({
-    className: "", iconSize: [size, size], iconAnchor: [size / 2, size / 2], popupAnchor: [0, -size / 2 - 6],
-    html: `<div class="mk mk-${kind}" style="color:var(${opts.color || col});width:${size}px;height:${size}px"><i class="mk-shadow"></i><span class="mk3d">${svg(kind, size)}</span>${label}</div>`
-  });
-}
-// élément « géographique » en px : un cercle de r mètres rendu en HTML pour profiter des dégradés et ombres CSS
-const geoEls = [];
-const mpp = lat => 156543.03392 * Math.cos(lat * Math.PI / 180) / Math.pow(2, map.getZoom());
-function geoDisc(ll, r, cls, style = "") {
-  const m = L.marker(ll, { icon: L.divIcon({ className: "", html: `<div class="disc ${cls}" style="${style}"></div>`, iconSize: [0, 0] }), interactive: false, keyboard: false, zIndexOffset: -1000 });
-  geoEls.push({ m, ll, r });
-  return m;
-}
-function sizeGeo() {
-  geoEls.forEach(({ m, ll, r }) => {
-    const el = m.getElement()?.firstChild; if (!el) return;
-    const d = 2 * r / mpp(ll[0]);
-    el.style.width = el.style.height = d + "px";
-    el.style.marginLeft = el.style.marginTop = -d / 2 + "px";
-  });
-}
-map.on("zoomend", sizeGeo);
-
-// tête de cortège : position fixée (headIndex) ou interpolée sur l'heure (march.start → march.end)
-function parisNow() { const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" })); return d.getHours() * 60 + d.getMinutes() + d.getSeconds() / 60; }
-function headProgress() {
-  const M = D.meta.march;
-  if (D.headIndex !== "auto" || !M) return Math.min(Number(D.headIndex) || 0, D.route.length - 1) / (D.route.length - 1);
-  return Math.max(0, Math.min(1, (parisNow() - mins(M.start)) / (mins(M.end) - mins(M.start))));
-}
-function headLabel() {
-  const M = D.meta.march, p = Math.round(headProgress() * 100);
-  return D.headIndex === "auto" && M ? `Position estimée : ${p} % du parcours (départ ${M.start}, arrivée prévue ${M.end})` : "Position signalée";
-}
-function headSplit() {
-  const R = D.route, seg = [];
-  let tot = 0;
-  for (let i = 1; i < R.length; i++) { const d = map.distance(R[i - 1], R[i]); seg.push(d); tot += d; }
-  let target = headProgress() * tot, i = 0;
-  while (i < seg.length - 1 && target > seg[i]) { target -= seg[i]; i++; }
-  const k = seg[i] ? Math.min(1, target / seg[i]) : 0;
-  const pt = [R[i][0] + (R[i + 1][0] - R[i][0]) * k, R[i][1] + (R[i + 1][1] - R[i][1]) * k];
-  return { pt, done: [...R.slice(0, i + 1), pt], todo: [pt, ...R.slice(i + 1)] };
-}
-setInterval(() => drawMap(), 60000);
-
-function drawMap() {
-  Object.values(groups).forEach(o => o.g.clearLayers());
-  geoEls.length = 0;
-  const blue = css("--accent");
-  const { pt: head, done, todo } = headSplit();
-  // parcours : trait net façon navigation — liseré sombre, reste à parcourir en pointillés fins qui avancent, parcouru plein et lumineux
-  const line = (pts, o) => L.polyline(pts, { interactive: false, lineCap: "butt", lineJoin: "miter", ...o }).addTo(groups.route.g);
-  const mint = css("--march");
-  line(D.route, { color: "#05080c", weight: 9, opacity: .85, className: "route-casing" });
-  line(todo, { color: mint, weight: 3, opacity: .55, dashArray: "1 7", lineCap: "round", className: "route-todo" });
-  line(done, { color: mint, weight: 5, className: "route-done" });
-  line(done, { color: "#eafff8", weight: 1.2, opacity: .9, className: "route-core" });
-
-  (D.securedPoints || []).forEach(s => {
-    geoDisc(s.ll, s.r, "disc-secured").addTo(groups.secured.g);
-    L.marker(s.ll, { icon: pin("secured", s.name) }).bindPopup(`<b>${esc(s.name)}</b><br>${esc(s.note)}`).addTo(groups.secured.g);
-  });
-  D.curfewZones.forEach(z => {
-    geoDisc(z.ll, z.r, "disc-curfew").addTo(groups.curfew.g);
-    L.marker(z.ll, { icon: pin("curfew", `Couvre-feu · ${z.name}`) })
-      .bindPopup(`<b>Couvre-feu · ${esc(z.name)}</b><br>${D.meta.curfew.start}–${D.meta.curfew.end}, jusqu'au ${esc(D.meta.curfew.until)}`).addTo(groups.curfew.g);
-  });
-  (D.hotZones || []).forEach(z => {
-    const c = ["", "--heat1", "--heat2", "--heat3"][z.heat] || "--heat2";
-    geoDisc(z.ll, z.r, `disc-hot heat${z.heat}`, `--c:var(${c})`).addTo(groups.hot.g);
-    L.marker(z.ll, { icon: pin("hot", `${z.name} · ${HEAT[z.heat]}`, { color: z.heat >= 3 ? "--heat3" : "--heat2" }), zIndexOffset: 300 })
-      .bindPopup(`<b>${esc(z.name)} · niveau ${z.heat} ${HEAT[z.heat]}</b><br>${esc(z.note)}`).addTo(groups.hot.g);
-  });
-  const closed = new Set(D.closedStations.map(s => s.name.normalize("NFD").replace(/[^a-z]/gi, "").toLowerCase()));
-  (window.METRO_STATIONS || []).forEach(s => {
-    const shut = closed.has(s.name.normalize("NFD").replace(/[^a-z]/gi, "").toLowerCase());
-    L.marker(s.ll, { icon: pin("metroAll", s.name + (shut ? " · fermée" : ""), shut ? { color: "--s4" } : {}), zIndexOffset: -500 })
-      .bindPopup(`<b>${esc(s.name)}</b><br>${shut ? "Fermée aujourd'hui" : "Ouverte (pas de fermeture signalée)"}`).addTo(groups.metroAll.g);
-  });
-  const TYPE17 = { incendie: "Incendie", pillage: "Pillage", barricade: "Barricade", affrontement: "Affrontements", degradation: "Dégradation" };
-  (D.oct17 || []).forEach(o => L.marker(o.ll, { icon: pin(o.type, `${TYPE17[o.type]} · ${o.name}`) })
-    .bindPopup(`<b>${TYPE17[o.type]} · ${esc(o.name)}</b><br>${esc(o.text)}<br><span style="color:var(--muted)">${esc(o.date)} · <a href="${esc(o.url)}" target="_blank" rel="noopener">source ↗</a></span>`).addTo(groups.oct17.g));
-  D.closedVenues.forEach(s => L.marker(s.ll, { icon: pin("venue", `${s.name} · fermé`) })
-    .bindPopup(`<b>${esc(s.name)}</b><br>Fermé aujourd'hui`).addTo(groups.venues.g));
-  D.places.forEach(p => p.kind === "banned"
-    ? L.marker(p.ll, { icon: pin("banned", p.name) }).bindPopup(`<b>${esc(p.name)}</b><br>${esc(p.note)}`).addTo(groups.banned.g)
-    : L.marker(p.ll, { icon: pin(p.kind, p.name, { label: true }), zIndexOffset: 600 }).bindPopup(`<b>${esc(p.name)}</b><br>${esc(p.note)}`).addTo(groups.route.g));
-  D.incidents.forEach(i => L.marker(i.ll, { icon: pin("incident", `${i.t} · ${i.text}`, { color: ["", "--s1", "--s2", "--s3", "--s4"][i.sev] }), zIndexOffset: 800 })
-    .bindPopup(`<b>${esc(i.t)} · Incident</b><br>${esc(i.text)}`).addTo(groups.incidents.g));
-  L.marker(head, { icon: pin("head", "Tête de cortège"), zIndexOffset: 1000 })
-    .bindPopup(`<b>Tête de cortège</b><br>${headLabel()}`).addTo(groups.route.g);
-  sizeGeo();
-}
-// les disques se dimensionnent à l'ajout d'une couche
-Object.values(groups).forEach(o => o.g.on("add", () => setTimeout(sizeGeo)));
-$("bhead").onclick = () => map.flyTo(headSplit().pt, 15, { duration: 1.2 });
-$("bhead").insertAdjacentHTML("beforebegin", `<button class="chip" id="broute">Tout le parcours</button>`);
-$("broute").onclick = () => { autoFrame = false; frameRoute(); };
-$("broute").insertAdjacentHTML("beforebegin", `<button class="chip" id="bhot">Points chauds</button>`);
-$("bhot").onclick = () => { autoFrame = true; autoHot(); };
-// mobile : carte verrouillée par défaut pour que le doigt fasse défiler la page ; un tap la déverrouille, le défilement la reverrouille
-if (isNarrow) {
-  const lockMap = on => {
-    ["dragging", "touchZoom", "doubleClickZoom", "scrollWheelZoom", "tap"].forEach(h => map[h] && (on ? map[h].disable() : map[h].enable()));
-    $("maplock").hidden = !on;
-  };
-  lockMap(true);
-  $("maplock").onclick = () => lockMap(false);
-  let y0 = scrollY; addEventListener("scroll", () => { if (Math.abs(scrollY - y0) > 40 && $("maplock").hidden) lockMap(true); y0 = scrollY; }, { passive: true });
-}
-$("bparis").onclick = () => map.flyToBounds(parisRing, { padding: [20, 20], duration: 1.2 });
-
-
-/* ---------- carte de France (vue macro des tensions) ---------- */
-const CITY_LL = { "Paris": [48.857, 2.352], "Marseille": [43.296, 5.37], "Lyon": [45.764, 4.835], "Nantes": [47.218, -1.554], "Bordeaux": [44.838, -0.579],
-  "Dijon": [47.322, 5.041], "Strasbourg": [48.573, 7.752], "Saint-Étienne": [45.44, 4.387], "Grenoble": [45.188, 5.724], "Lille": [50.629, 3.057],
-  "Rennes": [48.117, -1.678], "Toulon": [43.124, 5.928], "Chambéry": [45.564, 5.917], "Toulouse": [43.605, 1.444], "Nice": [43.71, 7.262],
-  "Rouen": [49.443, 1.1], "Brest": [48.39, -4.486], "Limoges": [45.833, 1.262], "Le Havre": [49.494, 0.108], "Orléans": [47.903, 1.909],
-  "Tours": [47.394, 0.685], "Montpellier": [43.611, 3.877], "Clermont-Ferrand": [45.778, 3.087], "Aix": [43.529, 5.447], "Nancy": [48.692, 6.184], "Metz": [49.12, 6.176], "Mayenne": [48.303, -0.614], "Auxerre": [47.798, 3.567], "Caen": [49.182, -0.37], "Guéret": [46.171, 1.871], "Pas-de-Calais": [50.513, 2.636] };
-// niveau de tension déduit du texte (0 calme · 1 tension · 2 heurts · 3 pillages/feux)
-function cityHeat(txt) {
-  const t = (txt || "").toLowerCase();
-  if (/pill|incendi|feux|barricade|vitrines? bris/.test(t)) return 3;
-  if (/affront|heurt|mortier|black bloc|blessé|projectile|violen|rixe|agress/.test(t)) return 2;
-  if (/lacrymo|canon à eau|tendu|tension|dispers|bloqu|interdit/.test(t)) return 1;
-  return 0;
-}
-let frMap = null, frLayer = null;
-function drawFrance() {
-  if (!$("frmap")) return;
-  if (!frMap) {
-    frMap = L.map("frmap", { zoomControl: false, attributionControl: false, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, touchZoom: false, zoomSnap: .1 });
-    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", { maxZoom: 10 }).addTo(frMap);
-    frMap.fitBounds([[42.3, -4.8], [51.1, 8.3]], { padding: [4, 4] });
-    frLayer = L.layerGroup().addTo(frMap);
+  // bandeau
+  const nx = B.next;
+  $("#nxTitle").textContent = nx.label + " · " + nx.title;
+  $("#nxText").textContent = nx.text;
+  $("#nxMeta").innerHTML = `Avant cela, <b>${esc(nx.before.label)}</b> : ${esc(nx.before.text)} <a href="${esc(nx.before.url)}" target="_blank" rel="noopener">${esc(nx.before.src)}</a>. · Source : <a href="${esc(nx.url)}" target="_blank" rel="noopener">${esc(nx.src)}</a>. Le direct ManifMonitor reprend la veille.`;
+  function countdown() {
+    const ms = new Date(nx.date) - new Date();
+    const d = Math.ceil(ms / 864e5);
+    if (ms <= 0) { $("#cdJ").textContent = "Jour J"; $("#cdU").textContent = ""; return; }
+    $("#cdJ").textContent = "J-" + d;
+    $("#cdU").textContent = d > 1 ? "jours" : "demain";
   }
-  frLayer.clearLayers();
-  const parisHeat = Math.max(0, ...(D.hotZones || []).map(z => z.heat || 0));
-  const pts = (D.cities || []).filter(c => CITY_LL[c.city]).map(c => ({ name: c.city, ll: CITY_LL[c.city], heat: cityHeat(c.text), text: c.text }));
-  pts.push({ name: "Paris", ll: CITY_LL.Paris, heat: Math.max(parisHeat, 2), text: D.meta.tensionNote });
-  pts.sort((a, b) => a.heat - b.heat).forEach(p => {
-    const size = [10, 14, 20, 26][p.heat];
-    const m = L.marker(p.ll, { icon: L.divIcon({ className: "", iconSize: [size, size], iconAnchor: [size / 2, size / 2],
-      html: `<div class="frdot h${p.heat}" style="width:${size}px;height:${size}px"></div>` + (p.heat >= 2 || p.name === "Paris" ? `<span class="frname" style="left:${size + 3}px">${esc(p.name)}</span>` : "") }) })
-      .bindTooltip(`<b>${esc(p.name)}</b><br>${esc(p.text || "")}`, { direction: "top", offset: [0, -size / 2], className: "frtip" });
-    m.addTo(frLayer);
-  });
-}
-addEventListener("resize", () => frMap && frMap.invalidateSize());
+  countdown(); setInterval(countdown, 60000);
 
-/* ---------- panneaux ---------- */
-function drawHeader() {
-  const m = D.meta;
-  $("subtitle").textContent = `${m.title} · cortège Porte d'Italie → Porte de Vincennes`;
-  $("tbars").innerHTML = [1, 2, 3, 4, 5].map(i => `<i style="${i <= m.tension ? `background:${SEVC[Math.min(i, 4)]}` : ""}"></i>`).join("");
-  $("tlabel").textContent = `Niveau ${m.tension} · ${TENSION[m.tension]}`;
-  $("tlabel").style.color = SEVC[Math.min(m.tension, 4)];
-  $("tnote").textContent = m.tensionNote;
-}
-const kpiMins = at => /^\d\d:\d\d$/.test(at) ? Math.round(parisNow() - mins(at)) : null;
-const kpiAge = at => { const m = kpiMins(at); return m == null || m < 1 ? "" : ` · il y a ${m >= 60 ? Math.floor(m / 60) + " h " + String(m % 60).padStart(2, "0") : m + " min"}`; };
-const kpiStale = at => { const m = kpiMins(at); return m == null ? true : m > 60; };
-function drawKpis() {
-  $("kpis").innerHTML = D.kpis.map(k => `<div class="kpi">
-    <div class="l">${esc(k.label)}</div>
-    <div class="v">${esc(k.value)}<span class="tr ${k.trend}">${TREND[k.trend] || ""}</span></div>
-    <div class="d" title="${esc(k.delta)}">${esc(k.delta)}</div>
-    <div class="s">${esc(k.src)} · ${esc(k.at)}${kpiAge(k.at)}</div></div>`).join("");
-  document.querySelectorAll(".kpi").forEach((el, i) => el.classList.toggle("stale", kpiStale(D.kpis[i].at)));
-}
-function drawFilters() {
-  const counts = D.feed.reduce((a, f) => (a[f.cat] = (a[f.cat] || 0) + 1, a), {});
-  $("filters").innerHTML = Object.entries(CATS).map(([k, v]) =>
-    `<button class="chip" data-cat="${k}" aria-pressed="${filter === k}">${v}${k === "all" ? "" : " " + (counts[k] || 0)}</button>`).join("");
-  $("filters").querySelectorAll(".chip").forEach(b => b.onclick = () => { filter = b.dataset.cat; drawFilters(); drawFeed(); });
-}
-function drawFeed() {
-  const items = [...D.feed].sort((a, b) => mins(b.t) - mins(a.t)).filter(f => filter === "all" || f.cat === filter);
-  $("feedn").textContent = `${D.feed.length} entrées`;
-  $("feed").innerHTML = items.map(f => {
-    const key = f.t + f.text, isNew = !first && !seen.has(key);
-    const inc = f.incident ?? (f.sev >= 3 && f.cat === "securite");
-    return `<article class="item sev${f.sev}${inc ? " incident" : ""}${isNew ? " new" : ""}">
-      <time>${esc(f.t)}${f.approx ? "<small>≈ heure</small>" : ""}</time>
-      <div><p>${esc(f.text)}</p><div class="meta"><span class="tag" style="color:${SEVC[f.sev]}">${CATS[f.cat] || f.cat}</span>
-      <a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.src)} ↗</a></div></div></article>`;
-  }).join("") || `<p class="note" style="padding:14px">Aucune entrée dans cette catégorie.</p>`;
-  D.feed.forEach(f => seen.add(f.t + f.text));
-}
-function drawSide() {
-  drawFrance();
-  $("cities").innerHTML = D.cities.map(c => `<div class="row" style="grid-template-columns:70px minmax(0,1fr)"><span class="badge ${c.state}">${esc(c.state)}</span><span><b>${esc(c.city)}</b> · ${esc(c.text)}</span></div>`).join("");
-  $("agenda").innerHTML = D.agenda.map(a => `<div class="row"><span>${esc(a.d)}</span><span>${esc(a.text)}</span></div>`).join("");
-  $("sources").innerHTML = D.sources.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} ↗</a>`).join("");
-  const c = D.meta.curfew;
-  $("curfew").innerHTML = `Couvre-feu <b style="color:var(--night)">${c.start}–${c.end}</b> autour de République et des Halles, jusqu'au ${esc(c.until)}. Parcours Bastille–Nation et Bastille–Opéra interdits. Rassemblements av. Gabriel interdits. Participer à un rassemblement non déclaré expose à une amende.`;
-}
+  $("#noticeText").textContent = B.provisionalNote;
+  $("#notice").hidden = !B.provisional;
+  $("#upd").textContent = new Date(B.updated).toLocaleString("fr-FR", { dateStyle: "long", timeStyle: "short", timeZone: "Europe/Paris" });
 
-/* ---------- frise 08h → 26h ---------- */
-const T0 = 8 * 60, T1 = 26 * 60;
-const pos = t => { let m = mins(t); if (m < T0) m += 1440; return ((m - T0) / (T1 - T0) * 100).toFixed(2) + "%"; };
-function drawTimeline() {
-  const w = D.meta.window, c = D.meta.curfew;
-  let h = `<div class="axis"></div>
-    <div class="win" style="left:${pos(w.start)};width:calc(${pos(w.end)} - ${pos(w.start)})" title="Fenêtre autorisée"></div>
-    <div class="cf" style="left:${pos(c.start)};right:0" title="Couvre-feu"></div>`;
-  for (let x = 8; x <= 26; x += 2) h += `<span class="tick" style="left:${((x * 60 - T0) / (T1 - T0) * 100)}%">${String(x % 24).padStart(2, "0")}h</span>`;
-  D.milestones.forEach((m, i) => h += `<span class="ms" style="left:${pos(m.t)};top:${i % 2 ? 0 : 0}px" title="${esc(m.t)}">${esc(m.text)}</span>`);
-  D.feed.forEach(f => h += `<span class="ev" style="left:${pos(f.t)};background:${SEVC[f.sev]}" title="${esc(f.t + " · " + f.text)}"></span>`);
-  h += `<span class="now" id="now"></span>`;
-  $("tl").innerHTML = h;
-  $("tlwin").textContent = `Fenêtre autorisée ${w.start}–${w.end}`;
-  tickNow();
-}
-function tickNow() {
-  const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" }));
-  const hm = String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
-  $("clock").textContent = hm + ":" + String(d.getSeconds()).padStart(2, "0");
-  const n = $("now"); if (n) n.style.left = pos(hm);
-  const age = Math.round((Date.now() - new Date(D.meta.updated)) / 60000);
-  const u = $("updated");
-  u.textContent = `MàJ données ${new Date(D.meta.updated).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Paris" })} · il y a ${age < 0 ? 0 : age} min`;
-  u.classList.toggle("stale", age > 30);
-}
-
-let tvChan = null;
-function drawTv() {
-  const V = D.videos || [];
-  if (!tvChan || !V.find(v => v.vid === tvChan)) tvChan = V[0]?.vid;
-  $("chans").innerHTML = V.map(v => `<button class="chip" data-id="${esc(v.vid)}" aria-pressed="${v.vid === tvChan}" title="${esc(v.title)}">${esc(v.name)}</button>`).join("");
-  $("chans").querySelectorAll(".chip").forEach(b => b.onclick = () => { tvChan = b.dataset.id; drawTv(); });
-  const src = `https://www.youtube.com/embed/${tvChan}?autoplay=1&mute=1`;
-  if ($("tv").getAttribute("src") !== src) $("tv").setAttribute("src", src);
-  $("tvlink").href = `https://www.youtube.com/watch?v=${tvChan}`;
-}
-function render() { drawTv(); drawHeader(); drawKpis(); drawFilters(); drawFeed(); drawSide(); drawTimeline(); drawMap(); if (!first) autoHot(); first = false; }
-render();
-setInterval(tickNow, 1000);
-
-/* rechargement des données sans le cache de 10 min de GitHub Pages :
-   - toutes les 2 min, l'API GitHub donne le dernier commit (exact, mais limité à 60 appels/h par IP) → data.js figé à ce commit ;
-   - toutes les 30 s entre deux, data.js @main sur raw.githubusercontent (cache 1 à 5 min, sans quota) ;
-   - en local : data.js à côté de la page. */
-const REPO = "Jrm-EDM/manifmonitor";
-let lastSha = null, lastApi = 0;
-function applyData() { if (window.MANIF_DATA.meta.updated !== D.meta.updated) { D = window.MANIF_DATA; render(); } }
-async function runRemote(url) {
-  const r = await fetch(url, { cache: "no-store" });
-  if (!r.ok) throw new Error(r.status);
-  new Function(await r.text())();
-  applyData();
-}
-async function refreshData() {
-  if (!/artificiel\.ai|github\.io/.test(location.hostname)) {
-    const s = document.createElement("script"); s.src = "data.js?t=" + Date.now();
-    s.onload = () => { applyData(); s.remove(); }; s.onerror = () => s.remove(); document.body.appendChild(s); return;
+  // infobulle
+  const tip = $("#tip");
+  function showTip(e, html) {
+    tip.innerHTML = html; tip.classList.add("on");
+    const r = tip.getBoundingClientRect();
+    let x, y;
+    if (e.clientX != null && e.type !== "focus") { x = e.clientX + 14; y = e.clientY + 14; }
+    else { const b = e.target.getBoundingClientRect(); x = b.left; y = b.bottom + 8; }
+    x = Math.min(x, innerWidth - r.width - 8); y = Math.min(y, innerHeight - r.height - 8);
+    tip.style.left = Math.max(8, x) + "px"; tip.style.top = Math.max(8, y) + "px";
   }
-  try {
-    if (Date.now() - lastApi > 115000) {
-      lastApi = Date.now();
-      const r = await fetch(`https://api.github.com/repos/${REPO}/commits/main`, { headers: { Accept: "application/vnd.github.sha" }, cache: "no-store" });
-      if (r.ok) {
-        const sha = (await r.text()).trim();
-        if (sha !== lastSha) { lastSha = sha; return await runRemote(`https://raw.githubusercontent.com/${REPO}/${sha}/data.js`); }
-        return;
-      }
-    }
-    await runRemote(`https://raw.githubusercontent.com/${REPO}/main/data.js?t=${Date.now()}`);
-  } catch (e) {
-    try { await runRemote(`https://cdn.jsdelivr.net/gh/${REPO}@main/data.js?t=${Date.now()}`); } catch (e2) {}
+  const hideTip = () => tip.classList.remove("on");
+  function bindTips(root) {
+    root.querySelectorAll("[data-tip]").forEach((el) => {
+      const h = (e) => showTip(e, el.dataset.tip);
+      el.addEventListener("pointermove", h); el.addEventListener("focus", h);
+      el.addEventListener("pointerleave", hideTip); el.addEventListener("blur", hideTip);
+    });
   }
-}
-setInterval(refreshData, 30000);
-addEventListener("visibilitychange", () => { if (!document.hidden) refreshData(); });
-refreshData();
+  const tipHtml = (day, color, v, src, approx) =>
+    `<div class="t"><i style="background:${color}"></i>${day}</div><div class="v">${v == null ? "En attente" : (approx ? "≈ " : "") + fmt(v)}</div><div class="s">${esc(src)}</div>`;
+
+  // cartes de comparaison
+  function pick(m) {
+    if (srcMode === "alt" && m.alt) return { a: m.alt.a, b: m.alt.b, aSrc: m.alt.aSrc, bSrc: m.alt.bSrc, bApprox: false };
+    return m;
+  }
+  function ratioText(a, b, unit) {
+    if (a == null || b == null) return `<span>${b == null ? "Bilan du 24/10 attendu" : "—"}</span>`;
+    if (a === b) return `Stable<small>${fmt(a)} ${unit} les deux jours</small>`;
+    if (a === 0 || b === 0) return `${fmt(a)} → ${fmt(b)}<small>${unit}</small>`;
+    const r = b / a;
+    if (r >= 1.5) return `× ${(r).toLocaleString("fr-FR", { maximumFractionDigits: 1 })}<small>par rapport au 17/10</small>`;
+    const pct = Math.round((r - 1) * 100);
+    return `${pct > 0 ? "+" : "−"}${Math.abs(pct)} %<small>par rapport au 17/10</small>`;
+  }
+  function renderCards() {
+    const html = B.compare.map((m) => {
+      const p = pick(m);
+      const max = Math.max(p.a || 0, p.b || 0) || 1;
+      const row = (k, day, color, v, src, approx) => {
+        const pending = v == null;
+        const w = pending ? 100 : Math.max(v === 0 ? 0 : 1.5, (v / max) * 100);
+        return `<div class="row"><div class="d">${day}</div>
+          <div class="track" tabindex="0" data-tip="${esc(tipHtml(day === "17/10" ? "17 octobre" : "24 octobre", color, v, src, approx))}" aria-label="${day} : ${pending ? "en attente" : fmt(v)}">
+            <div class="bar ${k}${pending ? " pending" : ""}" style="width:${w}%"></div></div>
+          <div class="v">${pending ? "?" : (approx ? "≈" : "") + fmt(v)}</div></div>`;
+      };
+      return `<article class="card"><div class="l">${esc(m.label)}</div><div class="ratio">${ratioText(p.a, p.b, m.unit)}</div>
+        ${row("a", "17/10", "var(--d17)", p.a, p.aSrc)}
+        ${row("b", "24/10", "var(--d24)", p.b, p.bSrc, p.bApprox)}
+        ${m.note ? `<div class="n">${esc(m.note)}</div>` : ""}</article>`;
+    }).join("");
+    const pol = B.police;
+    const hero = `<article class="card hero"><div class="l">Policiers et gendarmes mobilisés le 24/10</div>
+      <div class="big" tabindex="0" data-tip="${esc(tipHtml("24 octobre", "var(--d24)", pol.b, pol.src))}"><em>${fmt(pol.b)}</em></div>
+      <div class="n">${esc(pol.delta)} · ${esc(pol.src)}</div></article>`;
+    $("#cards").innerHTML = html + hero;
+    bindTips($("#cards"));
+    // tableau
+    $("#cmpTable").innerHTML = `<thead><tr><th>Indicateur</th><th>17 octobre</th><th>24 octobre</th></tr></thead><tbody>` +
+      B.compare.map((m) => { const p = pick(m); return `<tr><td>${esc(m.label)}</td><td class="num">${fmt(p.a)}<div class="s">${esc(p.aSrc)}</div></td><td class="num">${p.b == null ? "en attente" : (p.bApprox ? "≈" : "") + fmt(p.b)}<div class="s">${esc(p.bSrc)}</div></td></tr>`; }).join("") +
+      `<tr><td>Policiers et gendarmes mobilisés</td><td class="num">—</td><td class="num">${fmt(pol.b)}<div class="s">${esc(pol.delta)}</div></td></tr></tbody>`;
+    $("#cards").hidden = view !== "chart"; $("#cmpTable").hidden = view !== "table";
+  }
+
+  // villes : une seule échelle pour toutes
+  function renderCities() {
+    const rows = B.cities.map((c) => ({ ...c, chg: (c.b - c.a) / c.a }));
+    rows.sort((x, y) => sortKey === "chg" ? x.chg - y.chg : y[sortKey] - x[sortKey]);
+    const top = Math.max(...rows.flatMap((c) => [c.a, c.b]));
+    const max = top * 1.12; // marge pour l'étiquette de la plus grande barre
+    const step = top > 60000 ? 25000 : 10000;
+    const ticks = []; for (let t = 0; t <= top; t += step) ticks.push(t);
+    const bar = (k, color, day, v, src, approx) =>
+      `<div class="track" tabindex="0" data-tip="${esc(tipHtml(day, color, v, src, approx))}" aria-label="${day} : ${fmt(v)}"><div class="bar ${k}" style="width:${(v / max) * 100}%"></div><span class="lab" style="left:${(v / max) * 100}%">${approx ? "≈" : ""}${fmt(v)}</span></div>`;
+    $("#cities").innerHTML = rows.map((c) => {
+      const pct = Math.round(c.chg * 100);
+      return `<div class="city"><div class="name">${esc(c.city)}</div><div class="pair">
+        ${bar("a", "var(--d17)", "17 octobre · " + c.city, c.a, c.aSrc)}
+        ${bar("b", "var(--d24)", "24 octobre · " + c.city, c.b, c.bSrc, c.bApprox)}</div>
+        <div class="chg" style="color:${pct === 0 ? "var(--muted)" : "var(--fg)"}">${pct === 0 ? "=" : (pct > 0 ? "+" : "−") + Math.abs(pct) + " %"}</div></div>`;
+    }).join("") + `<div class="axis" aria-hidden="true"><span></span><div class="ticks">${ticks.map((t) => `<span style="left:${(t / max) * 100}%">${t === 0 ? "0" : fmt(t / 1000) + " k"}</span>`).join("")}</div><span></span></div>`;
+    bindTips($("#cities"));
+  }
+  $("#cityNote").textContent = B.citiesNote;
+
+  // contrastes
+  $("#contrast").innerHTML = `<thead><tr><th></th><th><i style="background:var(--d17)"></i>17 octobre</th><th><i style="background:var(--d24)"></i>24 octobre</th></tr></thead><tbody>` +
+    B.contrasts.map((c) => `<tr><td class="k">${esc(c.k)}</td><td data-d="17 octobre">${esc(c.a)}<span class="s">${esc(c.aSrc)}</span></td><td data-d="24 octobre">${esc(c.b)}${c.bSrc ? `<span class="s">${esc(c.bSrc)}</span>` : ""}</td></tr>`).join("") + `</tbody>`;
+
+  $("#sources").innerHTML = B.sources.map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a></li>`).join("");
+
+  // contrôles
+  function segBind(attr, set) {
+    document.querySelectorAll(`[data-${attr}]`).forEach((btn) => btn.addEventListener("click", () => {
+      btn.parentElement.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      set(btn.dataset[attr]);
+    }));
+  }
+  segBind("src", (v) => { srcMode = v; renderCards(); });
+  segBind("view", (v) => { view = v; renderCards(); });
+  segBind("sort", (v) => { sortKey = v; renderCities(); });
+
+  renderCards(); renderCities();
+})();
 </script>
-
 </body>
 </html>
