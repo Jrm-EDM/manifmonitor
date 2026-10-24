@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T18:43:00+02:00",
+    updated: "2026-10-24T18:46:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : plus de 500 casseurs cours de Vincennes (préfecture), mortiers et lacrymogènes. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "18:00", cat: "securite", sev: 2, text: "Lyon : 29 interpellations à 18h.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "18:31", cat: "securite", sev: 4, incident: true, text: "Paris, cours de Vincennes : plus de 500 casseurs en fin de cortège selon la préfecture, tirs de mortiers sur les forces de l'ordre, interpellations en cours.", src: "ICI / CNews", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "18:30", cat: "securite", sev: 2, text: "Paris : des renforts policiers arrivent cours de Vincennes.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "18:26", cat: "securite", sev: 3, incident: true, text: "Grenoble : vitrines brisées (agence immobilière, notaire, agence d'intérim) ; Nantes : une bijouterie pillée.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
@@ -282,7 +283,7 @@ window.MANIF_DATA = {
 
   cities: [
     { city: "Marseille", state: "autorisé", text: "17 000 selon la préfecture, 100 000 selon les syndicats ; 1 000 à Aix malgré l'interdiction" },
-    { city: "Lyon", state: "interdit", text: "~10 000 manifestants dispersés dans les rues (CNews 16h40) ; mortiers contre les forces de l'ordre, lacrymogènes" },
+    { city: "Lyon", state: "interdit", text: "~10 000 manifestants malgré l'interdiction, 29 interpellations (18h) ; mortiers et lacrymogènes" },
     { city: "Nantes", state: "interdit", text: "Pillages de magasins, 6 interpellations (17h24) ; manifestants vers la préfecture, canon à eau et Centaure" },
     { city: "Bordeaux", state: "interdit", text: "Heurts place de la Bourse : pavés arrachés, mobilier incendié (17h51) ; 15 500 manifestants" },
     { city: "Dijon", state: "vigilance", text: "Permanence des Républicains vandalisée (17h19)" },
