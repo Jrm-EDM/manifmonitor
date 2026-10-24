@@ -5,11 +5,11 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:28:00+02:00",
+    updated: "2026-10-24T17:31:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : 110 000 manifestants, calme ; reflux vers Nation bloqué par les CRS. Tension en régions.",
     window: { start: "13:00", end: "19:00" },
-    march: { start: "14:30", end: "18:30" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
+    march: { start: "14:30", end: "17:00" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
   },
 
@@ -23,6 +23,9 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:28", cat: "cortege", sev: 1, text: "Préfecture : le cortège parisien a atteint la porte de Vincennes à 17h00 ; 110 000 manifestants pour le pouvoir d'achat et les services publics, « situation calme dans l'ensemble de l'agglomération ».", src: "CNews / AFP", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
+    { t: "17:24", cat: "cortege", sev: 1, text: "Auxerre : malgré l'interdiction, des manifestants dénoncent des « libertés bafouées ».", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "17:19", cat: "securite", sev: 3, incident: true, text: "Bordeaux : affrontements place de la Bourse entre gendarmes mobiles, CRS et groupes violents ; Dijon : la permanence des Républicains vandalisée.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "17:24", cat: "securite", sev: 3, incident: true, text: "Nantes : pillage de magasins signalé par la préfecture, six interpellations.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "17:23", cat: "justice", sev: 2, text: "Le parquet de Paris saisit l'IGPN après qu'un photographe a été grièvement blessé par une grenade policière le 17 octobre ; son avocat parle de « tentative d'homicide volontaire ».", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "17:22", cat: "cortege", sev: 1, text: "Paris : la dispersion a commencé Porte de Vincennes. Préfecture : situation « calme », 110 000 manifestants (autant que le 17 octobre), 65 interpellations, 3 000 contrôles.", src: "France 3 Paris IDF / franceinfo", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
@@ -251,7 +254,8 @@ window.MANIF_DATA = {
     { city: "Marseille", state: "autorisé", text: "17 000 manifestants selon la préfecture, cortège calme ; 1 000 à Aix malgré l'interdiction" },
     { city: "Lyon", state: "interdit", text: "~10 000 manifestants dispersés dans les rues (CNews 16h40) ; mortiers contre les forces de l'ordre, lacrymogènes" },
     { city: "Nantes", state: "interdit", text: "Pillages de magasins, 6 interpellations (17h24) ; manifestants vers la préfecture, canon à eau et Centaure" },
-    { city: "Bordeaux", state: "interdit", text: "15 500 manifestants ; projectiles sur les CRS et lacrymogènes (15h51)" },
+    { city: "Bordeaux", state: "interdit", text: "Affrontements place de la Bourse (17h19) ; 15 500 manifestants" },
+    { city: "Dijon", state: "vigilance", text: "Permanence des Républicains vandalisée (17h19)" },
     { city: "Lille", state: "vigilance", text: "Canon à eau pour repousser les manifestants (17h10)" },
     { city: "Chambéry", state: "interdit", text: "Violents affrontements en centre-ville (16h50)" },
     { city: "Toulouse", state: "vigilance", text: "La police peine à disperser les manifestants (16h42)" },
