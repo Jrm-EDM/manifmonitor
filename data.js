@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T18:16:00+02:00",
+    updated: "2026-10-24T18:19:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : affrontements cours de Vincennes (mortiers, lacrymos), groupe arrivé à Nation. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "18:15", cat: "transports", sev: 2, text: "Porte de Vincennes : on peut quitter la zone, mais sortir en transports est difficile, notamment place de la Nation.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "18:10", cat: "cortege", sev: 2, text: "Ministère de l'Intérieur : 410 000 manifestants en France samedi (800 000 selon la CGT).", src: "CNews / franceinfo", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "18:09", cat: "securite", sev: 3, incident: true, text: "Paris, cours de Vincennes : tirs de mortiers sur les forces de l'ordre, riposte aux gaz lacrymogènes, interpellations en cours.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
     { t: "18:08", cat: "securite", sev: 3, text: "Paris : un groupe de manifestants arrive place de la Nation, malgré le barrage (selon Le Monde).", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
