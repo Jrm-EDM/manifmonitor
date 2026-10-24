@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ManifMonitor Paris</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Salle de veille : barre d'état, rangée de compteurs, puis carte au centre entre fil (gauche) et contexte (droite), frise de la journée en bas. */
+:root {
+  --bg: #0d1117;
+  --panel: #131a23;
+  --panel-2: #18212c;
+  --line: #243041;
+  --fg: #dfe6ee;
+  --muted: #8593a5;
+  --accent: #4f8dff;      /* bleu : contour de Paris, dispositif policier */
+  --march: #2cf5b8;       /* menthe : cortège */
+  --night: #b7a4ff;       /* lavande : couvre-feu */
+  --past: #d9a066;        /* ocre : dégâts du 17 octobre (archive) */
+  --heat1: #ff6a2b;       /* zones chaudes : tension */
+  --heat2: #ff2a2a;       /*               affrontements */
+  --heat3: #ff0a54;       /*               émeutes */
+  --s1: #6b7d93;          /* info */
+  --s2: #e2b340;          /* notable */
+  --s3: #f07a2b;          /* alerte */
+  --s4: #ff3b4f;          /* critique */
+  --ok: #3fbf7f;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 14px/1.45 var(--body); display: flex; flex-direction: column; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* barre d'état */
+header { display: flex; align-items: center; gap: 20px; padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); border-bottom: 1px solid var(--line); background: var(--panel); flex-wrap: wrap; }
+.brand { font: 700 22px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; }
+.brand b { color: var(--s4); }
+.sub { color: var(--muted); font-size: 12px; }
+.live { display: inline-flex; align-items: center; gap: 6px; font: 600 12px var(--mono); color: var(--s4); letter-spacing: .1em; }
+.live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--s4); animation: pulse 1.4s infinite; }
+@keyframes pulse { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .live::before { animation: none; } }
+.spacer { flex: 1; }
+.clock { font: 500 20px var(--mono); font-variant-numeric: tabular-nums; }
+.tension { display: flex; align-items: center; gap: 8px; }
+.tension .bars { display: flex; gap: 3px; }
+.tension .bars i { width: 14px; height: 18px; background: var(--line); border-radius: 2px; }
+.tension .lbl { font: 600 13px var(--display); letter-spacing: .08em; text-transform: uppercase; }
+.updated { font: 12px var(--mono); color: var(--muted); }
+.updated.stale { color: var(--s3); }
+
+/* compteurs */
+.kpis { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+.kpi { padding: 10px 14px; border-right: 1px solid var(--line); min-width: 0; }
+.kpi:last-child { border-right: 0; }
+.kpi .l { font: 600 11px var(--display); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.kpi .v { font: 700 30px/1.1 var(--display); font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: 6px; }
+.kpi .tr { font-size: 14px; }
+.tr.up { color: var(--s3); } .tr.down { color: var(--ok); } .tr.flat { color: var(--muted); }
+.kpi .d { font-size: 12px; color: var(--fg); opacity: .8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpi .s { font: 10.5px var(--mono); color: var(--muted); }
+
+/* grille principale */
+main { flex: 1; min-height: 0; display: grid; grid-template-columns: 340px minmax(0, 1fr) 330px; }
+.col { min-height: 0; overflow-y: auto; border-right: 1px solid var(--line); background: var(--panel); }
+.col.right { border-right: 0; border-left: 1px solid var(--line); }
+.ph { position: sticky; top: 0; z-index: 2; background: var(--panel); display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); font: 700 13px var(--display); letter-spacing: .12em; text-transform: uppercase; }
+.ph .n { font: 11px var(--mono); color: var(--muted); letter-spacing: 0; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.chip { font: 500 11px var(--mono); padding: 3px 8px; border: 1px solid var(--line); border-radius: 3px; background: transparent; color: var(--muted); cursor: pointer; }
+.chip[aria-pressed="true"] { color: var(--fg); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); }
+
+.item { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 10px; padding: 10px 14px 10px 11px; border-bottom: 1px solid var(--line); border-left: 3px solid var(--s1); }
+.item.sev2 { border-left-color: var(--s2); } .item.sev3 { border-left-color: var(--s3); } .item.sev4 { border-left-color: var(--s4); background: color-mix(in srgb, var(--s4) 8%, transparent); }
+.item.incident { background: color-mix(in srgb, var(--s4) 16%, var(--panel)); border-left-color: var(--s4); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--s4) 45%, transparent); }
+.item.incident time { color: var(--s4); }
+.item.incident .tag::before { content: "INCIDENT · "; color: var(--s4); font-weight: 600; }
+.item.new { animation: flash 2.5s ease-out; }
+@keyframes flash { from { background: color-mix(in srgb, var(--accent) 30%, transparent); } }
+.item time { font: 500 13px var(--mono); font-variant-numeric: tabular-nums; }
+.item time small { display: block; color: var(--muted); font-size: 10px; }
+.item p { margin: 0 0 4px; }
+.item .meta { font: 10.5px var(--mono); color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; }
+.tag { text-transform: uppercase; letter-spacing: .06em; }
+
+/* carte */
+.mapwrap { position: relative; min-height: 0; }
+#map { position: absolute; inset: 0; background: #0a0e13; }
+.layers { position: absolute; top: 10px; right: 10px; z-index: 500; background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; display: grid; gap: 4px; font-size: 12px; }
+.layers label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.layers { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,.45); }
+.layers .ico { display: inline-flex; width: 18px; justify-content: center; filter: drop-shadow(0 1px 1px #000); }
+.mbtns { display: flex; gap: 6px; margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+
+/* marqueurs : picto nu en relief (biseau + ombre au sol) */
+.mk { position: relative; cursor: pointer; line-height: 0; }
+.mk3d { display: inline-block; line-height: 0; transform: translateY(-5px); transition: transform .15s;
+  filter: drop-shadow(0 -0.6px 0 rgba(255,255,255,.55)) drop-shadow(0 1px 0 rgba(0,0,0,.55)) drop-shadow(0 1.5px 0 rgba(0,0,0,.45)) drop-shadow(0 2px 0 rgba(0,0,0,.35)); }
+.mk-shadow { position: absolute; left: 15%; right: 15%; bottom: -3px; height: 26%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.75), transparent); transition: transform .15s, opacity .15s; }
+.mk:hover .mk3d { transform: translateY(-9px) scale(1.12); }
+.mk:hover .mk-shadow { transform: scale(.8); opacity: .6; }
+.layers .ico.mk3d { transform: none; }
+.mk-tip, .mk-label { position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); white-space: nowrap; font: 600 12px/1.2 var(--body); color: var(--fg); background: color-mix(in srgb, var(--panel-2) 94%, transparent); border: 1px solid var(--line); padding: 4px 7px; border-radius: 4px; pointer-events: none; opacity: 0; transition: opacity .15s; box-shadow: 0 6px 16px rgba(0,0,0,.5); }
+.mk:hover .mk-tip { opacity: 1; }
+.mk-label { opacity: 1; left: calc(100% + 6px); bottom: auto; top: 50%; transform: translateY(-60%); font: 700 13px var(--display); letter-spacing: .05em; text-transform: uppercase; border-color: color-mix(in srgb, var(--march) 60%, transparent); }
+.mk-head .mk3d { animation: bob 1.8s ease-in-out infinite; }
+.mk-head .mk-shadow { animation: shadowbob 1.8s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-11px); filter: drop-shadow(0 -0.6px 0 rgba(255,255,255,.55)) drop-shadow(0 2px 0 rgba(0,0,0,.5)) drop-shadow(0 0 10px var(--march)); } }
+@keyframes shadowbob { 50% { transform: scale(.7); opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .mk-head .mk3d, .mk-head .mk-shadow { animation: none; } }
+
+/* direct TV */
+.live-tv h3 { display: flex; }
+.chans { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+.tv { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: #000; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.tv iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+#tvlink { display: inline-block; margin-top: 6px; font-size: 11.5px; }
+
+/* éléments géographiques en relief */
+.disc { border-radius: 50%; pointer-events: none; }
+.disc-hot { position: relative; background: radial-gradient(circle, #fff3 0%, color-mix(in srgb, var(--c) 95%, #fff) 8%, color-mix(in srgb, var(--c) 75%, transparent) 26%, color-mix(in srgb, var(--c) 35%, transparent) 52%, color-mix(in srgb, var(--c) 10%, transparent) 70%, transparent 71%);
+  box-shadow: 0 0 60px 10px color-mix(in srgb, var(--c) 40%, transparent); mix-blend-mode: screen; animation: heat 2.4s ease-in-out infinite; }
+.disc-hot::before, .disc-hot::after { content: ""; position: absolute; inset: 15%; border-radius: 50%; border: 2px solid var(--c); opacity: 0; animation: shock 2.4s ease-out infinite; }
+.disc-hot::after { animation-delay: 1.2s; }
+.disc-hot.heat2 { animation-duration: 1.6s; } .disc-hot.heat2::before, .disc-hot.heat2::after { animation-duration: 1.6s; }
+.disc-hot.heat3 { animation: flicker .5s steps(2) infinite, heat 1s ease-in-out infinite; } .disc-hot.heat3::before, .disc-hot.heat3::after { animation-duration: 1s; border-width: 3px; }
+@keyframes heat { 50% { filter: brightness(1.35) saturate(1.3); } }
+@keyframes shock { 0% { transform: scale(.4); opacity: .95; } 100% { transform: scale(1.35); opacity: 0; } }
+@keyframes flicker { 50% { opacity: .82; } }
+.mk-hot .mk3d { filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 2px 0 rgba(0,0,0,.6)); }
+@media (prefers-reduced-motion: reduce) { .disc-hot, .disc-hot::before, .disc-hot::after { animation: none; } }
+.disc-secured { border: 3px solid color-mix(in srgb, var(--accent) 85%, #fff); background: radial-gradient(circle, color-mix(in srgb, var(--accent) 4%, transparent) 60%, color-mix(in srgb, var(--accent) 18%, transparent));
+  box-shadow: 0 4px 0 -1px #0a1a3a, 0 8px 12px rgba(0,0,0,.6), inset 0 2px 4px rgba(255,255,255,.18), inset 0 -3px 6px rgba(0,0,0,.4); opacity: .8; }
+.disc-curfew { border: 2px dashed var(--night); background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--night) 16%, transparent) 0 5px, transparent 5px 11px); box-shadow: 0 6px 14px rgba(0,0,0,.5); }
+
+/* parcours en ruban surélevé */
+.route-casing { filter: drop-shadow(0 0 1px rgba(0,0,0,.8)); }
+.route-done { filter: drop-shadow(0 0 5px var(--march)) drop-shadow(0 0 14px color-mix(in srgb, var(--march) 45%, transparent)); }
+.route-todo { animation: march 1.2s linear infinite; }
+@keyframes march { to { stroke-dashoffset: -8; } }
+@media (prefers-reduced-motion: reduce) { .route-todo { animation: none; } }
+.paris-edge { filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 2px var(--accent)); }
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--panel-2); color: var(--fg); border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(0,0,0,.5); }
+.leaflet-popup-content { font: 13px/1.4 var(--body); margin: 10px 12px; }
+.leaflet-popup-content b { font-family: var(--display); font-size: 15px; letter-spacing: .03em; }
+.leaflet-container a.leaflet-popup-close-button { color: var(--muted); }
+.leaflet-bar a { background: var(--panel-2); color: var(--fg); border-color: var(--line); }
+.leaflet-control-attribution { background: color-mix(in srgb, var(--panel) 85%, transparent) !important; color: var(--muted); }
+.leaflet-control-attribution a { color: var(--muted); }
+#map::after { z-index: 400; content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55)); }
+.maptag { position: absolute; left: 10px; bottom: 10px; z-index: 500; font: 10.5px var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 90%, transparent); padding: 4px 8px; border-radius: 3px; border: 1px solid var(--line); }
+
+/* colonne droite */
+.sec { padding: 10px 14px 14px; border-bottom: 1px solid var(--line); }
+.sec h3 { margin: 0 0 8px; font: 700 13px var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.row { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 8px; padding: 5px 0; font-size: 12.5px; align-items: start; }
+.badge { font: 600 11px var(--mono); padding: 2px 5px; border-radius: 3px; text-align: center; border: 1px solid; }
+.badge.coupé, .badge.interdit { color: var(--s4); border-color: color-mix(in srgb, var(--s4) 50%, transparent); }
+.badge.dévié, .badge.vigilance, .badge.\? { color: var(--s2); border-color: color-mix(in srgb, var(--s2) 50%, transparent); }
+.badge.ok, .badge.autorisé { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 50%, transparent); }
+.row b { font-weight: 600; }
+.agenda .row { grid-template-columns: 112px minmax(0, 1fr); }
+.agenda .row span:first-child { font: 11.5px var(--mono); color: var(--s2); }
+.src a { display: block; padding: 3px 0; font-size: 12.5px; }
+.note { font-size: 12.5px; color: var(--muted); margin: 0; }
+
+/* frise */
+footer { border-top: 1px solid var(--line); background: var(--panel); padding: 8px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); }
+.tl-h { display: flex; justify-content: space-between; font: 700 12px var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.tl { position: relative; height: 58px; }
+.tl .axis { position: absolute; left: 0; right: 0; top: 30px; height: 2px; background: var(--line); }
+.tl .win { position: absolute; top: 26px; height: 10px; background: color-mix(in srgb, var(--accent) 35%, transparent); border: 1px solid var(--accent); border-radius: 2px; }
+.tl .cf { position: absolute; top: 26px; height: 10px; background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--night) 45%, transparent) 0 4px, transparent 4px 8px); border: 1px solid color-mix(in srgb, var(--night) 70%, transparent); }
+.tl .tick { position: absolute; top: 40px; font: 10px var(--mono); color: var(--muted); transform: translateX(-50%); }
+.tl .ms { position: absolute; top: 0; transform: translateX(-50%); font-size: 10.5px; white-space: nowrap; color: var(--fg); }
+.tl .ms::after { content: ""; position: absolute; left: 50%; top: 16px; width: 1px; height: 12px; background: var(--muted); }
+.tl .ev { position: absolute; top: 27px; width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%); background: var(--s1); }
+.tl .now { position: absolute; top: 14px; bottom: 6px; width: 2px; background: var(--s4); }
+.tl .now::before { content: "MAINTENANT"; position: absolute; top: -14px; left: 4px; font: 600 9.5px var(--mono); color: var(--s4); letter-spacing: .08em; }
+
+@media (max-width: 1200px) {
+  .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .kpi:nth-child(3) { border-right: 0; }
+  .kpi:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
+  main { grid-template-columns: 300px minmax(0, 1fr); }
+  .col.right { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); }
+  body { height: auto; }
+  main { grid-auto-rows: 70vh auto; }
+}
+@media (max-width: 760px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpi { border-right: 0; border-bottom: 1px solid var(--line); }
+  main { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 60vh auto auto; }
+  .mapwrap { order: -1; }
+  .col { max-height: none; border-right: 0; }
+  .tl .ms { display: none; }
+}
+
+/* ---- zone carte : registre salle de crise, angles nets, typo technique ---- */
+.kpi.stale .v { color: var(--muted); }
+.kpi.stale .s { color: var(--s2); }
+.chip, .badge, .tv, .layers, .maptag, .mk-tip, .mk-label, .leaflet-popup-content-wrapper, .leaflet-bar, .leaflet-bar a, .leaflet-control-scale-line { border-radius: 0 !important; }
+.layers { padding: 0; gap: 0; background: color-mix(in srgb, var(--bg) 88%, transparent); border: 1px solid #2c3a4f; box-shadow: none; font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+.ltoggle { display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 10px; font: 600 10.5px var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--fg); background: color-mix(in srgb, var(--panel-2) 85%, transparent); border: 0; border-bottom: 1px solid #2c3a4f; cursor: pointer; }
+.ltoggle span:first-child { flex: 1; text-align: left; }
+.lcount { color: var(--muted); letter-spacing: .04em; }
+.lcaret { transition: transform .15s; }
+.layers.closed { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 0 18px color-mix(in srgb, var(--accent) 45%, transparent); animation: lpulse 2.2s ease-in-out infinite; }
+.layers.closed .ltoggle { border-bottom: 0; color: #fff; background: color-mix(in srgb, var(--accent) 28%, var(--bg)); }
+.layers.closed .lcaret { transform: rotate(-90deg); }
+.layers.closed .lbody { display: none; }
+@keyframes lpulse { 50% { box-shadow: 0 0 0 1px var(--accent), 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent); } }
+@media (prefers-reduced-motion: reduce) { .layers.closed { animation: none; } }
+.layers label { padding: 5px 10px; border-bottom: 1px solid color-mix(in srgb, #2c3a4f 50%, transparent); }
+.layers label:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.layers input[type="checkbox"] { appearance: none; width: 11px; height: 11px; margin: 0; border: 1px solid var(--muted); background: transparent; display: grid; place-content: center; cursor: pointer; }
+.layers input[type="checkbox"]:checked { border-color: var(--fg); background: var(--fg); box-shadow: inset 0 0 0 2px var(--bg); }
+.mbtns { margin: 0; padding: 8px 10px; border-top: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.mbtns .chip { text-align: center; padding: 4px 6px; }
+.layers { width: 240px; }
+@media (max-width: 760px) { .layers { width: auto; max-width: calc(100% - 20px); } .layers:not(.closed) { width: 240px; } }
+.chip { font: 500 10.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+.mk-tip, .mk-label { font: 500 11px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .05em; background: var(--bg); border: 1px solid #3a4a62; box-shadow: none; padding: 3px 6px; }
+.mk-label { font: 600 11px var(--mono); border-color: var(--march); border-left-width: 3px; }
+.leaflet-popup-content-wrapper { background: var(--bg); border: 1px solid #3a4a62; border-top: 2px solid var(--fg); box-shadow: 0 0 0 1px #000; }
+.leaflet-popup-tip { background: var(--bg); border: 1px solid #3a4a62; box-shadow: none; }
+.leaflet-popup-content { font: 12px/1.45 var(--mono); }
+.leaflet-popup-content b { display: block; margin-bottom: 4px; font: 700 12px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+.leaflet-bar { border: 1px solid #2c3a4f !important; box-shadow: none !important; }
+.leaflet-bar a { background: var(--bg); font: 400 16px var(--mono); }
+.leaflet-control-scale-line { background: color-mix(in srgb, var(--bg) 80%, transparent); color: var(--muted); border-color: var(--muted); font: 10px var(--mono); }
+.maptag { font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .08em; background: var(--bg); border-color: #2c3a4f; }
+.coords { position: absolute; left: 10px; top: 10px; margin-left: 44px; z-index: 500; font: 500 10.5px var(--mono); color: var(--muted); background: color-mix(in srgb, var(--bg) 85%, transparent); border: 1px solid #2c3a4f; padding: 4px 8px; letter-spacing: .04em; font-variant-numeric: tabular-nums; pointer-events: none; }
+.mapgrid { position: absolute; inset: 0; z-index: 401; pointer-events: none; opacity: .5;
+  background-image: linear-gradient(color-mix(in srgb, var(--accent) 9%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--accent) 9%, transparent) 1px, transparent 1px);
+  background-size: 96px 96px; }
+.corner { position: absolute; z-index: 402; width: 18px; height: 18px; pointer-events: none; border: 0 solid var(--fg); opacity: .7; }
+.corner.tl { top: 6px; left: 6px; border-top-width: 2px; border-left-width: 2px; }
+.corner.tr { top: 6px; right: 6px; border-top-width: 2px; border-right-width: 2px; }
+.corner.bl { bottom: 6px; left: 6px; border-bottom-width: 2px; border-left-width: 2px; }
+.corner.br { bottom: 6px; right: 6px; border-bottom-width: 2px; border-right-width: 2px; }
+.leaflet-top.leaflet-left { margin-top: 2px; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Manif<b>·</b>Monitor <span style="color:var(--muted)">Paris</span></div>
+    <div class="sub" id="subtitle"></div>
+  </div>
+  <span class="live">EN DIRECT</span>
+  <div class="spacer"></div>
+  <div class="tension" title="Niveau de tension (évaluation éditoriale)">
+    <div class="bars" id="tbars"></div>
+    <div><div class="lbl" id="tlabel"></div><div class="sub" id="tnote" style="max-width:320px"></div></div>
+  </div>
+  <div style="text-align:right">
+    <div class="clock" id="clock">--:--:--</div>
+    <div class="updated" id="updated"></div>
+  </div>
+</header>
+
+<section class="kpis" id="kpis"></section>
+
+<main>
+  <aside class="col" aria-label="Fil d'actualité">
+    <div class="ph">Fil en direct <span class="n" id="feedn"></span></div>
+    <div class="filters" id="filters"></div>
+    <div id="feed"></div>
+  </aside>
+
+  <div class="mapwrap">
+    <div id="map" role="application" aria-label="Carte de Paris"></div>
+    <div class="layers" id="layers"></div>
+    <div class="maptag">Tracé approximatif · positions indicatives</div>
+    <div class="mapgrid" aria-hidden="true"></div><i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+    <div class="coords" id="coords">48.8566 N · 2.3522 E</div>
+  </div>
+
+  <aside class="col right" aria-label="Contexte">
+    <div class="sec live-tv"><h3><span class="live">DIRECT TV</span></h3><div class="chans" id="chans"></div><div class="tv"><iframe id="tv" title="Direct vidéo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div><a id="tvlink" class="note" target="_blank" rel="noopener">Ouvrir sur YouTube ↗</a></div>
+    <div class="sec"><h3>Transports</h3><div id="transports"></div></div>
+    <div class="sec"><h3>Couvre-feu & interdictions</h3><p class="note" id="curfew"></p></div>
+    <div class="sec"><h3>Autres villes</h3><div id="cities"></div></div>
+    <div class="sec agenda"><h3>Prochaines dates</h3><div id="agenda"></div></div>
+    <div class="sec src"><h3>Sources directes</h3><div id="sources"></div></div>
+  </aside>
+</main>
+
+<footer>
+  <div class="tl-h"><span>Journée du 24 oct. · 08h → 02h</span><span id="tlwin"></span></div>
+  <div class="tl" id="tl"></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="paris.js"></script>
+<script src="metro.js"></script>
+<script src="data.js"></script>
+<script>
+const CATS = { all: "Tout", cortege: "Cortège", securite: "Sécurité", politique: "Politique", justice: "Justice", transports: "Transports" };
+const TENSION = ["", "Calme", "Vigilance", "Tendu", "Émeutes", "Crise"];
+const SEVC = ["", "var(--s1)", "var(--s2)", "var(--s3)", "var(--s4)"];
+const TREND = { up: "▲", down: "▼", flat: "■" };
+let D = window.MANIF_DATA, filter = "all", seen = new Set(), first = true;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const mins = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+
+/* ---------- carte (vue de dessus, relief porté par les éléments) ---------- */
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+/* pictos SVG nus (viewBox 24) : la forme porte le sens, la couleur le renforce */
+const ICONS = { // tracés au trait (famille Lucide), f = remplissage léger
+  start:    { d: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/>', f: 1 },
+  end:      { d: '<path d="M12 13V2l8 4-8 4"/><path d="M20.56 10.22a9 9 0 1 1-12.55-5.29"/><path d="M8 10a5 5 0 1 0 8.9 2.02"/>' },
+  banned:   { d: '<circle cx="12" cy="12" r="10"/><path d="M4.9 4.9l14.2 14.2"/>' },
+  secured:  { d: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', f: 1 },
+  hot:      { d: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>', f: 1 },
+  curfew:   { d: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>', f: 1 },
+  pillage:  { d: '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>', f: 1 },
+  incendie: { d: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/><path d="M4 21h16"/>' },
+  barricade:{ d: '<rect x="2" y="6" width="20" height="8" rx="1"/><path d="M17 14v7M7 14v7M17 3v3M7 3v3M10 14L2.3 6.3M14 6l7.7 7.7M8 6l8 8"/>' },
+  affrontement: { d: '<path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M14.5 6.5L18 3h3v3l-3.5 3.5"/><path d="M5 14l4 4M7 17l-3 3M3 19l2 2"/>' },
+  degradation: { d: '<path d="M15 12l-8.5 8.5a2.12 2.12 0 1 1-3-3L12 9"/><path d="M17.64 15L22 10.64"/><path d="M20.91 11.7l-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/>' },
+  metroAll: { d: '<circle cx="12" cy="12" r="10"/><path d="M7.5 16.5v-9l4.5 5.5 4.5-5.5v9"/>' },
+  metro:    { d: '<circle cx="12" cy="12" r="10"/><path d="M7.5 16.5v-9l4.5 5.5 4.5-5.5v9"/>' },
+  venue:    { d: '<path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="M12 2l8 5H4z"/>' },
+  incident: { d: '<path d="M21.73 18l-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><path d="M12 9v4M12 17h.01"/>', f: 1 },
+  head:     { d: '<path d="M3 11l18-5v12L3 14z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>', f: 1 }
+};
+const PIN = { // couleur, taille
+  start: ["--march", 30], end: ["--fg", 30], head: ["--march", 36], banned: ["--s4", 24], secured: ["--accent", 22],
+  hot: ["--heat2", 30], curfew: ["--night", 24], metro: ["--s2", 22], metroAll: ["--muted", 15], pillage: ["--past", 20], incendie: ["--past", 20], barricade: ["--past", 20], affrontement: ["--past", 20], degradation: ["--past", 20], venue: ["--s1", 22], incident: ["--s4", 28]
+};
+const HEAT = ["", "tension", "affrontements", "émeutes"];
+const svg = (k, s) => { const { d, f } = ICONS[k]; return `<svg viewBox="-2 -2 28 28" width="${s}" height="${s}" fill="none" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="4" aria-hidden="true">`
+  + `<g stroke="#070a0f" stroke-width="5.5">${d}</g>` + (f ? `<g fill="currentColor" fill-opacity=".28" stroke="none">${d}</g>` : "") + `<g stroke="currentColor" stroke-width="2.2">${d}</g></svg>`; };
+
+const map = L.map("map", { zoomControl: true, zoomSnap: .25 }).setView([48.848, 2.36], 12.75);
+// mobile : vue initiale cadrée sur le tracé du cortège
+const isNarrow = matchMedia("(max-width: 760px)").matches;
+function frameRoute() {
+  map.invalidateSize();
+  // sur grand écran, on réserve la place de la légende dépliée à droite
+  const legend = !isNarrow && !$("layers")?.classList.contains("closed") ? ($("layers")?.offsetWidth || 0) + 16 : 24;
+  map.fitBounds(window.MANIF_DATA.route, { paddingTopLeft: [24, 48], paddingBottomRight: [legend, 40], maxZoom: 15 });
+}
+// vue initiale cadrée sur le tracé ; recadrage après mise en page (taille finale du conteneur sur mobile)
+frameRoute(); addEventListener("load", frameRoute); setTimeout(frameRoute, 400);
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+  maxZoom: 16, attribution: "Esri, HERE, Garmin, © OpenStreetMap"
+}).addTo(map);
+L.control.scale({ imperial: false, position: "bottomright" }).addTo(map);
+map.on("mousemove", e => { $("coords").textContent = `${e.latlng.lat.toFixed(4)} N · ${e.latlng.lng.toFixed(4)} E · Z${map.getZoom()}`; });
+map.createPane("labels").style.zIndex = 450;
+map.getPane("labels").style.pointerEvents = "none";
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}", { maxZoom: 16, pane: "labels", opacity: .7 }).addTo(map);
+
+// Paris : extérieur assombri, contour lumineux
+const parisRing = window.PARIS_GEO.geometry.coordinates[0].map(([x, y]) => [y, x]);
+L.polygon([[[85, -180], [85, 180], [-85, 180], [-85, -180]], parisRing], { stroke: false, fillColor: "#04060a", fillOpacity: .62, interactive: false }).addTo(map);
+L.polygon(parisRing, { color: css("--accent"), weight: 2, fill: false, className: "paris-edge", interactive: false }).addTo(map);
+
+const groups = {
+  route:    { label: "Parcours officiel", icon: "start", g: L.layerGroup().addTo(map) },
+  banned:   { label: "Lieux / parcours interdits", icon: "banned", g: L.layerGroup().addTo(map) },
+  curfew:   { label: "Couvre-feu 23h–6h", icon: "curfew", g: L.layerGroup().addTo(map) },
+  secured:  { label: "Points sécurisés", icon: "secured", g: L.layerGroup() },
+  hot:      { label: "Zones chaudes (violences)", icon: "hot", g: L.layerGroup().addTo(map) },
+  metroAll: { label: "Stations de métro", icon: "metroAll", g: L.layerGroup() },
+  oct17:    { label: "Dégâts du 17 octobre", icon: "incendie", g: L.layerGroup() },
+  venues:   { label: "Lieux fermés", icon: "venue", g: L.layerGroup() },
+  incidents:{ label: "Incidents", icon: "incident", g: L.layerGroup().addTo(map) }
+};
+$("layers").innerHTML = `<button class="ltoggle" id="ltoggle" aria-expanded="true" aria-controls="lbody"><span>Couches</span><span class="lcount" id="lcount"></span><span class="lcaret" aria-hidden="true">▾</span></button><div class="lbody" id="lbody">` + Object.entries(groups).map(([k, o]) =>
+  `<label><input type="checkbox" id="ly-${k}" ${map.hasLayer(o.g) ? "checked" : ""}><span class="ico mk3d" style="color:var(${PIN[o.icon][0]})">${svg(o.icon, 16)}</span>${o.label}</label>`).join("")
+  + `<div class="mbtns"><button class="chip" id="bhead">Suivre le cortège</button><button class="chip" id="bparis">Tout Paris</button></div></div>`;
+// légende repliable : fermée par défaut sur mobile, état mémorisé par visiteur
+function setLegend(open) {
+  $("layers").classList.toggle("closed", !open);
+  $("ltoggle").setAttribute("aria-expanded", open);
+  $("lcount").textContent = `${Object.keys(groups).filter(k => $("ly-" + k).checked).length}/${Object.keys(groups).length}`;
+  try { localStorage.setItem("mm-legend", open ? "1" : "0"); } catch (e) {}
+}
+let legendPref = null; try { legendPref = localStorage.getItem("mm-legend"); } catch (e) {}
+setLegend(legendPref ? legendPref === "1" : !matchMedia("(max-width: 760px)").matches);
+$("ltoggle").onclick = () => setLegend($("layers").classList.contains("closed"));
+Object.entries(groups).forEach(([k, o]) => $("ly-" + k).addEventListener("change", e => { e.target.checked ? o.g.addTo(map) : map.removeLayer(o.g); setLegend(true); }));
+
+// picto en relief : ombre au sol + picto surélevé
+function pin(kind, name, opts = {}) {
+  const [col, size] = PIN[kind];
+  const label = opts.label ? `<span class="mk-label">${esc(name)}</span>` : `<span class="mk-tip">${esc(name)}</span>`;
+  return L.divIcon({
+    className: "", iconSize: [size, size], iconAnchor: [size / 2, size / 2], popupAnchor: [0, -size / 2 - 6],
+    html: `<div class="mk mk-${kind}" style="color:var(${opts.color || col});width:${size}px;height:${size}px"><i class="mk-shadow"></i><span class="mk3d">${svg(kind, size)}</span>${label}</div>`
+  });
+}
+// élément « géographique » en px : un cercle de r mètres rendu en HTML pour profiter des dégradés et ombres CSS
+const geoEls = [];
+const mpp = lat => 156543.03392 * Math.cos(lat * Math.PI / 180) / Math.pow(2, map.getZoom());
+function geoDisc(ll, r, cls, style = "") {
+  const m = L.marker(ll, { icon: L.divIcon({ className: "", html: `<div class="disc ${cls}" style="${style}"></div>`, iconSize: [0, 0] }), interactive: false, keyboard: false, zIndexOffset: -1000 });
+  geoEls.push({ m, ll, r });
+  return m;
+}
+function sizeGeo() {
+  geoEls.forEach(({ m, ll, r }) => {
+    const el = m.getElement()?.firstChild; if (!el) return;
+    const d = 2 * r / mpp(ll[0]);
+    el.style.width = el.style.height = d + "px";
+    el.style.marginLeft = el.style.marginTop = -d / 2 + "px";
+  });
+}
+map.on("zoomend", sizeGeo);
+
+// tête de cortège : position fixée (headIndex) ou interpolée sur l'heure (march.start → march.end)
+function parisNow() { const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" })); return d.getHours() * 60 + d.getMinutes() + d.getSeconds() / 60; }
+function headProgress() {
+  const M = D.meta.march;
+  if (D.headIndex !== "auto" || !M) return Math.min(Number(D.headIndex) || 0, D.route.length - 1) / (D.route.length - 1);
+  return Math.max(0, Math.min(1, (parisNow() - mins(M.start)) / (mins(M.end) - mins(M.start))));
+}
+function headLabel() {
+  const M = D.meta.march, p = Math.round(headProgress() * 100);
+  return D.headIndex === "auto" && M ? `Position estimée : ${p} % du parcours (départ ${M.start}, arrivée prévue ${M.end})` : "Position signalée";
+}
+function headSplit() {
+  const R = D.route, seg = [];
+  let tot = 0;
+  for (let i = 1; i < R.length; i++) { const d = map.distance(R[i - 1], R[i]); seg.push(d); tot += d; }
+  let target = headProgress() * tot, i = 0;
+  while (i < seg.length - 1 && target > seg[i]) { target -= seg[i]; i++; }
+  const k = seg[i] ? Math.min(1, target / seg[i]) : 0;
+  const pt = [R[i][0] + (R[i + 1][0] - R[i][0]) * k, R[i][1] + (R[i + 1][1] - R[i][1]) * k];
+  return { pt, done: [...R.slice(0, i + 1), pt], todo: [pt, ...R.slice(i + 1)] };
+}
+setInterval(() => drawMap(), 60000);
+
+function drawMap() {
+  Object.values(groups).forEach(o => o.g.clearLayers());
+  geoEls.length = 0;
+  const blue = css("--accent");
+  const { pt: head, done, todo } = headSplit();
+  // parcours : trait net façon navigation — liseré sombre, reste à parcourir en pointillés fins qui avancent, parcouru plein et lumineux
+  const line = (pts, o) => L.polyline(pts, { interactive: false, lineCap: "butt", lineJoin: "miter", ...o }).addTo(groups.route.g);
+  const mint = css("--march");
+  line(D.route, { color: "#05080c", weight: 9, opacity: .85, className: "route-casing" });
+  line(todo, { color: mint, weight: 3, opacity: .55, dashArray: "1 7", lineCap: "round", className: "route-todo" });
+  line(done, { color: mint, weight: 5, className: "route-done" });
+  line(done, { color: "#eafff8", weight: 1.2, opacity: .9, className: "route-core" });
+
+  (D.securedPoints || []).forEach(s => {
+    geoDisc(s.ll, s.r, "disc-secured").addTo(groups.secured.g);
+    L.marker(s.ll, { icon: pin("secured", s.name) }).bindPopup(`<b>${esc(s.name)}</b><br>${esc(s.note)}`).addTo(groups.secured.g);
+  });
+  D.curfewZones.forEach(z => {
+    geoDisc(z.ll, z.r, "disc-curfew").addTo(groups.curfew.g);
+    L.marker(z.ll, { icon: pin("curfew", `Couvre-feu · ${z.name}`) })
+      .bindPopup(`<b>Couvre-feu · ${esc(z.name)}</b><br>${D.meta.curfew.start}–${D.meta.curfew.end}, jusqu'au ${esc(D.meta.curfew.until)}`).addTo(groups.curfew.g);
+  });
+  (D.hotZones || []).forEach(z => {
+    const c = ["", "--heat1", "--heat2", "--heat3"][z.heat] || "--heat2";
+    geoDisc(z.ll, z.r, `disc-hot heat${z.heat}`, `--c:var(${c})`).addTo(groups.hot.g);
+    L.marker(z.ll, { icon: pin("hot", `${z.name} · ${HEAT[z.heat]}`, { color: z.heat >= 3 ? "--heat3" : "--heat2" }), zIndexOffset: 300 })
+      .bindPopup(`<b>${esc(z.name)} · niveau ${z.heat} ${HEAT[z.heat]}</b><br>${esc(z.note)}`).addTo(groups.hot.g);
+  });
+  const closed = new Set(D.closedStations.map(s => s.name.normalize("NFD").replace(/[^a-z]/gi, "").toLowerCase()));
+  (window.METRO_STATIONS || []).forEach(s => {
+    const shut = closed.has(s.name.normalize("NFD").replace(/[^a-z]/gi, "").toLowerCase());
+    L.marker(s.ll, { icon: pin("metroAll", s.name + (shut ? " · fermée" : ""), shut ? { color: "--s4" } : {}), zIndexOffset: -500 })
+      .bindPopup(`<b>${esc(s.name)}</b><br>${shut ? "Fermée aujourd'hui" : "Ouverte (pas de fermeture signalée)"}`).addTo(groups.metroAll.g);
+  });
+  const TYPE17 = { incendie: "Incendie", pillage: "Pillage", barricade: "Barricade", affrontement: "Affrontements", degradation: "Dégradation" };
+  (D.oct17 || []).forEach(o => L.marker(o.ll, { icon: pin(o.type, `${TYPE17[o.type]} · ${o.name}`) })
+    .bindPopup(`<b>${TYPE17[o.type]} · ${esc(o.name)}</b><br>${esc(o.text)}<br><span style="color:var(--muted)">${esc(o.date)} · <a href="${esc(o.url)}" target="_blank" rel="noopener">source ↗</a></span>`).addTo(groups.oct17.g));
+  D.closedVenues.forEach(s => L.marker(s.ll, { icon: pin("venue", `${s.name} · fermé`) })
+    .bindPopup(`<b>${esc(s.name)}</b><br>Fermé aujourd'hui`).addTo(groups.venues.g));
+  D.places.forEach(p => p.kind === "banned"
+    ? L.marker(p.ll, { icon: pin("banned", p.name) }).bindPopup(`<b>${esc(p.name)}</b><br>${esc(p.note)}`).addTo(groups.banned.g)
+    : L.marker(p.ll, { icon: pin(p.kind, p.name, { label: true }), zIndexOffset: 600 }).bindPopup(`<b>${esc(p.name)}</b><br>${esc(p.note)}`).addTo(groups.route.g));
+  D.incidents.forEach(i => L.marker(i.ll, { icon: pin("incident", `${i.t} · ${i.text}`, { color: ["", "--s1", "--s2", "--s3", "--s4"][i.sev] }), zIndexOffset: 800 })
+    .bindPopup(`<b>${esc(i.t)} · Incident</b><br>${esc(i.text)}`).addTo(groups.incidents.g));
+  L.marker(head, { icon: pin("head", "Tête de cortège"), zIndexOffset: 1000 })
+    .bindPopup(`<b>Tête de cortège</b><br>${headLabel()}`).addTo(groups.route.g);
+  sizeGeo();
+}
+// les disques se dimensionnent à l'ajout d'une couche
+Object.values(groups).forEach(o => o.g.on("add", () => setTimeout(sizeGeo)));
+$("bhead").onclick = () => map.flyTo(headSplit().pt, 15, { duration: 1.2 });
+$("bhead").insertAdjacentHTML("beforebegin", `<button class="chip" id="broute">Tout le parcours</button>`);
+$("broute").onclick = frameRoute;
+$("bparis").onclick = () => map.flyToBounds(parisRing, { padding: [20, 20], duration: 1.2 });
+
+/* ---------- panneaux ---------- */
+function drawHeader() {
+  const m = D.meta;
+  $("subtitle").textContent = `${m.title} · cortège Porte d'Italie → Porte de Vincennes`;
+  $("tbars").innerHTML = [1, 2, 3, 4, 5].map(i => `<i style="${i <= m.tension ? `background:${SEVC[Math.min(i, 4)]}` : ""}"></i>`).join("");
+  $("tlabel").textContent = `Niveau ${m.tension} · ${TENSION[m.tension]}`;
+  $("tlabel").style.color = SEVC[Math.min(m.tension, 4)];
+  $("tnote").textContent = m.tensionNote;
+}
+const kpiMins = at => /^\d\d:\d\d$/.test(at) ? Math.round(parisNow() - mins(at)) : null;
+const kpiAge = at => { const m = kpiMins(at); return m == null || m < 1 ? "" : ` · il y a ${m >= 60 ? Math.floor(m / 60) + " h " + String(m % 60).padStart(2, "0") : m + " min"}`; };
+const kpiStale = at => { const m = kpiMins(at); return m == null ? true : m > 60; };
+function drawKpis() {
+  $("kpis").innerHTML = D.kpis.map(k => `<div class="kpi">
+    <div class="l">${esc(k.label)}</div>
+    <div class="v">${esc(k.value)}<span class="tr ${k.trend}">${TREND[k.trend] || ""}</span></div>
+    <div class="d" title="${esc(k.delta)}">${esc(k.delta)}</div>
+    <div class="s">${esc(k.src)} · ${esc(k.at)}${kpiAge(k.at)}</div></div>`).join("");
+  document.querySelectorAll(".kpi").forEach((el, i) => el.classList.toggle("stale", kpiStale(D.kpis[i].at)));
+}
+function drawFilters() {
+  const counts = D.feed.reduce((a, f) => (a[f.cat] = (a[f.cat] || 0) + 1, a), {});
+  $("filters").innerHTML = Object.entries(CATS).map(([k, v]) =>
+    `<button class="chip" data-cat="${k}" aria-pressed="${filter === k}">${v}${k === "all" ? "" : " " + (counts[k] || 0)}</button>`).join("");
+  $("filters").querySelectorAll(".chip").forEach(b => b.onclick = () => { filter = b.dataset.cat; drawFilters(); drawFeed(); });
+}
+function drawFeed() {
+  const items = [...D.feed].sort((a, b) => mins(b.t) - mins(a.t)).filter(f => filter === "all" || f.cat === filter);
+  $("feedn").textContent = `${D.feed.length} entrées`;
+  $("feed").innerHTML = items.map(f => {
+    const key = f.t + f.text, isNew = !first && !seen.has(key);
+    const inc = f.incident ?? (f.sev >= 3 && f.cat === "securite");
+    return `<article class="item sev${f.sev}${inc ? " incident" : ""}${isNew ? " new" : ""}">
+      <time>${esc(f.t)}${f.approx ? "<small>≈ heure</small>" : ""}</time>
+      <div><p>${esc(f.text)}</p><div class="meta"><span class="tag" style="color:${SEVC[f.sev]}">${CATS[f.cat] || f.cat}</span>
+      <a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.src)} ↗</a></div></div></article>`;
+  }).join("") || `<p class="note" style="padding:14px">Aucune entrée dans cette catégorie.</p>`;
+  D.feed.forEach(f => seen.add(f.t + f.text));
+}
+function drawSide() {
+  $("transports").innerHTML = D.transports.map(t => `<div class="row"><span class="badge ${t.state}">${esc(t.line)}</span><span>${esc(t.text)}</span></div>`).join("");
+  $("cities").innerHTML = D.cities.map(c => `<div class="row" style="grid-template-columns:70px minmax(0,1fr)"><span class="badge ${c.state}">${esc(c.state)}</span><span><b>${esc(c.city)}</b> · ${esc(c.text)}</span></div>`).join("");
+  $("agenda").innerHTML = D.agenda.map(a => `<div class="row"><span>${esc(a.d)}</span><span>${esc(a.text)}</span></div>`).join("");
+  $("sources").innerHTML = D.sources.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} ↗</a>`).join("");
+  const c = D.meta.curfew;
+  $("curfew").innerHTML = `Couvre-feu <b style="color:var(--night)">${c.start}–${c.end}</b> autour de République et des Halles, jusqu'au ${esc(c.until)}. Parcours Bastille–Nation et Bastille–Opéra interdits. Rassemblements av. Gabriel interdits. Participer à un rassemblement non déclaré expose à une amende.`;
+}
+
+/* ---------- frise 08h → 26h ---------- */
+const T0 = 8 * 60, T1 = 26 * 60;
+const pos = t => { let m = mins(t); if (m < T0) m += 1440; return ((m - T0) / (T1 - T0) * 100).toFixed(2) + "%"; };
+function drawTimeline() {
+  const w = D.meta.window, c = D.meta.curfew;
+  let h = `<div class="axis"></div>
+    <div class="win" style="left:${pos(w.start)};width:calc(${pos(w.end)} - ${pos(w.start)})" title="Fenêtre autorisée"></div>
+    <div class="cf" style="left:${pos(c.start)};right:0" title="Couvre-feu"></div>`;
+  for (let x = 8; x <= 26; x += 2) h += `<span class="tick" style="left:${((x * 60 - T0) / (T1 - T0) * 100)}%">${String(x % 24).padStart(2, "0")}h</span>`;
+  D.milestones.forEach((m, i) => h += `<span class="ms" style="left:${pos(m.t)};top:${i % 2 ? 0 : 0}px" title="${esc(m.t)}">${esc(m.text)}</span>`);
+  D.feed.forEach(f => h += `<span class="ev" style="left:${pos(f.t)};background:${SEVC[f.sev]}" title="${esc(f.t + " · " + f.text)}"></span>`);
+  h += `<span class="now" id="now"></span>`;
+  $("tl").innerHTML = h;
+  $("tlwin").textContent = `Fenêtre autorisée ${w.start}–${w.end}`;
+  tickNow();
+}
+function tickNow() {
+  const d = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" }));
+  const hm = String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+  $("clock").textContent = hm + ":" + String(d.getSeconds()).padStart(2, "0");
+  const n = $("now"); if (n) n.style.left = pos(hm);
+  const age = Math.round((Date.now() - new Date(D.meta.updated)) / 60000);
+  const u = $("updated");
+  u.textContent = `MàJ données ${new Date(D.meta.updated).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Paris" })} · il y a ${age < 0 ? 0 : age} min`;
+  u.classList.toggle("stale", age > 30);
+}
+
+let tvChan = null;
+function drawTv() {
+  const V = D.videos || [];
+  if (!tvChan || !V.find(v => v.vid === tvChan)) tvChan = V[0]?.vid;
+  $("chans").innerHTML = V.map(v => `<button class="chip" data-id="${esc(v.vid)}" aria-pressed="${v.vid === tvChan}" title="${esc(v.title)}">${esc(v.name)}</button>`).join("");
+  $("chans").querySelectorAll(".chip").forEach(b => b.onclick = () => { tvChan = b.dataset.id; drawTv(); });
+  const src = `https://www.youtube.com/embed/${tvChan}?autoplay=1&mute=1`;
+  if ($("tv").getAttribute("src") !== src) $("tv").setAttribute("src", src);
+  $("tvlink").href = `https://www.youtube.com/watch?v=${tvChan}`;
+}
+function render() { drawTv(); drawHeader(); drawKpis(); drawFilters(); drawFeed(); drawSide(); drawTimeline(); drawMap(); first = false; }
+render();
+setInterval(tickNow, 1000);
+
+/* rechargement de data.js toutes les 60 s */
+setInterval(() => {
+  const s = document.createElement("script");
+  s.src = "data.js?t=" + Date.now();
+  s.onload = () => { if (window.MANIF_DATA.meta.updated !== D.meta.updated) { D = window.MANIF_DATA; render(); } s.remove(); };
+  s.onerror = () => s.remove();
+  document.body.appendChild(s);
+}, 60000);
+</script>
+</body>
+</html>

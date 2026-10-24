@@ -1,0 +1,17 @@
+# ManifMonitor — TODO
+
+## Demandes (dans l'ordre)
+- [x] 1. Carte de Paris + tracé du cortège + position actuelle (tête de cortège = `headIndex` dans data.js, mise à jour manuelle)
+- [x] 2. Stations de métro fermées (6 sur 24 nommées, liste complète à récupérer)
+- [x] 3. Points sécurisés (périmètres d'interdiction de la préfecture + gares)
+- [x] 4. Zones chaudes (évaluation éditoriale, chaleur 1 à 3)
+- [x] 5. Événements : fil en direct filtrable + frise de la journée + couche incidents sur la carte
+- [x] 6. Stats : interpellations, manifestants, contrôles, stations, effectifs
+
+## Ensuite
+- [ ] Liste complète des 24 stations fermées (article RATP/Sortiraparis lié)
+- [ ] Position du cortège automatique (interpolation horaire 14h → 19h, ou saisie manuelle rapide)
+- [ ] Tracé exact via OSM (boulevards des Maréchaux)
+- [ ] Mise à jour automatique : script qui lit les liveblogs (franceinfo, BFM) et écrit data.js
+- [ ] Courbe des interpellations et des manifestants dans la journée
+- [ ] Hébergement (GitHub Pages / Vercel) pour partager le lien
