@@ -624,34 +624,19 @@ function render() { drawTv(); drawHeader(); drawKpis(); drawFilters(); drawFeed(
 render();
 setInterval(tickNow, 1000);
 
-/* rechargement des données en quasi temps réel, sans dépendre du cache CDN de GitHub Pages (10 min) :
-   1) API GitHub en requête conditionnelle (If-None-Match) : un 304 ne consomme pas le quota de 60 appels/h par IP ;
-   2) si la version a changé, data.js figé à ce commit sur jsDelivr ;
-   3) si l'API refuse (quota), data.js @main sur jsDelivr, purgé à chaque publication. */
+/* rechargement des données en quasi temps réel, sans le cache de 10 min de GitHub Pages :
+   data.js est lu sur jsDelivr (@main), dont le cache est purgé à chaque publication (publish.sh).
+   Aucun quota par visiteur. En local : data.js à côté de la page. */
 const REPO = "Jrm-EDM/manifmonitor";
-let lastSha = null, etag = null;
-function loadData(src) {
+function refreshData() {
+  const src = /artificiel\.ai|github\.io/.test(location.hostname)
+    ? `https://cdn.jsdelivr.net/gh/${REPO}@main/data.js?t=${Date.now()}`
+    : "data.js?t=" + Date.now();
   const s = document.createElement("script");
   s.src = src;
   s.onload = () => { if (window.MANIF_DATA.meta.updated !== D.meta.updated) { D = window.MANIF_DATA; render(); } s.remove(); };
   s.onerror = () => s.remove();
   document.body.appendChild(s);
-}
-async function refreshData() {
-  if (!/artificiel\.ai|github\.io/.test(location.hostname)) return loadData("data.js?t=" + Date.now());
-  try {
-    const h = { Accept: "application/vnd.github.sha" };
-    if (etag) h["If-None-Match"] = etag;
-    const r = await fetch(`https://api.github.com/repos/${REPO}/commits/main`, { headers: h, cache: "no-store" });
-    if (r.status === 304) return;
-    if (r.ok) {
-      etag = r.headers.get("ETag") || etag;
-      const sha = (await r.text()).trim();
-      if (sha !== lastSha) { lastSha = sha; loadData(`https://cdn.jsdelivr.net/gh/${REPO}@${sha}/data.js`); }
-      return;
-    }
-  } catch (e) {}
-  loadData(`https://cdn.jsdelivr.net/gh/${REPO}@main/data.js?t=${Date.now()}`);
 }
 setInterval(refreshData, 30000);
 addEventListener("visibilitychange", () => { if (!document.hidden) refreshData(); });
