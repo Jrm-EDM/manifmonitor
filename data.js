@@ -5,9 +5,9 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T19:58:00+02:00",
-    tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Près de 1 000 interpellations en France (Nuñez) ; pillages à Marseille ; Paris : heurts cours de Vincennes en fin de journée.",
+    updated: "2026-10-24T20:01:00+02:00",
+    tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
+    tensionNote: "Paris : manifestation entièrement dispersée (19h58) ; ~1 000 interpellations en France, pillages à Marseille, tensions à Toulon.",
     window: { start: "13:00", end: "19:00" },
     march: { start: "14:30", end: "17:00" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
@@ -23,6 +23,9 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "19:59", cat: "securite", sev: 3, incident: true, text: "Toulon : fin de manifestation sous tension, 150 individus défient la police et incendient des poubelles ; 55 interpellations dont 33 mineurs, 11 gardes à vue ; couvre-feu pour les mineurs ce soir.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "19:58", cat: "cortege", sev: 2, text: "Paris : la manifestation est entièrement dispersée cours de Vincennes.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "19:56", cat: "politique", sev: 2, text: "Nuñez : « dans au moins deux villes », des militants d'ultradroite cherchaient à affronter des militants d'ultragauche.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "19:55", cat: "politique", sev: 2, text: "Laurent Nuñez : « les forces de sécurité intérieure ont été confrontées à un niveau de violence extrêmement élevé ».", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "19:51", cat: "securite", sev: 3, incident: true, text: "Grenoble : environ 10 000 manifestants, 400 black blocs ; lacrymogènes et charges répétées pour les empêcher d'entrer dans l'hyper-centre interdit.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "19:48", cat: "politique", sev: 2, text: "Nuñez : « sans la police, il n'y aurait pas eu de cortège » ; à Tours, ~800 personnes dissimulées repérées parmi 5 000 manifestants ; à Nice, l'ultra-droite a voulu « protéger » des commerces, « une première ».", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
@@ -253,11 +256,11 @@ window.MANIF_DATA = {
   // · 2 affrontements (lacrymos nourris, projectiles, charges) · 3 émeutes (incendies, pillages, barricades).
   // Une zone n'entre ici que sur signalement sourcé ; les zones « à risque » restent en heat 1 avec la mention.
   hotZones: [
-    { name: "Cours de Vincennes / Nation", ll: [48.8478, 2.4010], r: 600, heat: 2, note: "Plus de 500 casseurs selon la préfecture (18h31), tirs de mortiers, lacrymogènes, renforts et interpellations ; un groupe a atteint Nation." },
+    { name: "Cours de Vincennes / Nation", ll: [48.8478, 2.4010], r: 600, heat: 1, note: "Manifestation entièrement dispersée à 19h58 (BFMTV). Auparavant : 500 casseurs, mortiers, lacrymogènes, charges." },
     { name: "Avenue du Général-Michel-Bizot", ll: [48.8385, 2.4025], r: 300, heat: 1, note: "Cortège sauvage détaché du défilé officiel vers 15h55 (France 3 Paris IDF). Pas de heurts signalés." },
     { name: "Bastille", ll: [48.8532, 2.3691], r: 400, heat: 1, note: "Contrôles, fouilles et verbalisations (135 €) vers 15h30, départ interdit. Pas de heurts signalés (France 3, 15h51)." },
     { name: "République", ll: [48.8674, 2.3637], r: 400, heat: 1, note: "Couvre-feu 23h, foyer des violences du 17/10. Risque : calme à 15h23." },
-    { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 2, note: "Dispersion tendue : mortiers sur les forces de l\'ordre, lacrymogènes, lanceur d\'eau, BRAV-M sur place (18h24)." }
+    { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 1, note: "Dispersion terminée (19h58). Mortiers, lacrymogènes, lanceur d\'eau et charges en fin de cortège."}
   ],
 
   // Dégâts du 17 octobre (et nuit du 18) à Paris, lieux cités par la presse. type : incendie · pillage · barricade · affrontement · degradation
@@ -327,7 +330,7 @@ window.MANIF_DATA = {
     { city: "Clermont-Ferrand", state: "vigilance", text: "Un blessé grave à la main (19h23) ; lacrymogènes sur un cortège sauvage à midi" },
     { city: "Lille", state: "vigilance", text: "15 000 manifestants ; projectiles sur les CRS, canon à eau" },
     { city: "Rennes", state: "vigilance", text: "Lacrymogènes place de la République (16h40)" },
-    { city: "Toulon", state: "interdit", text: "Cortège disloqué, centres commerciaux fermés (850 manifestants)" },
+    { city: "Toulon", state: "interdit", text: "Poubelles incendiées, 55 interpellations dont 33 mineurs (19h30) ; couvre-feu mineurs" },
     { city: "Chambéry", state: "interdit", text: "Violents affrontements en centre-ville (16h50)" },
     { city: "Toulouse", state: "interdit", text: "26 500 selon la préfecture, 80 000 selon la CGT ; heurts, un blessé grave à la main" },
     { city: "Nice", state: "interdit", text: "61 interpellations à 19h ; agression de manifestants par l'ultra-droite, 3 blessés" },
