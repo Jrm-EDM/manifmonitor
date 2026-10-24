@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T19:22:00+02:00",
+    updated: "2026-10-24T19:25:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : plus de 500 casseurs cours de Vincennes (préfecture), mortiers et lacrymogènes. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "19:23", cat: "securite", sev: 3, incident: true, text: "Clermont-Ferrand : une personne gravement blessée à la main, prise en charge en urgence par les secours (parquet).", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:18", cat: "securite", sev: 3, incident: true, text: "Nice : 61 personnes interpellées à 19h ; le groupe d'ultra-droite s'est dispersé dans le Vieux-Nice, manifestants dispersés sur la plage du quai d'Amérique (selon BFMTV).", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:11", cat: "politique", sev: 2, text: "La CGT (800 000 manifestants revendiqués) appelle « la grève à prendre le relais » et lance un appel à la grève pour le 5 novembre.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:07", cat: "securite", sev: 3, incident: true, text: "Nantes : le cortège bloqué au pont de la Loire, canon à eau et lacrymogènes, projectiles ; heurts aussi à Rennes, manifestants dans le périmètre interdit.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
@@ -312,6 +313,7 @@ window.MANIF_DATA = {
     { city: "Strasbourg", state: "interdit", text: "Manif sauvage de 6 500 personnes, incidents à la dispersion (17h38)" },
     { city: "Saint-Étienne", state: "interdit", text: "A72 bloquée puis dégagée aux lacrymogènes (17h30)" },
     { city: "Grenoble", state: "vigilance", text: "Vitrines d'agences brisées (18h26), heurts manifestants/casseurs" },
+    { city: "Clermont-Ferrand", state: "vigilance", text: "Un blessé grave à la main (19h23) ; lacrymogènes sur un cortège sauvage à midi" },
     { city: "Lille", state: "vigilance", text: "15 000 manifestants ; projectiles sur les CRS, canon à eau" },
     { city: "Rennes", state: "vigilance", text: "Lacrymogènes place de la République (16h40)" },
     { city: "Toulon", state: "interdit", text: "Cortège disloqué, centres commerciaux fermés (850 manifestants)" },
