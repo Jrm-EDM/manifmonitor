@@ -5,9 +5,9 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T22:07:00+02:00",
+    updated: "2026-10-24T22:10:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Paris : manifestation entièrement dispersée (19h58) ; ~1 000 interpellations en France, pillages à Marseille, calme revenu à Toulon (64 interpellations).",
+    tensionNote: "Calme revenu en France vers 22h (BFMTV) ; Paris dispersé depuis 19h58 ; ~1 000 interpellations, vigilance maintenue cette nuit.",
     window: { start: "13:00", end: "19:00" },
     march: { start: "14:30", end: "17:00" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "22:07", cat: "securite", sev: 1, text: "Calme revenu en France : à 22h, peu de débordements signalés selon BFMTV ; les préfectures actualisent les gardes à vue, vigilance maintenue toute la nuit (Nuñez).", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "22:00", cat: "justice", sev: 1, text: "Limoges : le principal suspect de l'incendie de la mairie le 17 octobre (34 ans) fait appel de sa mise en examen et de sa détention provisoire, et demande le dépaysement de l'instruction.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "21:57", cat: "politique", sev: 1, text: "Laurent Nuñez « salue l'engagement » des préfets, policiers, gendarmes et pompiers sur X ; il accuse l'« ultragauche » d'avoir voulu semer le désordre à Paris, Marseille, Lyon, Grenoble, Nantes, Angers et Lille.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "21:46", cat: "politique", sev: 1, text: "Marine Tondelier (Les Écologistes) salue sur BFMTV « une vraie convergence des luttes » dans les cortèges : lycéens, étudiants, pouvoir d'achat et climat.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
