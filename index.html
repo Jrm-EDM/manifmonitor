@@ -624,19 +624,28 @@ function render() { drawTv(); drawHeader(); drawKpis(); drawFilters(); drawFeed(
 render();
 setInterval(tickNow, 1000);
 
-/* rechargement des données en quasi temps réel, sans le cache de 10 min de GitHub Pages :
-   data.js est lu sur jsDelivr (@main), dont le cache est purgé à chaque publication (publish.sh).
-   Aucun quota par visiteur. En local : data.js à côté de la page. */
+/* rechargement des données en temps réel, sans le cache de 10 min de GitHub Pages :
+   data.js est lu sur raw.githubusercontent.com avec un paramètre unique (contourne son cache, aucun quota par visiteur),
+   puis exécuté ; repli sur jsDelivr (@main, purgé à chaque publication). En local : data.js à côté de la page. */
 const REPO = "Jrm-EDM/manifmonitor";
-function refreshData() {
-  const src = /artificiel\.ai|github\.io/.test(location.hostname)
-    ? `https://cdn.jsdelivr.net/gh/${REPO}@main/data.js?t=${Date.now()}`
-    : "data.js?t=" + Date.now();
+function applyData() { if (window.MANIF_DATA.meta.updated !== D.meta.updated) { D = window.MANIF_DATA; render(); } }
+function loadScript(src) {
   const s = document.createElement("script");
   s.src = src;
-  s.onload = () => { if (window.MANIF_DATA.meta.updated !== D.meta.updated) { D = window.MANIF_DATA; render(); } s.remove(); };
+  s.onload = () => { applyData(); s.remove(); };
   s.onerror = () => s.remove();
   document.body.appendChild(s);
+}
+async function refreshData() {
+  if (!/artificiel\.ai|github\.io/.test(location.hostname)) return loadScript("data.js?t=" + Date.now());
+  try {
+    const r = await fetch(`https://raw.githubusercontent.com/${REPO}/main/data.js?t=${Date.now()}`, { cache: "no-store" });
+    if (!r.ok) throw new Error(r.status);
+    new Function(await r.text())();
+    return applyData();
+  } catch (e) {
+    loadScript(`https://cdn.jsdelivr.net/gh/${REPO}@main/data.js?t=${Date.now()}`);
+  }
 }
 setInterval(refreshData, 30000);
 addEventListener("visibilitychange", () => { if (!document.hidden) refreshData(); });
