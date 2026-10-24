@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T16:46:00+02:00",
+    updated: "2026-10-24T16:49:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "40 000 à Paris, cortège calme ; défilé sauvage av. Michel-Bizot, tentative d'accès au périph repoussée.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,9 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "16:47", cat: "politique", sev: 1, text: "Mélenchon salue « la plus grande manif » depuis le début du mouvement et juge que la manœuvre du changement de parcours a échoué.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "16:46", cat: "securite", sev: 1, text: "Paris : forces de l'ordre très présentes en tête et en queue de cortège, discrètes dans les rues voisines.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
+    { t: "16:45", cat: "cortege", sev: 1, text: "Mayenne : le cortège quitte son itinéraire et bloque le rond-point du Zoom.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "16:40", cat: "securite", sev: 2, text: "Lyon : environ 10 000 manifestants seraient dispersés dans les rues, selon les équipes CNews sur place.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "16:39", cat: "securite", sev: 3, incident: true, text: "Nantes : situation « extrêmement tendue » place du Commerce.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "16:37", cat: "securite", sev: 2, text: "Manifestations toujours interdites à Nancy, Metz, Besançon, Belfort, Rouen, Le Havre et Toulon malgré plusieurs recours gagnés ailleurs.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
