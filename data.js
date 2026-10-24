@@ -5,9 +5,9 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:59:30+02:00",
+    updated: "2026-10-24T18:02:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Paris : tensions à la dispersion (lacrymos, canon à eau, charges cours de Vincennes) ; heurts en régions.",
+    tensionNote: "Paris : seul point de tension Porte de Vincennes / cours de Vincennes (lacrymos, lanceur d'eau, charges) selon la préfecture.",
     window: { start: "13:00", end: "19:00" },
     march: { start: "14:30", end: "17:00" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:47", cat: "securite", sev: 3, incident: true, text: "Porte de Vincennes : engin lanceur d'eau, grenades lacrymogènes et charges de CRS en fin de manifestation ; la préfecture parle de « l'unique point de tensions à Paris ».", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "17:53", cat: "securite", sev: 3, incident: true, text: "Paris : premières tensions à la dispersion, grenades lacrymogènes et canon à eau sur le cours de Vincennes ; charges de CRS porte de Vincennes, « jeu du chat et de la souris » avec les manifestants.", src: "France 3 Paris IDF / franceinfo", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html" },
     { t: "17:51", cat: "securite", sev: 3, incident: true, text: "Bordeaux : heurts place de la Bourse, pavés arrachés et mobilier urbain incendié.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "17:50", cat: "securite", sev: 1, text: "Orléans : trois interpellations liées à la manifestation contre le RN, dix autres hors de l'agglomération.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
