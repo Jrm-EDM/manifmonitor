@@ -5,9 +5,9 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T16:10:00+02:00",
+    updated: "2026-10-24T16:14:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Cortège calme ; tentative d'accès au périphérique repoussée (15h20), verbalisations à Bastille.",
+    tensionNote: "40 000 à Paris, cortège calme ; défilé sauvage av. Michel-Bizot, tentative d'accès au périph repoussée.",
     window: { start: "13:00", end: "19:00" },
     march: { start: "14:30", end: "18:30" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
@@ -16,13 +16,18 @@ window.MANIF_DATA = {
   kpis: [
     { id: "crowd", label: "Manifestants (France)", value: "35 000", delta: "vs 60 000 sam. 17/10 même heure", trend: "down", src: "Min. Intérieur via franceinfo", at: "13:00" },
     { id: "arrests", label: "Interpellations (France)", value: "135", delta: "dont 17 à Paris (armes, mortiers)", trend: "flat", src: "L. Nuñez, point presse", at: "13:00" },
-    { id: "paris", label: "Cortège parisien", value: "10 000", delta: "selon la police, en hausse", trend: "up", src: "Police via France 3 IDF", at: "15:15" },
+    { id: "paris", label: "Cortège parisien", value: "40 000", delta: "selon la préfecture (10 000 à 15h15)", trend: "up", src: "Préfecture via France 3 IDF", at: "15:55" },
     { id: "controls", label: "Contrôles gares/transports", value: "635", delta: "saisies de matériel interdit", trend: "up", src: "Préfecture via Euronews", at: "12:28" },
     { id: "stations", label: "Stations de métro fermées", value: "24", delta: "+ ligne 2 coupée Barbès ↔ Nation", trend: "flat", src: "RATP via Presse-citron", at: "09:00" },
     { id: "police", label: "Policiers & gendarmes", value: "70 000", delta: "France entière, +20 % vs 17/10", trend: "up", src: "Gouvernement via Sortiraparis", at: "veille" }
   ],
 
   feed: [
+    { t: "16:12", cat: "securite", sev: 3, incident: true, text: "Lyon : environ 2 000 manifestants bravent l'interdiction dans le 7e ; tirs de mortiers d'artifice sur les forces de l'ordre, riposte aux grenades lacrymogènes.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "16:10", cat: "securite", sev: 2, text: "Nantes : situation tendue, un cortège non autorisé traverse le périmètre interdit du centre-ville.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "16:08", cat: "cortege", sev: 1, text: "Marseille : 17 000 manifestants selon la préfecture ; 1 000 à Aix-en-Provence malgré l'interdiction. Bretagne : 1 200 à Lorient, 1 000 à Vannes.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "15:55", cat: "cortege", sev: 2, text: "Paris : la préfecture compte désormais 40 000 manifestants.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
+    { t: "15:54", cat: "securite", sev: 2, text: "Paris : un groupe se détache du cortège et forme un second défilé avenue du Général-Michel-Bizot (12e).", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
     { t: "15:57", cat: "cortege", sev: 1, text: "Greta Thunberg serait présente dans le cortège parisien.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "15:55", cat: "cortege", sev: 1, text: "Porte d'Italie : des étudiants des Mureaux disent manifester aussi contre une réponse policière jugée disproportionnée ; le cortège avance dans le calme.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "15:50", cat: "cortege", sev: 1, text: "CGT et Lutte ouvrière défilent sur le tracé imposé ; une partie des manifestants n'a pas encore quitté la place d'Italie.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
@@ -151,6 +156,7 @@ window.MANIF_DATA = {
   // · 2 affrontements (lacrymos nourris, projectiles, charges) · 3 émeutes (incendies, pillages, barricades).
   // Une zone n'entre ici que sur signalement sourcé ; les zones « à risque » restent en heat 1 avec la mention.
   hotZones: [
+    { name: "Avenue du Général-Michel-Bizot", ll: [48.8385, 2.4025], r: 300, heat: 1, note: "Cortège sauvage détaché du défilé officiel vers 15h55 (France 3 Paris IDF). Pas de heurts signalés." },
     { name: "Bastille", ll: [48.8532, 2.3691], r: 400, heat: 1, note: "Contrôles, fouilles et verbalisations (135 €) vers 15h30, départ interdit. Pas de heurts signalés (France 3, 15h51)." },
     { name: "République", ll: [48.8674, 2.3637], r: 400, heat: 1, note: "Couvre-feu 23h, foyer des violences du 17/10. Risque : calme à 15h23." },
     { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 1, note: "Point de dispersion vers 18h30-19h, moment le plus sensible d'un cortège. Risque." }
@@ -189,7 +195,9 @@ window.MANIF_DATA = {
   ],
 
   // Incidents géolocalisés (vide pour l'instant). Ex : { t:"15:10", ll:[48.83,2.39], sev:3, text:"Heurts Pont National" }
-  incidents: [],
+  incidents: [
+    { t: "15:54", ll: [48.8385, 2.4025], sev: 2, text: "Un groupe se détache du cortège : second défilé avenue du Général-Michel-Bizot (France 3 Paris IDF)" }
+  ],
 
   transports: [
     { line: "M2", state: "coupé", text: "Barbès-Rochechouart ↔ Nation" },
@@ -202,9 +210,9 @@ window.MANIF_DATA = {
   ],
 
   cities: [
-    { city: "Marseille", state: "autorisé", text: "Cortège parti vers 14h des Réformés vers la porte d'Aix, calme (autorisation dérogatoire)" },
-    { city: "Lyon", state: "interdit", text: "Cortège parti de Jean-Macé malgré l'interdiction, groupes vers la Guillotière et les quais du Rhône ; dispersions annoncées" },
-    { city: "Nantes", state: "interdit", text: "~1 000 personnes place de la République, lacrymogènes et canon à eau" },
+    { city: "Marseille", state: "autorisé", text: "17 000 manifestants selon la préfecture, cortège calme ; 1 000 à Aix malgré l'interdiction" },
+    { city: "Lyon", state: "interdit", text: "~2 000 manifestants dans le 7e malgré l'interdiction, mortiers contre les forces de l'ordre, lacrymogènes" },
+    { city: "Nantes", state: "interdit", text: "Lacrymos et canon à eau place de la République ; cortège non autorisé dans le périmètre interdit (16h10)" },
     { city: "Bordeaux", state: "vigilance", text: "Cortège place de la Bourse malgré l'interdiction, calme" },
     { city: "Limoges", state: "autorisé", text: "TA suspend l'interdiction des rassemblements et le couvre-feu" },
     { city: "Le Havre", state: "interdit", text: "Interdiction ville ou centre" },
