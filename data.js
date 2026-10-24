@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T16:28:00+02:00",
+    updated: "2026-10-24T16:31:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "40 000 à Paris, cortège calme ; défilé sauvage av. Michel-Bizot, tentative d'accès au périph repoussée.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,9 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "16:30", cat: "securite", sev: 3, incident: true, text: "Rouen : gaz lacrymogène pour disperser des manifestants entrés dans une zone interdite.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "16:25", cat: "cortege", sev: 1, text: "Brest : environ 10 000 personnes dans un cortège non autorisé, dans le calme (Ouest-France).", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "16:16", cat: "cortege", sev: 2, text: "Paris : la tête du cortège arrive à la porte de Vincennes ; la queue défile encore sur les Maréchaux.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
     { t: "16:12", cat: "securite", sev: 3, incident: true, text: "Lyon : environ 2 000 manifestants bravent l'interdiction dans le 7e ; tirs de mortiers d'artifice sur les forces de l'ordre, riposte aux grenades lacrymogènes.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "16:10", cat: "securite", sev: 2, text: "Nantes : situation tendue, un cortège non autorisé traverse le périmètre interdit du centre-ville.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "16:08", cat: "cortege", sev: 1, text: "Marseille : 17 000 manifestants selon la préfecture ; 1 000 à Aix-en-Provence malgré l'interdiction. Bretagne : 1 200 à Lorient, 1 000 à Vannes.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
@@ -78,7 +81,7 @@ window.MANIF_DATA = {
     [48.8440, 2.4112], [48.8472, 2.4108]
   ],
   // Tête de cortège : "auto" = interpolée sur l'heure (meta.march) ; ou un index de route pour forcer une position signalée
-  headIndex: "auto",
+  headIndex: 13, // tête arrivée porte de Vincennes à 16h16 (France 3)
 
   places: [
     { name: "Porte d'Italie", ll: [48.8190, 2.3597], kind: "start", note: "Départ 14h" },
@@ -159,7 +162,7 @@ window.MANIF_DATA = {
     { name: "Avenue du Général-Michel-Bizot", ll: [48.8385, 2.4025], r: 300, heat: 1, note: "Cortège sauvage détaché du défilé officiel vers 15h55 (France 3 Paris IDF). Pas de heurts signalés." },
     { name: "Bastille", ll: [48.8532, 2.3691], r: 400, heat: 1, note: "Contrôles, fouilles et verbalisations (135 €) vers 15h30, départ interdit. Pas de heurts signalés (France 3, 15h51)." },
     { name: "République", ll: [48.8674, 2.3637], r: 400, heat: 1, note: "Couvre-feu 23h, foyer des violences du 17/10. Risque : calme à 15h23." },
-    { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 1, note: "Point de dispersion vers 18h30-19h, moment le plus sensible d'un cortège. Risque." }
+    { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 1, note: "Tête du cortège arrivée vers 16h16 : la dispersion commence, moment le plus sensible. Pas d'incident signalé." }
   ],
 
   // Dégâts du 17 octobre (et nuit du 18) à Paris, lieux cités par la presse. type : incendie · pillage · barricade · affrontement · degradation
@@ -214,6 +217,8 @@ window.MANIF_DATA = {
     { city: "Lyon", state: "interdit", text: "~2 000 manifestants dans le 7e malgré l'interdiction, mortiers contre les forces de l'ordre, lacrymogènes" },
     { city: "Nantes", state: "interdit", text: "Lacrymos et canon à eau place de la République ; cortège non autorisé dans le périmètre interdit (16h10)" },
     { city: "Bordeaux", state: "vigilance", text: "Cortège place de la Bourse malgré l'interdiction, calme" },
+    { city: "Rouen", state: "interdit", text: "Lacrymogènes pour disperser des manifestants en zone interdite (16h30)" },
+    { city: "Brest", state: "vigilance", text: "~10 000 personnes, cortège non autorisé, calme" },
     { city: "Limoges", state: "autorisé", text: "TA suspend l'interdiction des rassemblements et le couvre-feu" },
     { city: "Le Havre", state: "interdit", text: "Interdiction ville ou centre" },
     { city: "Orléans", state: "autorisé", text: "Contre le congrès du RN : 13 000 à 26 000 manifestants ; congrès ouvert à 15h21" },
