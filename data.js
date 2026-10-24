@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T19:37:00+02:00",
+    updated: "2026-10-24T19:40:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : plus de 500 casseurs cours de Vincennes (préfecture), mortiers et lacrymogènes. 410 000 manifestants en France.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "19:38", cat: "securite", sev: 3, text: "Paris : un émeutier porteur d'une arme artisanale « particulièrement redoutable » interpellé par la police.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "19:34", cat: "securite", sev: 4, incident: true, text: "Marseille : pillages en cours dans le Ve arrondissement, deux bijouteries pillées (source policière).", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:30", cat: "cortege", sev: 1, text: "France 3 Paris clôt son direct : 110 000 à 250 000 manifestants dans le calme, puis 500 casseurs selon la police face aux forces de l'ordre porte de Vincennes à la dispersion.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html" },
     { t: "19:20", cat: "cortege", sev: 1, text: "Guéret (Creuse) : plusieurs centaines de personnes bravent l'interdiction de manifester.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
