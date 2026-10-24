@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T16:37:00+02:00",
+    updated: "2026-10-24T16:42:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "40 000 à Paris, cortège calme ; défilé sauvage av. Michel-Bizot, tentative d'accès au périph repoussée.",
     window: { start: "13:00", end: "19:00" },
@@ -23,7 +23,14 @@ window.MANIF_DATA = {
   ],
 
   feed: [
-    { t: "16:30", cat: "securite", sev: 3, incident: true, text: "Rouen : gaz lacrymogène pour disperser des manifestants entrés dans une zone interdite.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "16:37", cat: "securite", sev: 2, text: "Manifestations toujours interdites à Nancy, Metz, Besançon, Belfort, Rouen, Le Havre et Toulon malgré plusieurs recours gagnés ailleurs.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
+    { t: "16:25", cat: "cortege", sev: 1, text: "Nancy : situation calme entre manifestants et police.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "16:15", cat: "securite", sev: 3, incident: true, text: "Nantes : 3 000 personnes hostiles au centre-ville, des individus utilisent des barrières pour empêcher les forces de l'ordre d'intervenir.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
+    { t: "16:10", cat: "cortege", sev: 1, text: "Paris : le cortège progresse dans le calme entre Porte d'Italie et Porte de Vincennes.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "16:06", cat: "securite", sev: 3, incident: true, text: "Lyon : un rassemblement d'environ 1 000 personnes place Jean-Macé dispersé par les forces de l'ordre.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "15:51", cat: "securite", sev: 3, incident: true, text: "Bordeaux : projectiles sur les CRS, riposte aux grenades lacrymogènes ; 15 500 manifestants selon la préfecture.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
+    { t: "15:24", cat: "securite", sev: 3, text: "Nantes : canon à eau et blindés Centaure déployés, la situation se tend.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
+    { t: "16:19", cat: "securite", sev: 3, incident: true, text: "Rouen : grenades lacrymogènes rue Eau-de-Robec pour disperser des manifestants entrés dans la zone interdite.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "16:25", cat: "cortege", sev: 1, text: "Brest : environ 10 000 personnes dans un cortège non autorisé, dans le calme (Ouest-France).", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "16:16", cat: "cortege", sev: 2, text: "Paris : la tête du cortège arrive à la porte de Vincennes ; la queue défile encore sur les Maréchaux.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
     { t: "16:12", cat: "securite", sev: 3, incident: true, text: "Lyon : environ 2 000 manifestants bravent l'interdiction dans le 7e ; tirs de mortiers d'artifice sur les forces de l'ordre, riposte aux grenades lacrymogènes.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
@@ -64,6 +71,8 @@ window.MANIF_DATA = {
     { t: "12:52", cat: "securite", sev: 2, text: "L'Unef dénonce des contrôles et verbalisations de militants encerclés par des CRS.", src: "Euronews", url: "https://fr.euronews.com/2026/10/24/france-acte-ii-de-la-colere-sociale-la-manifestation-contre-le-congres-du-rn-debute-a-orle" },
     { t: "12:38", cat: "politique", sev: 1, text: "La France insoumise accepte le parcours et appelle à se retrouver porte d'Italie à 14h.", src: "Euronews", url: "https://fr.euronews.com/2026/10/24/france-acte-ii-de-la-colere-sociale-la-manifestation-contre-le-congres-du-rn-debute-a-orle" },
     { t: "12:28", cat: "securite", sev: 2, text: "Préfecture : 635 contrôles dans les gares et transports, saisies de matériel interdit, plusieurs interpellations.", src: "Euronews", url: "https://fr.euronews.com/2026/10/24/france-acte-ii-de-la-colere-sociale-la-manifestation-contre-le-congres-du-rn-debute-a-orle" },
+    { t: "12:22", cat: "securite", sev: 3, incident: true, text: "Clermont-Ferrand : premiers tirs de lacrymogènes sur un cortège sauvage.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
+    { t: "10:41", cat: "politique", sev: 2, text: "Sébastien Lecornu active une cellule interministérielle de crise à 11h.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "11:48", cat: "politique", sev: 2, text: "Sébastien Lecornu juge le niveau de menace élevé et pointe l'ultragauche et la délinquance.", src: "Euronews", url: "https://fr.euronews.com/2026/10/24/france-acte-ii-de-la-colere-sociale-la-manifestation-contre-le-congres-du-rn-debute-a-orle" },
     { t: "11:39", cat: "justice", sev: 2, text: "Limoges : deux suspects mis en examen et placés en détention pour l'incendie de l'hôtel de ville.", src: "Euronews", url: "https://fr.euronews.com/2026/10/24/france-acte-ii-de-la-colere-sociale-la-manifestation-contre-le-congres-du-rn-debute-a-orle" },
     { t: "11:27", cat: "justice", sev: 3, text: "Le tribunal administratif rejette le recours : seule la manifestation Porte d'Italie → Porte de Vincennes est autorisée.", src: "Euronews", url: "https://fr.euronews.com/2026/10/24/france-acte-ii-de-la-colere-sociale-la-manifestation-contre-le-congres-du-rn-debute-a-orle" },
@@ -215,9 +224,9 @@ window.MANIF_DATA = {
   cities: [
     { city: "Marseille", state: "autorisé", text: "17 000 manifestants selon la préfecture, cortège calme ; 1 000 à Aix malgré l'interdiction" },
     { city: "Lyon", state: "interdit", text: "~2 000 manifestants dans le 7e malgré l'interdiction, mortiers contre les forces de l'ordre, lacrymogènes" },
-    { city: "Nantes", state: "interdit", text: "Lacrymos et canon à eau place de la République ; cortège non autorisé dans le périmètre interdit (16h10)" },
-    { city: "Bordeaux", state: "vigilance", text: "Cortège place de la Bourse malgré l'interdiction, calme" },
-    { city: "Rouen", state: "interdit", text: "Lacrymogènes pour disperser des manifestants en zone interdite (16h30)" },
+    { city: "Nantes", state: "interdit", text: "3 000 personnes hostiles, barrières contre les forces de l'ordre, canon à eau et Centaure (16h15)" },
+    { city: "Bordeaux", state: "interdit", text: "15 500 manifestants ; projectiles sur les CRS et lacrymogènes (15h51)" },
+    { city: "Rouen", state: "interdit", text: "Lacrymogènes rue Eau-de-Robec, zone interdite (16h19)" },
     { city: "Brest", state: "vigilance", text: "~10 000 personnes, cortège non autorisé, calme" },
     { city: "Limoges", state: "autorisé", text: "TA suspend l'interdiction des rassemblements et le couvre-feu" },
     { city: "Le Havre", state: "interdit", text: "Interdiction ville ou centre" },
