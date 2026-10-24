@@ -5,9 +5,9 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T19:40:00+02:00",
+    updated: "2026-10-24T19:43:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Paris : plus de 500 casseurs cours de Vincennes (préfecture), mortiers et lacrymogènes. 410 000 manifestants en France.",
+    tensionNote: "Près de 1 000 interpellations en France (Nuñez) ; pillages à Marseille ; Paris : heurts cours de Vincennes en fin de journée.",
     window: { start: "13:00", end: "19:00" },
     march: { start: "14:30", end: "17:00" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
@@ -15,7 +15,7 @@ window.MANIF_DATA = {
 
   kpis: [
     { id: "paris", label: "Manifestants Paris", value: "110 000", delta: "préfecture ; 250 000 selon la CGT (18h03)", trend: "up", src: "Préfecture via ICI", at: "17:09" },
-    { id: "arrests", label: "Interpellations Paris", value: "65", delta: "dont 40 gardes à vue (6 mineurs) ; 135 en France à 13h", trend: "up", src: "CNews", at: "17:18" },
+    { id: "arrests", label: "Interpellations France", value: "≈1 000", delta: "dont 65 à Paris (40 gardes à vue) ; 135 à 13h", trend: "up", src: "L. Nuñez via CNews / ICI", at: "19:39" },
     { id: "crowd", label: "Manifestants France", value: "410 000", delta: "ministère de l'Intérieur ; 800 000 selon la CGT", trend: "up", src: "Min. Intérieur via CNews / franceinfo", at: "18:10" },
     { id: "controls", label: "Contrôles Paris", value: "3 000", delta: "selon la préfecture de police (635 à 12h28)", trend: "up", src: "Préfecture via France 3 / franceinfo", at: "17:20" },
     { id: "stations", label: "Stations de métro fermées", value: "24", delta: "+ ligne 2 coupée Barbès ↔ Nation", trend: "flat", src: "RATP via Presse-citron", at: "09:00" },
@@ -23,6 +23,8 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "19:40", cat: "politique", sev: 2, text: "Laurent Nuñez : « les cortèges se sont bien passés » ; des groupes à risque se sont détachés pour commettre des exactions mais ont été empêchés d'atteindre les centres-villes.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
+    { t: "19:39", cat: "securite", sev: 3, text: "Laurent Nuñez annonce près de 1 000 interpellations en France dans la journée.", src: "CNews / ICI", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "19:38", cat: "securite", sev: 3, text: "Paris : un émeutier porteur d'une arme artisanale « particulièrement redoutable » interpellé par la police.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "19:34", cat: "securite", sev: 4, incident: true, text: "Marseille : pillages en cours dans le Ve arrondissement, deux bijouteries pillées (source policière).", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:30", cat: "cortege", sev: 1, text: "France 3 Paris clôt son direct : 110 000 à 250 000 manifestants dans le calme, puis 500 casseurs selon la police face aux forces de l'ordre porte de Vincennes à la dispersion.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html" },
