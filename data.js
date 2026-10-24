@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:10:00+02:00",
+    updated: "2026-10-24T17:13:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : des manifestants repartent vers Nation, bloqués par les CRS ; tension en régions (Chambéry, Nantes, Rouen).",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,9 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:11", cat: "securite", sev: 3, incident: true, text: "Nantes : la situation se tend, des manifestants tentent de se rapprocher de la préfecture.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
+    { t: "17:10", cat: "securite", sev: 3, incident: true, text: "Lille : canon à eau déployé pour repousser les manifestants.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
+    { t: "17:05", cat: "cortege", sev: 1, text: "Paris : fin du cortège officiel porte de Vincennes, parcours sans débordement selon la préfecture ; important dispositif bloquant l'accès à Nation.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "17:04", cat: "securite", sev: 3, text: "Paris : une partie des manifestants repart vers Nation par le cours de Vincennes ; des camions de CRS bloquent l'avenue du Docteur-Arnold-Netter pour fermer l'accès à la place de la Nation.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html" },
     { t: "17:03", cat: "cortege", sev: 1, text: "Paris : le cortège continue de défiler dans le calme, la queue passe encore Porte de Bercy.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
     { t: "17:02", cat: "securite", sev: 3, incident: true, text: "Chambéry : des manifestants bloquent la voie rapide urbaine, affrontements avec les forces de l'ordre.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
@@ -242,8 +245,9 @@ window.MANIF_DATA = {
   cities: [
     { city: "Marseille", state: "autorisé", text: "17 000 manifestants selon la préfecture, cortège calme ; 1 000 à Aix malgré l'interdiction" },
     { city: "Lyon", state: "interdit", text: "~10 000 manifestants dispersés dans les rues (CNews 16h40) ; mortiers contre les forces de l'ordre, lacrymogènes" },
-    { city: "Nantes", state: "interdit", text: "Situation extrêmement tendue place du Commerce (16h39) ; 3 000 personnes hostiles, canon à eau et Centaure" },
+    { city: "Nantes", state: "interdit", text: "Manifestants vers la préfecture (17h11), place du Commerce très tendue ; canon à eau et Centaure" },
     { city: "Bordeaux", state: "interdit", text: "15 500 manifestants ; projectiles sur les CRS et lacrymogènes (15h51)" },
+    { city: "Lille", state: "vigilance", text: "Canon à eau pour repousser les manifestants (17h10)" },
     { city: "Chambéry", state: "interdit", text: "Violents affrontements en centre-ville (16h50)" },
     { city: "Toulouse", state: "vigilance", text: "La police peine à disperser les manifestants (16h42)" },
     { city: "Nice", state: "vigilance", text: "Groupe d'extrême droite vers le centre, dispersion en cours (16h47)" },
