@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T20:25:00+02:00",
+    updated: "2026-10-24T20:28:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : manifestation entièrement dispersée (19h58) ; ~1 000 interpellations en France, pillages à Marseille, tensions à Toulon.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "20:25", cat: "securite", sev: 3, incident: true, text: "Marseille : le maire Benoît Payan signale que « plusieurs groupes d'individus tentent de se livrer à des pillages dans différents secteurs de la ville ».", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "20:04", cat: "securite", sev: 2, text: "Préfecture : un hélicoptère de la gendarmerie appuie les effectifs pour repérer les « groupes résiduels de casseurs » après la dispersion.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "20:02", cat: "securite", sev: 2, incident: true, text: "Montpellier : 6 300 manifestants malgré l'interdiction, 8 interpellations, 2 CRS blessés, pas de dégradation signalée.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "20:02", cat: "securite", sev: 2, text: "Caen : 14 interpellations en marge de la manifestation.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
