@@ -624,32 +624,41 @@ function render() { drawTv(); drawHeader(); drawKpis(); drawFilters(); drawFeed(
 render();
 setInterval(tickNow, 1000);
 
-/* rechargement des données en temps réel, sans le cache de 10 min de GitHub Pages :
-   data.js est lu sur raw.githubusercontent.com avec un paramètre unique (contourne son cache, aucun quota par visiteur),
-   puis exécuté ; repli sur jsDelivr (@main, purgé à chaque publication). En local : data.js à côté de la page. */
+/* rechargement des données sans le cache de 10 min de GitHub Pages :
+   - toutes les 2 min, l'API GitHub donne le dernier commit (exact, mais limité à 60 appels/h par IP) → data.js figé à ce commit ;
+   - toutes les 30 s entre deux, data.js @main sur raw.githubusercontent (cache 1 à 5 min, sans quota) ;
+   - en local : data.js à côté de la page. */
 const REPO = "Jrm-EDM/manifmonitor";
+let lastSha = null, lastApi = 0;
 function applyData() { if (window.MANIF_DATA.meta.updated !== D.meta.updated) { D = window.MANIF_DATA; render(); } }
-function loadScript(src) {
-  const s = document.createElement("script");
-  s.src = src;
-  s.onload = () => { applyData(); s.remove(); };
-  s.onerror = () => s.remove();
-  document.body.appendChild(s);
+async function runRemote(url) {
+  const r = await fetch(url, { cache: "no-store" });
+  if (!r.ok) throw new Error(r.status);
+  new Function(await r.text())();
+  applyData();
 }
 async function refreshData() {
-  if (!/artificiel\.ai|github\.io/.test(location.hostname)) return loadScript("data.js?t=" + Date.now());
+  if (!/artificiel\.ai|github\.io/.test(location.hostname)) {
+    const s = document.createElement("script"); s.src = "data.js?t=" + Date.now();
+    s.onload = () => { applyData(); s.remove(); }; s.onerror = () => s.remove(); document.body.appendChild(s); return;
+  }
   try {
-    const r = await fetch(`https://raw.githubusercontent.com/${REPO}/main/data.js?t=${Date.now()}`, { cache: "no-store" });
-    if (!r.ok) throw new Error(r.status);
-    new Function(await r.text())();
-    return applyData();
+    if (Date.now() - lastApi > 115000) {
+      lastApi = Date.now();
+      const r = await fetch(`https://api.github.com/repos/${REPO}/commits/main`, { headers: { Accept: "application/vnd.github.sha" }, cache: "no-store" });
+      if (r.ok) {
+        const sha = (await r.text()).trim();
+        if (sha !== lastSha) { lastSha = sha; return await runRemote(`https://raw.githubusercontent.com/${REPO}/${sha}/data.js`); }
+        return;
+      }
+    }
+    await runRemote(`https://raw.githubusercontent.com/${REPO}/main/data.js?t=${Date.now()}`);
   } catch (e) {
-    loadScript(`https://cdn.jsdelivr.net/gh/${REPO}@main/data.js?t=${Date.now()}`);
+    try { await runRemote(`https://cdn.jsdelivr.net/gh/${REPO}@main/data.js?t=${Date.now()}`); } catch (e2) {}
   }
 }
 setInterval(refreshData, 30000);
 addEventListener("visibilitychange", () => { if (!document.hidden) refreshData(); });
-addEventListener("focus", refreshData);
 refreshData();
 </script>
 
