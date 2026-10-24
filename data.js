@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:34:00+02:00",
+    updated: "2026-10-24T17:37:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : 110 000 manifestants, calme ; reflux vers Nation bloqué par les CRS. Tension en régions.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:33", cat: "securite", sev: 3, text: "Paris : les gendarmes forment un barrage pour empêcher les manifestants de rejoindre la place de la Nation.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:30", cat: "securite", sev: 2, text: "Préfecture de police : les opérateurs de la BRI-PP sont mobilisés à Paris.", src: "CNews / @prefpolice", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:28", cat: "cortege", sev: 1, text: "Préfecture : le cortège parisien a atteint la porte de Vincennes à 17h00 ; 110 000 manifestants pour le pouvoir d'achat et les services publics, « situation calme dans l'ensemble de l'agglomération ».", src: "CNews / AFP", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:24", cat: "cortege", sev: 1, text: "Auxerre : malgré l'interdiction, des manifestants dénoncent des « libertés bafouées ».", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
@@ -196,7 +197,7 @@ window.MANIF_DATA = {
   // · 2 affrontements (lacrymos nourris, projectiles, charges) · 3 émeutes (incendies, pillages, barricades).
   // Une zone n'entre ici que sur signalement sourcé ; les zones « à risque » restent en heat 1 avec la mention.
   hotZones: [
-    { name: "Cours de Vincennes / Nation", ll: [48.8475, 2.4000], r: 450, heat: 1, note: "Des manifestants repartent vers Nation, accès bloqué par des camions de CRS av. du Dr-Arnold-Netter (France 3, 17h04). Pas de heurts signalés." },
+    { name: "Cours de Vincennes / Nation", ll: [48.8475, 2.4000], r: 450, heat: 1, note: "Barrage de gendarmes pour empêcher l'accès à Nation (CNews, 17h33) ; camions de CRS av. du Dr-Arnold-Netter. Pas de heurts signalés." },
     { name: "Avenue du Général-Michel-Bizot", ll: [48.8385, 2.4025], r: 300, heat: 1, note: "Cortège sauvage détaché du défilé officiel vers 15h55 (France 3 Paris IDF). Pas de heurts signalés." },
     { name: "Bastille", ll: [48.8532, 2.3691], r: 400, heat: 1, note: "Contrôles, fouilles et verbalisations (135 €) vers 15h30, départ interdit. Pas de heurts signalés (France 3, 15h51)." },
     { name: "République", ll: [48.8674, 2.3637], r: 400, heat: 1, note: "Couvre-feu 23h, foyer des violences du 17/10. Risque : calme à 15h23." },
@@ -237,6 +238,7 @@ window.MANIF_DATA = {
 
   // Incidents géolocalisés (vide pour l'instant). Ex : { t:"15:10", ll:[48.83,2.39], sev:3, text:"Heurts Pont National" }
   incidents: [
+    { t: "17:33", ll: [48.8479, 2.3985], sev: 3, text: "Barrage de gendarmes pour empêcher les manifestants de rejoindre la place de la Nation (CNews)" },
     { t: "17:04", ll: [48.8466, 2.4045], sev: 3, text: "Manifestants repartent vers Nation par le cours de Vincennes ; CRS bloquent l'av. du Dr-Arnold-Netter (France 3)" },
     { t: "15:54", ll: [48.8385, 2.4025], sev: 2, text: "Un groupe se détache du cortège : second défilé avenue du Général-Michel-Bizot (France 3 Paris IDF)" }
   ],
