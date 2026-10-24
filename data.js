@@ -14,9 +14,9 @@ window.MANIF_DATA = {
   },
 
   kpis: [
-    { id: "crowd", label: "Manifestants (France)", value: "35 000", delta: "vs 60 000 sam. 17/10 même heure", trend: "down", src: "Min. Intérieur via franceinfo", at: "13:00" },
+    { id: "paris", label: "Manifestants Paris", value: "40 000", delta: "selon la préfecture (10 000 à 15h15)", trend: "up", src: "Préfecture via France 3 IDF", at: "15:55" },
     { id: "arrests", label: "Interpellations (France)", value: "135", delta: "dont 17 à Paris (armes, mortiers)", trend: "flat", src: "L. Nuñez, point presse", at: "13:00" },
-    { id: "paris", label: "Cortège parisien", value: "40 000", delta: "selon la préfecture (10 000 à 15h15)", trend: "up", src: "Préfecture via France 3 IDF", at: "15:55" },
+    { id: "crowd", label: "Manifestants France (13h)", value: "35 000", delta: "dernier comptage national publié", trend: "down", src: "Min. Intérieur via franceinfo", at: "13:00" },
     { id: "controls", label: "Contrôles gares/transports", value: "635", delta: "saisies de matériel interdit", trend: "up", src: "Préfecture via Euronews", at: "12:28" },
     { id: "stations", label: "Stations de métro fermées", value: "24", delta: "+ ligne 2 coupée Barbès ↔ Nation", trend: "flat", src: "RATP via Presse-citron", at: "09:00" },
     { id: "police", label: "Policiers & gendarmes", value: "70 000", delta: "France entière, +20 % vs 17/10", trend: "up", src: "Gouvernement via Sortiraparis", at: "veille" }

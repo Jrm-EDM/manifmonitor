@@ -6,4 +6,4 @@ node -e "global.window={};require('./data.js')" || { echo "data.js invalide, rie
 git add -A
 git diff --cached --quiet && { echo "rien à publier"; exit 0; }
 git -c user.name="Jrm-EDM" -c user.email="jeremy.skornik@gmail.com" commit -q -m "${1:-MàJ données live}"
-git push -q origin main && echo "publié : $(git log -1 --format=%h)"
+git pull --rebase -q origin main 2>/dev/null; git push -q origin main && echo "publié : $(git log -1 --format=%h)"
