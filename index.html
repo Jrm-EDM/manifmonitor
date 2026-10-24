@@ -265,10 +265,11 @@ footer { border-top: 1px solid var(--line); background: var(--panel); padding: 8
   .kpi .l { font-size: 9.5px; letter-spacing: .06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .kpi .v { font-size: 21px; }
   .kpi .d, .kpi .s { display: none; }
-  main { grid-auto-rows: 72vh auto auto; }
-  .col:not(.right) { max-height: 75vh; }
+  main { grid-auto-rows: 52vh auto auto; }
+  .col:not(.right) { max-height: 60vh; }
   .coords, .corner { display: none; }
 }
+.maplock { position: absolute; z-index: 650; left: 50%; bottom: 14px; transform: translateX(-50%); font: 600 10.5px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--fg); background: color-mix(in srgb, var(--bg) 88%, transparent); border: 1px solid var(--fg); padding: 7px 12px; cursor: pointer; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -303,6 +304,7 @@ footer { border-top: 1px solid var(--line); background: var(--panel); padding: 8
     <div class="layers" id="layers"></div>
     <div class="maptag">Tracé approximatif · positions indicatives</div>
     <div class="mapgrid" aria-hidden="true"></div><i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+    <button class="maplock" id="maplock" hidden>Toucher pour manipuler la carte</button>
     <div class="coords" id="coords">48.8566 N · 2.3522 E</div>
   </div>
 
@@ -518,6 +520,16 @@ Object.values(groups).forEach(o => o.g.on("add", () => setTimeout(sizeGeo)));
 $("bhead").onclick = () => map.flyTo(headSplit().pt, 15, { duration: 1.2 });
 $("bhead").insertAdjacentHTML("beforebegin", `<button class="chip" id="broute">Tout le parcours</button>`);
 $("broute").onclick = frameRoute;
+// mobile : carte verrouillée par défaut pour que le doigt fasse défiler la page ; un tap la déverrouille, le défilement la reverrouille
+if (isNarrow) {
+  const lockMap = on => {
+    ["dragging", "touchZoom", "doubleClickZoom", "scrollWheelZoom", "tap"].forEach(h => map[h] && (on ? map[h].disable() : map[h].enable()));
+    $("maplock").hidden = !on;
+  };
+  lockMap(true);
+  $("maplock").onclick = () => lockMap(false);
+  let y0 = scrollY; addEventListener("scroll", () => { if (Math.abs(scrollY - y0) > 40 && $("maplock").hidden) lockMap(true); y0 = scrollY; }, { passive: true });
+}
 $("bparis").onclick = () => map.flyToBounds(parisRing, { padding: [20, 20], duration: 1.2 });
 
 /* ---------- panneaux ---------- */
