@@ -5,9 +5,9 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:53:00+02:00",
-    tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Paris : 110 000 manifestants, calme ; reflux vers Nation bloqué par les CRS. Tension en régions.",
+    updated: "2026-10-24T17:55:00+02:00",
+    tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
+    tensionNote: "Paris : tensions à la dispersion (lacrymos, canon à eau, charges cours de Vincennes) ; heurts en régions.",
     window: { start: "13:00", end: "19:00" },
     march: { start: "14:30", end: "17:00" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
@@ -23,6 +23,9 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:53", cat: "securite", sev: 3, incident: true, text: "Paris : premières tensions à la dispersion, grenades lacrymogènes et canon à eau sur le cours de Vincennes ; charges de CRS porte de Vincennes, « jeu du chat et de la souris » avec les manifestants.", src: "France 3 Paris IDF / franceinfo", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html" },
+    { t: "17:51", cat: "securite", sev: 3, incident: true, text: "Bordeaux : heurts place de la Bourse, pavés arrachés et mobilier urbain incendié.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "17:50", cat: "securite", sev: 1, text: "Orléans : trois interpellations liées à la manifestation contre le RN, dix autres hors de l'agglomération.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "17:42", cat: "securite", sev: 3, incident: true, text: "Toulouse : manifestation terminée, mais affrontements devant les lycées des Arènes.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "17:33", cat: "cortege", sev: 2, text: "Bilan à 17h30 : 110 000 à Paris, 26 500 à Toulouse, 17 000 à Marseille (100 000 selon les syndicats), 15 500 à Bordeaux, ~10 000 à Lyon, 4 800 à Rouen, 2 000 à Limoges ; vitrines brisées à Grenoble.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "17:30", cat: "securite", sev: 3, incident: true, text: "Saint-Étienne : des manifestants bloquent l'A72, repoussés aux gaz lacrymogènes.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
@@ -202,11 +205,11 @@ window.MANIF_DATA = {
   // · 2 affrontements (lacrymos nourris, projectiles, charges) · 3 émeutes (incendies, pillages, barricades).
   // Une zone n'entre ici que sur signalement sourcé ; les zones « à risque » restent en heat 1 avec la mention.
   hotZones: [
-    { name: "Cours de Vincennes / Nation", ll: [48.8475, 2.4000], r: 450, heat: 1, note: "Barrage de gendarmes pour empêcher l'accès à Nation (CNews, 17h33) ; camions de CRS av. du Dr-Arnold-Netter. Pas de heurts signalés." },
+    { name: "Cours de Vincennes / Nation", ll: [48.8475, 2.4000], r: 500, heat: 2, note: "Affrontements à la dispersion : lacrymogènes, canon à eau et charges de CRS (17h53, France 3 / franceinfo) ; accès à Nation barré par les gendarmes." },
     { name: "Avenue du Général-Michel-Bizot", ll: [48.8385, 2.4025], r: 300, heat: 1, note: "Cortège sauvage détaché du défilé officiel vers 15h55 (France 3 Paris IDF). Pas de heurts signalés." },
     { name: "Bastille", ll: [48.8532, 2.3691], r: 400, heat: 1, note: "Contrôles, fouilles et verbalisations (135 €) vers 15h30, départ interdit. Pas de heurts signalés (France 3, 15h51)." },
     { name: "République", ll: [48.8674, 2.3637], r: 400, heat: 1, note: "Couvre-feu 23h, foyer des violences du 17/10. Risque : calme à 15h23." },
-    { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 1, note: "Dispersion en cours (17h20), moment le plus sensible ; situation calme selon la préfecture." }
+    { name: "Porte de Vincennes", ll: [48.8472, 2.4108], r: 350, heat: 2, note: "Dispersion tendue : charges de CRS et lacrymogènes (17h53)." }
   ],
 
   // Dégâts du 17 octobre (et nuit du 18) à Paris, lieux cités par la presse. type : incendie · pillage · barricade · affrontement · degradation
@@ -243,6 +246,7 @@ window.MANIF_DATA = {
 
   // Incidents géolocalisés (vide pour l'instant). Ex : { t:"15:10", ll:[48.83,2.39], sev:3, text:"Heurts Pont National" }
   incidents: [
+    { t: "17:53", ll: [48.8472, 2.4040], sev: 3, text: "Dispersion : grenades lacrymogènes et canon à eau sur le cours de Vincennes, charges de CRS (France 3 / franceinfo)" },
     { t: "17:33", ll: [48.8479, 2.3985], sev: 3, text: "Barrage de gendarmes pour empêcher les manifestants de rejoindre la place de la Nation (CNews)" },
     { t: "17:04", ll: [48.8466, 2.4045], sev: 3, text: "Manifestants repartent vers Nation par le cours de Vincennes ; CRS bloquent l'av. du Dr-Arnold-Netter (France 3)" },
     { t: "15:54", ll: [48.8385, 2.4025], sev: 2, text: "Un groupe se détache du cortège : second défilé avenue du Général-Michel-Bizot (France 3 Paris IDF)" }
@@ -262,7 +266,7 @@ window.MANIF_DATA = {
     { city: "Marseille", state: "autorisé", text: "17 000 selon la préfecture, 100 000 selon les syndicats ; 1 000 à Aix malgré l'interdiction" },
     { city: "Lyon", state: "interdit", text: "~10 000 manifestants dispersés dans les rues (CNews 16h40) ; mortiers contre les forces de l'ordre, lacrymogènes" },
     { city: "Nantes", state: "interdit", text: "Pillages de magasins, 6 interpellations (17h24) ; manifestants vers la préfecture, canon à eau et Centaure" },
-    { city: "Bordeaux", state: "interdit", text: "Affrontements place de la Bourse (17h19) ; 15 500 manifestants" },
+    { city: "Bordeaux", state: "interdit", text: "Heurts place de la Bourse : pavés arrachés, mobilier incendié (17h51) ; 15 500 manifestants" },
     { city: "Dijon", state: "vigilance", text: "Permanence des Républicains vandalisée (17h19)" },
     { city: "Strasbourg", state: "interdit", text: "Manif sauvage de 6 500 personnes, incidents à la dispersion (17h38)" },
     { city: "Saint-Étienne", state: "interdit", text: "A72 bloquée puis dégagée aux lacrymogènes (17h30)" },
