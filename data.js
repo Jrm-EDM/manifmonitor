@@ -5,9 +5,9 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:04:00+02:00",
+    updated: "2026-10-24T17:07:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Paris calme, cortège arrivé à Vincennes ; la tension monte en régions (Chambéry, Nantes, Lyon, Rouen).",
+    tensionNote: "Paris : des manifestants repartent vers Nation, bloqués par les CRS ; tension en régions (Chambéry, Nantes, Rouen).",
     window: { start: "13:00", end: "19:00" },
     march: { start: "14:30", end: "18:30" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
@@ -23,6 +23,11 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:04", cat: "securite", sev: 3, text: "Paris : une partie des manifestants repart vers Nation par le cours de Vincennes ; des camions de CRS bloquent l'avenue du Docteur-Arnold-Netter pour fermer l'accès à la place de la Nation.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html" },
+    { t: "17:03", cat: "cortege", sev: 1, text: "Paris : le cortège continue de défiler dans le calme, la queue passe encore Porte de Bercy.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-24-octobre-a-paris-parcours-des-corteges-stations-fermees-securite-suivez-notre-direct-pour-tout-savoir-heure-par-heure-3438498.html", approx: true },
+    { t: "17:02", cat: "securite", sev: 3, incident: true, text: "Chambéry : des manifestants bloquent la voie rapide urbaine, affrontements avec les forces de l'ordre.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "17:01", cat: "securite", sev: 2, text: "Tours : jeu du chat et de la souris entre police et manifestants autour de la place Nationale.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
+    { t: "17:00", cat: "politique", sev: 1, text: "Le ministère de l'Intérieur dément une vidéo sortie de son contexte présentée comme des affrontements à Lyon. Des tensions sont aussi signalées à Rennes.", src: "franceinfo / CNews", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "16:54", cat: "securite", sev: 3, incident: true, text: "Rouen : nouveaux tirs de lacrymogènes près du palais de justice contre un cortège sauvage ; Bordeaux : cortège éclaté en petits groupes ; dispersions à Tours.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "16:50", cat: "securite", sev: 4, incident: true, text: "Chambéry : violents affrontements entre groupes violents et forces de l'ordre dans le centre-ville.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "16:47", cat: "securite", sev: 3, text: "Nice : un groupe d'extrême droite se dirige vers le centre-ville pendant que la police tente de disperser la manifestation.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
@@ -179,6 +184,7 @@ window.MANIF_DATA = {
   // · 2 affrontements (lacrymos nourris, projectiles, charges) · 3 émeutes (incendies, pillages, barricades).
   // Une zone n'entre ici que sur signalement sourcé ; les zones « à risque » restent en heat 1 avec la mention.
   hotZones: [
+    { name: "Cours de Vincennes / Nation", ll: [48.8475, 2.4000], r: 450, heat: 1, note: "Des manifestants repartent vers Nation, accès bloqué par des camions de CRS av. du Dr-Arnold-Netter (France 3, 17h04). Pas de heurts signalés." },
     { name: "Avenue du Général-Michel-Bizot", ll: [48.8385, 2.4025], r: 300, heat: 1, note: "Cortège sauvage détaché du défilé officiel vers 15h55 (France 3 Paris IDF). Pas de heurts signalés." },
     { name: "Bastille", ll: [48.8532, 2.3691], r: 400, heat: 1, note: "Contrôles, fouilles et verbalisations (135 €) vers 15h30, départ interdit. Pas de heurts signalés (France 3, 15h51)." },
     { name: "République", ll: [48.8674, 2.3637], r: 400, heat: 1, note: "Couvre-feu 23h, foyer des violences du 17/10. Risque : calme à 15h23." },
@@ -219,6 +225,7 @@ window.MANIF_DATA = {
 
   // Incidents géolocalisés (vide pour l'instant). Ex : { t:"15:10", ll:[48.83,2.39], sev:3, text:"Heurts Pont National" }
   incidents: [
+    { t: "17:04", ll: [48.8466, 2.4045], sev: 3, text: "Manifestants repartent vers Nation par le cours de Vincennes ; CRS bloquent l'av. du Dr-Arnold-Netter (France 3)" },
     { t: "15:54", ll: [48.8385, 2.4025], sev: 2, text: "Un groupe se détache du cortège : second défilé avenue du Général-Michel-Bizot (France 3 Paris IDF)" }
   ],
 
