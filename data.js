@@ -5,7 +5,7 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T19:52:00+02:00",
+    updated: "2026-10-24T19:55:00+02:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Près de 1 000 interpellations en France (Nuñez) ; pillages à Marseille ; Paris : heurts cours de Vincennes en fin de journée.",
     window: { start: "13:00", end: "19:00" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "19:51", cat: "securite", sev: 3, incident: true, text: "Grenoble : environ 10 000 manifestants, 400 black blocs ; lacrymogènes et charges répétées pour les empêcher d'entrer dans l'hyper-centre interdit.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "19:48", cat: "politique", sev: 2, text: "Nuñez : « sans la police, il n'y aurait pas eu de cortège » ; à Tours, ~800 personnes dissimulées repérées parmi 5 000 manifestants ; à Nice, l'ultra-droite a voulu « protéger » des commerces, « une première ».", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
     { t: "19:47", cat: "politique", sev: 1, text: "Nuñez : pas d'attaques contre des bâtiments publics, contrairement au 17 octobre, « systématiquement empêchées » ; beaucoup d'armes par destination saisies.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
     { t: "19:40", cat: "politique", sev: 2, text: "Laurent Nuñez : « les cortèges se sont bien passés » ; des groupes à risque se sont détachés pour commettre des exactions mais ont été empêchés d'atteindre les centres-villes.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-colere-sociale-70-000-policiers-et-gendarmes-mobilises-en-france-pour-cette-nouvelle-journee-de-mobilisation_LN-202610240063.html" },
@@ -321,7 +322,7 @@ window.MANIF_DATA = {
     { city: "Dijon", state: "vigilance", text: "Permanence des Républicains vandalisée (17h19)" },
     { city: "Strasbourg", state: "interdit", text: "Manif sauvage de 6 500 personnes, incidents à la dispersion (17h38)" },
     { city: "Saint-Étienne", state: "interdit", text: "A72 bloquée puis dégagée aux lacrymogènes (17h30)" },
-    { city: "Grenoble", state: "vigilance", text: "Vitrines d'agences brisées (18h26), heurts manifestants/casseurs" },
+    { city: "Grenoble", state: "interdit", text: "~10 000 manifestants, 400 black blocs repoussés aux lacrymos ; vitrines d'agences brisées" },
     { city: "Clermont-Ferrand", state: "vigilance", text: "Un blessé grave à la main (19h23) ; lacrymogènes sur un cortège sauvage à midi" },
     { city: "Lille", state: "vigilance", text: "15 000 manifestants ; projectiles sur les CRS, canon à eau" },
     { city: "Rennes", state: "vigilance", text: "Lacrymogènes place de la République (16h40)" },
