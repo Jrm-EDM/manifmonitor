@@ -5,16 +5,16 @@ window.MANIF_DATA = {
   meta: {
     title: "Mobilisation du 24 octobre",
     date: "2026-10-24",
-    updated: "2026-10-24T17:13:00+02:00",
+    updated: "2026-10-24T17:16:00+02:00",
     tension: 2, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Paris : des manifestants repartent vers Nation, bloqués par les CRS ; tension en régions (Chambéry, Nantes, Rouen).",
+    tensionNote: "Paris : 110 000 manifestants, calme ; reflux vers Nation bloqué par les CRS. Tension en régions.",
     window: { start: "13:00", end: "19:00" },
     march: { start: "14:30", end: "18:30" }, // départ réel, arrivée estimée : sert à interpoler la tête de cortège
     curfew: { start: "23:00", end: "06:00", until: "lundi 26 oct. 6h" }
   },
 
   kpis: [
-    { id: "paris", label: "Manifestants Paris", value: "40 000", delta: "selon la préfecture (10 000 à 15h15)", trend: "up", src: "Préfecture via France 3 IDF", at: "15:55" },
+    { id: "paris", label: "Manifestants Paris", value: "110 000", delta: "selon la préfecture (40 000 à 15h55)", trend: "up", src: "Préfecture via ICI", at: "17:09" },
     { id: "arrests", label: "Interpellations (France)", value: "135", delta: "dont 17 à Paris (armes, mortiers)", trend: "flat", src: "L. Nuñez, point presse", at: "13:00" },
     { id: "crowd", label: "Manifestants France (13h)", value: "35 000", delta: "dernier comptage national publié", trend: "down", src: "Min. Intérieur via franceinfo", at: "13:00" },
     { id: "controls", label: "Contrôles gares/transports", value: "635", delta: "saisies de matériel interdit", trend: "up", src: "Préfecture via Euronews", at: "12:28" },
@@ -23,6 +23,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:09", cat: "cortege", sev: 2, text: "Paris : la préfecture de police compte 110 000 personnes dans le cortège, qui reste calme.", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { t: "17:11", cat: "securite", sev: 3, incident: true, text: "Nantes : la situation se tend, des manifestants tentent de se rapprocher de la préfecture.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:10", cat: "securite", sev: 3, incident: true, text: "Lille : canon à eau déployé pour repousser les manifestants.", src: "CNews", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { t: "17:05", cat: "cortege", sev: 1, text: "Paris : fin du cortège officiel porte de Vincennes, parcours sans débordement selon la préfecture ; important dispositif bloquant l'accès à Nation.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html", approx: true },
