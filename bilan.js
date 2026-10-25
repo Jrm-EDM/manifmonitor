@@ -1,9 +1,9 @@
 // ManifMonitor — bilan comparé des journées du 17 et du 24 octobre 2026 (page index.html).
 // Le direct est archivé dans live.html (lit data.js). Chaque chiffre porte sa source.
 window.BILAN = {
-  updated: "2026-10-24T22:30:00+02:00",
+  updated: "2026-10-25T09:08:00+01:00",
   provisional: true, // 24/10 : bilan provisoire, réactualisé le dimanche 25 au matin
-  provisionalNote: "Chiffres du 24 octobre provisoires (arrêtés le 24 à 22h30) : ils seront réactualisés demain matin, dimanche 25 octobre, avec les bilans définitifs.",
+  provisionalNote: "Réactualisé le dimanche 25 octobre au matin : le bilan parisien de la préfecture de police est intégré (142 interpellations, 120 gardes à vue). Le ministère de l'Intérieur n'a pas encore publié de bilan national définitif (interpellations, policiers blessés) : ces chiffres restent provisoires.",
 
   next: {
     date: "2026-11-05T14:00:00+01:00",
@@ -25,12 +25,12 @@ window.BILAN = {
       alt: { a: null, aSrc: "Pas de chiffre syndical parisien retrouvé", b: 250000, bSrc: "CGT (ICI)" } },
     { id: "arrests1930", label: "Interpellations en France à 19h30", unit: "interpellations",
       a: 385, aSrc: "Laurent Nuñez, le 24/10 (CNews, ICI)", b: 1000, bApprox: true, bSrc: "Laurent Nuñez, « près de 1 000 » (CNews, ICI)",
-      note: "Même heure, même source : le ministre a comparé lui-même les deux journées. Bilan final du 17/10 : 2 397 interpellations." },
+      note: "Même heure, même source : le ministre a comparé lui-même les deux journées. Pas de bilan national actualisé au 25/10 au matin. Bilan final du 17/10 : plus de 1 800 (Nuñez) à 2 397 (Wikipédia)." },
     { id: "arrestsParis", label: "Interpellations à Paris", unit: "interpellations",
-      a: 855, aSrc: "Autorités, agglomération parisienne, bilan provisoire (Wikipédia)", b: 65, bSrc: "Préfecture de police, en fin de journée (CNews, ICI)",
+      a: 855, aSrc: "Autorités, agglomération parisienne, bilan provisoire (Wikipédia)", b: 142, bSrc: "Préfecture de police, bilan du 25/10 au matin, dont 120 gardes à vue (franceinfo)",
       note: "Périmètres différents : agglomération le 17/10, Paris intra-muros le 24/10." },
     { id: "policeHurt", label: "Policiers et gendarmes blessés", unit: "blessés",
-      a: 997, aSrc: "Bilan final (Wikipédia)", b: null, bSrc: "Bilan national attendu ; à Lyon seul, 18 blessés (préfecture du Rhône)" },
+      a: 997, aSrc: "Bilan final (Wikipédia)", b: null, bSrc: "Pas de bilan national au 25/10 au matin ; 18 blessés à Lyon (préfecture du Rhône), 2 à Pau (préfecture des Pyrénées-Atlantiques)" },
     { id: "deaths", label: "Morts", unit: "morts",
       a: 1, aSrc: "Homme de 59 ans, boulevard de Magenta, « arrêt cardiorespiratoire » selon la préfecture (Wikipédia)", b: 0, bSrc: "Aucun décès signalé au 24/10 à 22h30" },
     { id: "buildings", label: "Bâtiments publics attaqués", unit: "bâtiments",
@@ -54,8 +54,8 @@ window.BILAN = {
 
   // Ce qui distingue les deux journées, en faits sourcés.
   contrasts: [
-    { k: "Pillages", a: "1 500 à 3 000 commerces touchés en France, dont ~300 à Marseille et ~160 sur la Presqu'île de Lyon", b: "Pillages ciblés : bijouteries à Marseille, magasins à Nantes et Grenoble ; 3 commerces dégradés à Lyon, 3 à Marseille", aSrc: "FCD, ministre S. Papin (Wikipédia)", bSrc: "Préfectures (BFMTV, ICI, franceinfo)" },
-    { k: "Paris", a: "Pillages République, Magenta, Châtelet, 8e ; barricades aux abords de l'Élysée", b: "Heurts en fin de cortège cours de Vincennes (500 casseurs selon la préfecture), dispersion à 19h58", aSrc: "ICI, Wikipédia", bSrc: "Préfecture de police (France 3, CNews)" },
+    { k: "Pillages", a: "1 500 à 3 000 commerces touchés en France, dont ~300 à Marseille et ~160 sur la Presqu'île de Lyon", b: "Pillages ciblés : 7 commerces pillés ou dégradés dans les Bouches-du-Rhône, 3 dégradés à Lyon, magasins à Nantes et Grenoble ; à Paris, un commerce fracturé et volé, un autre abîmé", aSrc: "FCD, ministre S. Papin (Wikipédia)", bSrc: "Préfectures des Bouches-du-Rhône, du Rhône et de police (franceinfo, BFMTV, ICI)" },
+    { k: "Paris", a: "Pillages République, Magenta, Châtelet, 8e ; barricades aux abords de l'Élysée", b: "Heurts en fin de cortège cours de Vincennes (500 casseurs selon la préfecture), dispersion à 19h58 ; 142 interpellations, 120 gardes à vue", aSrc: "ICI, Wikipédia", bSrc: "Préfecture de police (France 3, CNews, franceinfo)" },
     { k: "Blessés graves", a: "Un adolescent a la main arrachée (Saint-Étienne), une jeune femme perd un œil (Mulhouse)", b: "Blessés à la main à Toulouse et à Clermont-Ferrand (sans amputation), un jeune blessé à l'œil à Poitiers", aSrc: "Wikipédia", bSrc: "Préfectures (franceinfo, BFMTV)" },
     { k: "Coût", a: "« Plusieurs centaines de millions d'euros » selon la FCD", b: "Pas encore chiffré", aSrc: "FCD (Wikipédia)", bSrc: "" }
   ],
@@ -66,6 +66,7 @@ window.BILAN = {
     { name: "ICI, direct du 24 octobre", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" },
     { name: "CNews, direct du 24 octobre", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { name: "franceinfo, direct du 24 octobre", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html" },
+    { name: "franceinfo : bilan du 25 octobre (Paris)", url: "https://www.franceinfo.fr/societe/manifestations/direct-manifestations-du-24-octobre-142-personnes-ont-ete-interpellees-a-paris-dont-120-ont-ete-placees-en-garde-a-vue-selon-la-prefecture-de-police_8252812.html" },
     { name: "SE-UNSA : mobilisation du 5 novembre", url: "https://www.se-unsa.org/2026/10/mobilisation-interprofessionnelle-du-5-novembre-2026/" }
   ]
 };
