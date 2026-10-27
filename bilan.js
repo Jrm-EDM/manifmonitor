@@ -9,10 +9,10 @@ window.BILAN = {
     date: "2026-11-05T14:00:00+01:00",
     label: "Jeudi 5 novembre 2026",
     title: "Grève et manifestations interprofessionnelles",
-    text: "L'intersyndicale (CGT, CFDT, FO, UNSA, FSU…) appelle salariés du public et du privé, retraités et jeunes à une journée nationale pour les salaires, les services publics, l'emploi et l'industrie. La CGT a appelé samedi soir « la grève à prendre le relais ».",
+    text: "L'intersyndicale (CGT, CFDT, FO, UNSA, FSU…) appelle salariés du public et du privé, retraités et jeunes à une journée nationale pour les salaires, les services publics, l'emploi et l'industrie. Appel maintenu après la rencontre à Matignon du 21 octobre ; les quatre principaux syndicats de la SNCF appellent aussi à la grève.",
     src: "CNews / SE-UNSA / BFMTV",
     url: "https://www.cnews.fr/france/2026-10-05/salaires-emploi-services-publics-une-intersyndicale-appelle-une-journee-nationale",
-    before: { label: "Samedi 31 octobre", text: "appel à un sit-in et une « casserolade » devant l'Assemblée nationale et les mairies (Gilets jaunes).", src: "ICI", url: "https://www.ici.fr/infos/societe/direct-mobilisation-du-24-octobre-des-manifestations-partout-en-france-70-000-policiers-et-gendarmes-deployes-8725021" }
+    before: { label: "Vendredi 30 et samedi 31 octobre", text: "« casserolade » des Gilets jaunes devant l'Assemblée nationale vendredi de 18h à 21h (temps fort à 20h), puis sit-in devant l'Assemblée et les mairies samedi dès 14h, pour les libertés publiques. Rassemblement déclaré en préfecture.", src: "Sortiraparis / Le Parisien", url: "https://www.sortiraparis.com/actualites/a-paris/articles/356011-casserolades-des-gilets-jaunes-a-paris-le-30-octobre-a-quoi-faut-il-s-attendre" }
   },
 
   // Comparaisons chiffrées. a = 17/10, b = 24/10 (null = pas encore connu). alt = chiffres syndicaux.
