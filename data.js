@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T19:38:00+01:00",
+    updated: "2026-11-05T19:41:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "19:40", cat: "cortege", sev: 1, text: "Charente-Maritime : plus de 5 000 manifestants, une personne interpellée à La Rochelle (circonstances non précisées).", src: "ICI", url: "https://www.ici.fr/infos/economie-social/direct-greve-du-5-novembre-les-syndicats-dans-la-rue-ce-jeudi-pour-les-salaires-et-contre-la-vie-chere-7257620", approx: true },
     { t: "19:20", cat: "securite", sev: 3, incident: true, text: "Paris, place de la Nation : « fin de manifestation un peu électrique » selon un journaliste de franceinfo sur place : après un défilé calme, les forces de l'ordre semblent vouloir disperser des manifestants qu'il décrit comme pacifiques, par des charges.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "19:06", cat: "securite", sev: 3, incident: true, text: "Paris, place de la Nation : plusieurs charges de CRS pour permettre aux pompiers d'intervenir sur un incendie allumé ; des détonations entendues.", src: "CNews", url: "https://www.cnews.fr/france/2026-11-05/manifestations-du-5-novembre-les-premieres-tensions-eclatent-dans-lest-de-paris" },
     { t: "19:11", cat: "politique", sev: 1, text: "Une étude du Cepremap, publiée mardi, nuance le rôle de TikTok dans la mobilisation, alors que l'exécutif a envisagé de suspendre l'accès aux réseaux sociaux.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
