@@ -7,9 +7,9 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T17:46:00+01:00",
+    updated: "2026-11-05T17:47:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Paris : dégradations boulevard Voltaire (préfecture) ; 40 blessés à Lyon, violences à Rennes et Nantes.",
+    tensionNote: "Paris : charge boulevard Voltaire après des dégradations ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
     march: { start: "14:10", end: "16:47" }, // départ réel, arrivée de la tête
     curfew: null,
@@ -26,6 +26,13 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:40", cat: "cortege", sev: 2, text: "Bordeaux : 21 000 manifestants selon la préfecture, 120 000 selon la CGT, « ambiance bon enfant et sans incident majeur ».", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
+    { t: "17:35", cat: "securite", sev: 2, text: "Lyon : fin des échauffourées, « tous les groupes hostiles [sont] désormais dispersés ».", src: "franceinfo / France 3", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
+    { t: "17:15", cat: "cortege", sev: 2, text: "Avec près de 600 000 manifestants, la journée est la plus massive du mouvement selon les chiffres de l'Intérieur : 550 000 le 17/10, 410 000 le 24/10, 320 000 le 31/10.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
+    { t: "17:00", cat: "cortege", sev: 2, text: "Paris : la tête est à Nation alors que de nombreux manifestants attendent encore de quitter République, à plus de 3 km en amont.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
+    { t: "16:55", cat: "cortege", sev: 1, text: "Strasbourg : 25 000 à 30 000 manifestants selon la CGT, 25 000 selon la CFDT.", src: "franceinfo / France 3", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
+    { t: "16:50", cat: "securite", sev: 3, incident: true, text: "Nantes : la police disperse les derniers manifestants au canon à eau et au gaz lacrymogène.", src: "franceinfo / Ouest-France", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
+    { t: "15:50", cat: "securite", sev: 3, incident: true, text: "Paris : charge des forces de l'ordre au croisement du boulevard Voltaire et de la rue de Charonne, après les dégradations d'individus cagoulés selon la préfecture.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-5-novembre-a-paris-avant-un-parcours-impose-republique-nation-plusieurs-blocages-de-lycees-suivez-les-derniers-evenements-3444756.html", approx: true },
     { t: "17:45", cat: "politique", sev: 2, text: "Sophie Binet (CGT) : « la grève est extrêmement efficace », le gouvernement a « trop tardé à répondre » ; elle réclame 10 % de hausse du Smic.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
     { t: "17:43", cat: "cortege", sev: 3, text: "La CGT revendique « près de 1,6 million » de manifestants en France, dont 350 000 à Paris.", src: "CNews", url: "https://www.cnews.fr/france/2026-11-05/manifestations-du-5-novembre-les-premieres-tensions-eclatent-dans-lest-de-paris" },
     { t: "17:10", cat: "politique", sev: 3, text: "Sébastien Lecornu annonce une « conférence sociale » lundi 9 novembre à Matignon avec syndicats et patronat ; le ministre du Travail doit finaliser ses concertations d'ici dimanche.", src: "BFMTV / CNews", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
@@ -119,7 +126,7 @@ window.MANIF_DATA = {
 
   // Évaluation éditoriale : heat 1 tension · 2 affrontements (lacrymos nourris, projectiles, charges) · 3 émeutes (incendies, pillages, barricades).
   hotZones: [
-    { name: "Boulevard Voltaire", ll: [48.86104, 2.37473], r: 450, heat: 1, note: "16h08 : individus cagoulés, dégradations, forces de l'ordre engagées (préfecture de police via BFMTV). Lieu exact non précisé." }
+    { name: "Boulevard Voltaire / rue de Charonne", ll: [48.85474, 2.3853], r: 350, heat: 2, note: "Dégradations par des individus cagoulés et charge des forces de l'ordre vers 16h (préfecture via BFMTV, France 3 Paris IDF)." }
   ],
 
   // Dégâts du 17 octobre (et nuit du 18) à Paris, lieux cités par la presse. type : incendie · pillage · barricade · affrontement · degradation
@@ -155,7 +162,7 @@ window.MANIF_DATA = {
   ],
 
   incidents: [
-    { t: "16:08", ll: [48.86104, 2.37473], sev: 3, text: "Dégradations par des individus cagoulés, boulevard Voltaire (préfecture via BFMTV, position approximative)" },
+    { t: "16:08", ll: [48.85474, 2.3853], sev: 3, text: "Dégradations par des individus cagoulés, charge des forces de l'ordre, boulevard Voltaire / rue de Charonne (préfecture via BFMTV, France 3)" },
     { t: "10:55", ll: [48.8601, 2.3432], sev: 2, text: "Rue de Rivoli : cortège bloquant l'artère dispersé par les forces de l'ordre (CLPress via BFMTV, position approximative)" },
     { t: "10:30", ll: [48.8961, 2.3157], sev: 2, text: "Lycée Honoré-de-Balzac : élèves disant avoir été chargés, lacrymogène (BFMTV, position approximative)" },
     { t: "08:09", ll: [48.8479, 2.4056], sev: 2, text: "Tensions devant le lycée Hélène-Boucher, calme revenu vers 9h40 (CNews, position approximative)" }
@@ -167,8 +174,8 @@ window.MANIF_DATA = {
   ],
 
   cities: [
-    { city: "Lyon", state: "vigilance", text: "30 500 à 55 000 manifestants ; 40 blessés dont 34 policiers, 24 interpellations, voiture incendiée, barricades" },
-    { city: "Nantes", state: "vigilance", text: "30 interpellations à 16h ; pavés lancés, lacrymogènes devant le CHU" },
+    { city: "Lyon", state: "vigilance", text: "30 500 à 55 000 manifestants ; 40 blessés dont 34 policiers, 24 interpellations, voiture incendiée, barricades ; groupes dispersés" },
+    { city: "Nantes", state: "vigilance", text: "30 interpellations à 16h ; pavés lancés, lacrymogènes, canon à eau" },
     { city: "Rennes", state: "vigilance", text: "Violences urbaines, tentatives de barricades, syndicalistes attaqués par des individus masqués" },
     { city: "Caen", state: "autorisé", text: "12 500 manifestants ; dégradations dans les lycées Rostand et Fresnel" },
     { city: "Tours", state: "autorisé", text: "16 200 selon la préfecture, 22 000 selon la CGT ; 3 interpellations, heurts après la manifestation" },
@@ -177,8 +184,8 @@ window.MANIF_DATA = {
     { city: "Lille", state: "vigilance", text: "Feu et fuite de gaz devant le lycée César-Baggio, habitants évacués" },
     { city: "Marseille", state: "autorisé", text: "Cortège dans le calme (Réformés → Castellane)" },
     { city: "Nice", state: "autorisé", text: "Gare SNCF → Masséna, cœur commerçant contourné" },
-    { city: "Bordeaux", state: "vigilance", text: "Une centaine d'élèves bloquent le lycée Montaigne" },
-    { city: "Strasbourg", state: "vigilance", text: "Tentative de blocage du lycée Marie-Curie dispersée" }
+    { city: "Bordeaux", state: "autorisé", text: "21 000 selon la préfecture, 120 000 selon la CGT ; ambiance bon enfant ; lycée Montaigne bloqué le matin" },
+    { city: "Strasbourg", state: "vigilance", text: "25 000 à 30 000 selon la CGT, 25 000 selon la CFDT ; tentative de blocage du lycée Marie-Curie dispersée" }
   ],
 
   agenda: [
@@ -202,6 +209,8 @@ window.MANIF_DATA = {
 
   sources: [
     { name: "BFMTV — direct", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
+    { name: "franceinfo — direct", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html" },
+    { name: "France 3 Paris IDF — direct", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-5-novembre-a-paris-avant-un-parcours-impose-republique-nation-plusieurs-blocages-de-lycees-suivez-les-derniers-evenements-3444756.html" },
     { name: "CNews — direct", url: "https://www.cnews.fr/france/2026-11-05/manifestations-du-5-novembre-les-premieres-tensions-eclatent-dans-lest-de-paris" },
     { name: "France 3 Lyon — direct", url: "https://france3-regions.franceinfo.fr/auvergne-rhone-alpes/rhone/lyon/direct-manifestation-du-5-novembre-a-lyon-aucun-metro-le-centre-ville-deja-sous-cloche-30-000-manifestants-attendus-3444585.html" },
     { name: "France 3 Pays de la Loire — direct", url: "https://france3-regions.franceinfo.fr/pays-de-la-loire/loire-atlantique/nantes/direct-manifestation-du-5-novembre-parcours-transports-perturbes-greve-suivez-les-mobilisations-a-nantes-angers-le-mans-ou-encore-laval-3444654.html" },
