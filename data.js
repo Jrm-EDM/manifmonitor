@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T17:56:00+01:00",
+    updated: "2026-11-05T17:58:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charge boulevard Voltaire après des dégradations ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:58", cat: "cortege", sev: 1, text: "Montpellier : 3 500 manifestants selon la préfecture, dans le calme et sans intervention des forces de l'ordre.", src: "franceinfo / France 3", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "17:46", cat: "cortege", sev: 2, text: "Paris : selon Manon Aubry (LFI), les derniers manifestants ont quitté République à 17h30 après plus de 2h30 de défilé ; elle appelle le gouvernement à « céder aux revendications sociales » ou « partir ».", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
     { t: "17:40", cat: "cortege", sev: 2, text: "Bordeaux : 21 000 manifestants selon la préfecture, 120 000 selon la CGT, « ambiance bon enfant et sans incident majeur ».", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "17:35", cat: "securite", sev: 2, text: "Lyon : fin des échauffourées, « tous les groupes hostiles [sont] désormais dispersés ».", src: "franceinfo / France 3", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
@@ -180,6 +181,7 @@ window.MANIF_DATA = {
     { city: "Rennes", state: "vigilance", text: "Violences urbaines, tentatives de barricades, syndicalistes attaqués par des individus masqués" },
     { city: "Caen", state: "autorisé", text: "12 500 manifestants ; dégradations dans les lycées Rostand et Fresnel" },
     { city: "Tours", state: "autorisé", text: "16 200 selon la préfecture, 22 000 selon la CGT ; 3 interpellations, heurts après la manifestation" },
+    { city: "Montpellier", state: "autorisé", text: "3 500 selon la préfecture, dans le calme" },
     { city: "Angers", state: "autorisé", text: "15 000 à 20 000 selon la CFDT" },
     { city: "Toulouse", state: "interdit", text: "Centre-ville interdit, recours rejeté, syndicats maintenus sur leur parcours ; lycée incendié à Tournefeuille" },
     { city: "Lille", state: "vigilance", text: "Feu et fuite de gaz devant le lycée César-Baggio, habitants évacués" },
