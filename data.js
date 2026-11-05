@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T18:55:00+01:00",
+    updated: "2026-11-05T18:59:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : quelques tensions à Nation (BFMTV), charge boulevard Voltaire plus tôt ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "18:59", cat: "securite", sev: 2, incident: true, text: "Lyon : la seule voiture brûlée appartenait à un homme de 50 ans sans domicile fixe, qui dormait dans sa tente à proximité et dit avoir « tout perdu » (AFP, Le Progrès).", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "18:44", cat: "securite", sev: 2, incident: true, text: "Paris : BFMTV titre sur « quelques tensions place de la Nation », sans détail pour l'instant.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html", approx: true },
     { t: "18:44", cat: "securite", sev: 3, incident: true, text: "Orléans : un directeur délégué à la formation de l'Éducation nationale blessé par un tir de mortier devant un lycée, jeudi matin.", src: "ICI", url: "https://www.ici.fr/infos/economie-social/direct-greve-du-5-novembre-les-syndicats-dans-la-rue-ce-jeudi-pour-les-salaires-et-contre-la-vie-chere-7257620", approx: true },
     { t: "18:44", cat: "cortege", sev: 2, text: "Marseille : 14 000 manifestants selon la préfecture de police, 150 000 selon la CGT. Clermont-Ferrand : 5 200 selon la préfecture. Perpignan : 3 500 selon la police, 6 000 selon la CGT.", src: "ICI", url: "https://www.ici.fr/infos/economie-social/direct-greve-du-5-novembre-les-syndicats-dans-la-rue-ce-jeudi-pour-les-salaires-et-contre-la-vie-chere-7257620", approx: true },
