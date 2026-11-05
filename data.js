@@ -3,6 +3,7 @@
 // Heures en "HH:MM" (heure de Paris). sev : 1 info · 2 notable · 3 alerte · 4 critique.
 window.MANIF_DATA = {
   meta: {
+    archived: "jeudi 5 novembre 2026, de 6h à 23h51", // retirer cette ligne pour repasser en direct
     title: "Mobilisation du 5 novembre",
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",

@@ -17,8 +17,7 @@
 - [ ] Hébergement (GitHub Pages / Vercel) pour partager le lien
 
 ## Organisation des pages
-- `index.html` = direct en cours (copie de `live.html`, lit `data.js`). Depuis le 5/11, plus rien de propre à une journée n'est en dur : tout est dans `meta` (`routeLabel`, `dayLabel`, `curfew` ou `restrictions`).
-- `bilan.html` + `bilan.js` = bilan 17/10 vs 24/10.
-- `archive-24-octobre.html` + `data-2026-10-24.js` = archive figée du 24/10.
-- Pour archiver le direct en fin de journée : `meta.archived` dans `data.js` (badge ARCHIVE, TV et horloge retirées). Le retirer pour repasser en direct.
-- Prochaine manif : copier `data.js` et `index.html` en archive datée, repartir de `live.html`, réécrire `data.js`, relancer la veille toutes les 3 min.
+- `index.html` = page bilan (copie de `bilan.html`, lit `bilan.js`) : bilan des journées du 17/10 au 5/11 et prochain rendez-vous. Modifier `bilan.html`, puis recopier sur `index.html`.
+- `live.html` = modèle du direct, lit `data.js` (dernier état : 5/11, marqué `meta.archived`). Plus rien de propre à une journée n'est en dur : tout est dans `meta` (`routeLabel`, `dayLabel`, `curfew` ou `restrictions`).
+- `archive-5-novembre.html` + `data-2026-11-05.js`, `archive-24-octobre.html` + `data-2026-10-24.js` = archives figées.
+- Prochaine manif : réécrire `data.js` sans `meta.archived`, copier `live.html` sur `index.html`, relancer la veille toutes les 3 min. En fin de journée : `data.js` en archive datée, copie de `live.html` pointant dessus sans rechargement, puis `bilan.html` sur `index.html`.

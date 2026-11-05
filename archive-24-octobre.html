@@ -636,7 +636,7 @@ function drawArchive() {
   tag.textContent = a ? "ARCHIVE" : "EN DIRECT";
   $("feedtitle").textContent = a ? "Fil de la journée" : "Fil en direct";
   const bar = $("archbar"); bar.hidden = !a;
-  if (a) bar.innerHTML = `Archive du direct : <b>${esc(m.archived)}</b>. Le fil n'est plus mis à jour. <a href="bilan.html">Voir le bilan</a> · <a href="index.html">Direct en cours →</a>`;
+  if (a) bar.innerHTML = `Archive du direct : <b>${esc(m.archived)}</b>. Le fil n'est plus mis à jour. <a href="bilan.html">Voir le bilan</a>`;
 }
 function drawKpis() {
   $("kpis").innerHTML = D.kpis.map(k => `<div class="kpi">

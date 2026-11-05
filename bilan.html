@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ManifMonitor Bilan</title>
-<meta name="description" content="Bilan comparé des mobilisations du 17 et du 24 octobre 2026, et prochain rendez-vous le 5 novembre.">
+<meta name="description" content="Bilan comparé des mobilisations du 17, 24, 31 octobre et du 5 novembre 2026, et prochain rendez-vous.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%221%22%20x2%3D%220%22%20y2%3D%220%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff2a2a%22/%3E%3Cstop%20offset%3D%22.6%22%20stop-color%3D%22%23ff6a2b%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffc145%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d%3D%22M16.6%202.5c.9%204.6%206.6%207.5%206.6%2014.2A7.4%207.4%200%200%201%2016%2024.3a7.3%207.3%200%200%201-7.4-7.5c0-3.1%201.6-5.3%203.3-6.8.1%202.7%201.2%204.3%202.7%204.9-1-4.6.2-9.2%202-12.4z%22%20fill%3D%22url%28%23g%29%22/%3E%3Cpath%20d%3D%22M16%2029.5c-2.8%200-4.6-1.9-4.6-4.3%200-2.2%201.6-3.6%202.8-4.7%200%201.6.8%202.5%201.8%202.8.1-1.8.8-3.3%202.2-4.6.6%202.4%202.4%203.5%202.4%206.4%200%202.5-1.9%204.4-4.6%204.4z%22%20fill%3D%22%23ffd27a%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* Page bilan entre deux mobilisations : bandeau du prochain rendez-vous, puis infographie 17/10 vs 24/10. Le direct est archivé dans live.html. */
+/* Page bilan entre deux mobilisations : bandeau du prochain rendez-vous, puis infographie des journées du 17/10 au 5/11. Le direct est archivé dans archive-5-novembre.html ; live.html reste le modèle. */
 :root {
   --bg: #0d1117;
   --panel: #131a23;
@@ -21,6 +21,8 @@
   --accent: #4f8dff;
   --d17: #b9783a;         /* série 17 octobre (validée sur --panel) */
   --d24: #12a87c;         /* série 24 octobre */
+  --d31: #7f8fd6;         /* série 31 octobre */
+  --d05: #e0566f;         /* série 5 novembre */
   --march: #2cf5b8;       /* menthe du direct : bandeau prochain rendez-vous */
   --warn: #e2b340;
   --s4: #ff3b4f;
@@ -72,7 +74,7 @@ h2 { margin: 0; font: 700 24px/1.1 var(--display); letter-spacing: .06em; text-t
 
 /* légende + contrôles, sur une ligne au-dessus des graphiques */
 .controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
-.legend { display: flex; gap: 14px; font-size: 13px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
@@ -94,11 +96,13 @@ h2 { margin: 0; font: 700 24px/1.1 var(--display); letter-spacing: .06em; text-t
 .bar { position: absolute; left: 0; top: 4px; height: 14px; border-radius: 0 4px 4px 0; transition: width .5s ease; }
 .bar.a { background: var(--d17); }
 .bar.b { background: var(--d24); }
+.bar.c { background: var(--d31); }
+.bar.d { background: var(--d05); }
 .bar.pending { background: repeating-linear-gradient(135deg, var(--line) 0 4px, transparent 4px 8px); border: 1px dashed var(--muted); width: 100% !important; opacity: .7; }
 .card .n { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
 .hero { display: flex; flex-direction: column; justify-content: center; }
 .hero .big { font: 700 44px/1 var(--display); font-variant-numeric: tabular-nums; }
-.hero .big em { font-style: normal; color: var(--d24); }
+.hero .big em { font-style: normal; color: var(--fg); }
 
 /* villes */
 .cities { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
@@ -115,6 +119,17 @@ h2 { margin: 0; font: 700 24px/1.1 var(--display); letter-spacing: .06em; text-t
 .axis .ticks span { position: absolute; transform: translateX(-50%); }
 .axis .ticks span:first-child { transform: none; }
 
+/* moments de la journée */
+.moments { list-style: none; margin: 0; padding: 4px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+.moments li { display: grid; grid-template-columns: 58px 18px minmax(0, 1fr); gap: 8px; padding: 9px 0; border-bottom: 1px solid var(--grid); }
+.moments li:last-child { border-bottom: 0; }
+.moments .h { font: 500 13px/22px var(--mono); color: var(--muted); }
+.moments .dot { width: 10px; height: 10px; margin-top: 6px; border-radius: 50%; background: var(--muted); }
+.moments li.inc .dot { background: var(--s4); }
+.moments .s { display: block; font: 11px var(--mono); color: var(--muted); margin-top: 2px; }
+.key { display: flex; gap: 14px; font-size: 13px; color: var(--muted); }
+.key i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+
 /* contrastes */
 .contrast { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 .contrast th, .contrast td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
@@ -129,6 +144,7 @@ h2 { margin: 0; font: 700 24px/1.1 var(--display); letter-spacing: .06em; text-t
 .tbl th, .tbl td { padding: 8px 12px; border-bottom: 1px solid var(--line); text-align: left; }
 .tbl td.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
 .tbl .s { font: 11px var(--mono); color: var(--muted); }
+#cmpTable { display: block; overflow-x: auto; }
 [hidden] { display: none !important; }
 
 .sources { columns: 2 320px; padding-left: 18px; margin: 0; font-size: 14px; }
@@ -160,10 +176,10 @@ footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30
 <header>
   <div class="wrap">
     <div class="brand">Manif<b>Monitor</b></div>
-    <div class="sub">Bilan des mobilisations des 17 et 24 octobre 2026</div>
+    <div class="sub">Bilan des mobilisations du 17 octobre au 5 novembre 2026</div>
     <div class="spacer"></div>
     <a class="archive" href="https://x.com/intent/follow?screen_name=Krypt0man" target="_blank" rel="noopener">Suivre @Krypt0man</a>
-    <a class="archive" href="archive-24-octobre.html">Archive du direct du 24/10 →</a>
+    <a class="archive" href="archive-5-novembre.html">Revoir le direct du 5/11 →</a>
   </div>
 </header>
 
@@ -171,7 +187,7 @@ footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30
   <div class="wrap">
     <div class="count" aria-live="polite"><div class="j" id="cdJ">–</div><div class="u" id="cdU">jours</div></div>
     <div>
-      <div class="kicker">Aujourd'hui</div>
+      <div class="kicker">Prochain rendez-vous</div>
       <h1 id="nxTitle"></h1>
       <p id="nxText"></p>
       <div class="meta" id="nxMeta"></div>
@@ -195,13 +211,15 @@ footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30
   <section aria-labelledby="h-cmp">
     <div class="sh">
       <div>
-        <h2 id="h-cmp">Deux samedis en chiffres</h2>
-        <p class="lede">Chaque carte compare les deux journées sur sa propre échelle. Survolez une barre pour voir la source.</p>
+        <h2 id="h-cmp">Quatre journées en chiffres</h2>
+        <p class="lede">Chaque carte compare les journées sur sa propre échelle. Survolez une barre pour voir la source.</p>
       </div>
       <div class="controls">
         <div class="legend" aria-label="Légende">
           <span><i style="background:var(--d17)"></i>17 octobre</span>
           <span><i style="background:var(--d24)"></i>24 octobre</span>
+          <span><i style="background:var(--d31)"></i>31 octobre</span>
+          <span><i style="background:var(--d05)"></i>5 novembre</span>
         </div>
         <div class="seg" role="group" aria-label="Origine des chiffres de manifestants">
           <button type="button" data-src="off" aria-pressed="true">Autorités</button>
@@ -217,6 +235,17 @@ footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30
     <table class="tbl" id="cmpTable" hidden></table>
   </section>
 
+  <section aria-labelledby="h-day">
+    <div class="sh">
+      <div>
+        <h2 id="h-day">Le 5 novembre en onze moments</h2>
+        <p class="lede">Le fil complet reste dans <a href="archive-5-novembre.html">l'archive du direct</a>.</p>
+      </div>
+      <div class="key" aria-label="Légende"><span><i style="background:var(--s4)"></i>Incident</span><span><i style="background:var(--muted)"></i>Déroulé</span></div>
+    </div>
+    <ol class="moments" id="moments"></ol>
+  </section>
+
   <section aria-labelledby="h-city">
     <div class="sh">
       <div>
@@ -226,7 +255,7 @@ footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30
       <div class="controls">
         <div class="seg" role="group" aria-label="Trier les villes">
           <button type="button" data-sort="a" aria-pressed="true">Taille au 17/10</button>
-          <button type="button" data-sort="b" aria-pressed="false">Taille au 24/10</button>
+          <button type="button" data-sort="d" aria-pressed="false">Taille au 5/11</button>
           <button type="button" data-sort="chg" aria-pressed="false">Évolution</button>
         </div>
       </div>
@@ -235,7 +264,7 @@ footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30
   </section>
 
   <section aria-labelledby="h-diff">
-    <div class="sh"><div><h2 id="h-diff">Ce qui a changé</h2><p class="lede">Moins de manifestants, deux fois et demie plus d'interpellations à la même heure, et aucun bâtiment public attaqué.</p></div></div>
+    <div class="sh"><div><h2 id="h-diff">Ce qui a changé</h2><p class="lede">Selon l'Intérieur, le 5 novembre est la plus suivie des quatre journées, avec le moins d'interpellations à ce stade, sur un bilan arrêté à 18h.</p></div></div>
     <table class="contrast" id="contrast"></table>
   </section>
 
@@ -246,7 +275,7 @@ footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30
 </main>
 
 <footer>
-  <div class="wrap">ManifMonitor, veille indépendante à partir de sources publiques. Mis à jour le <span id="upd"></span>. Le <a href="index.html">direct du 5 novembre</a> est en ligne ; l'archive du 24 octobre reste consultable <a href="archive-24-octobre.html">ici</a>.</div>
+  <div class="wrap">ManifMonitor, veille indépendante à partir de sources publiques. Mis à jour le <span id="upd"></span>. Archives des directs : <a href="archive-5-novembre.html">5 novembre</a>, <a href="archive-24-octobre.html">24 octobre</a>.</div>
 </footer>
 
 <div id="tip" role="tooltip"></div>
@@ -264,7 +293,7 @@ footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30
   const nx = B.next;
   $("#nxTitle").textContent = nx.label + " · " + nx.title;
   $("#nxText").textContent = nx.text;
-  $("#nxMeta").innerHTML = `Ensuite, <b>${esc(nx.before.label)}</b> : ${esc(nx.before.text)} <a href="${esc(nx.before.url)}" target="_blank" rel="noopener">${esc(nx.before.src)}</a>. · Source : <a href="${esc(nx.url)}" target="_blank" rel="noopener">${esc(nx.src)}</a>. <a href="index.html"><b>Suivre le direct du 5 novembre →</b></a>`;
+  $("#nxMeta").innerHTML = `Ensuite, <b>${esc(nx.before.label)}</b> : ${esc(nx.before.text)} <a href="${esc(nx.before.url)}" target="_blank" rel="noopener">${esc(nx.before.src)}</a>. · Source : <a href="${esc(nx.url)}" target="_blank" rel="noopener">${esc(nx.src)}</a>. <a href="archive-5-novembre.html"><b>Revoir le direct du 5 novembre →</b></a>`;
   function countdown() {
     const ms = new Date(nx.date) - new Date();
     const d = Math.ceil(ms / 864e5);
@@ -301,73 +330,85 @@ footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30
     `<div class="t"><i style="background:${color}"></i>${day}</div><div class="v">${v == null ? "En attente" : (approx ? "≈ " : "") + fmt(v)}</div><div class="s">${esc(src)}</div>`;
 
   // cartes de comparaison
+  const DAYS = B.days;
   function pick(m) {
-    if (srcMode === "alt" && m.alt) return { a: m.alt.a, b: m.alt.b, aSrc: m.alt.aSrc, bSrc: m.alt.bSrc, bApprox: false };
-    return m;
+    if (srcMode !== "alt" || !m.alt) return m;
+    const p = {};
+    DAYS.forEach(({ k }) => { if (k in m.alt) { p[k] = m.alt[k]; p[k + "Src"] = m.alt[k + "Src"]; } });
+    return p;
   }
-  function ratioText(a, b, unit) {
-    if (a == null || b == null) return `<span>${b == null ? "Bilan du 24/10 attendu" : "—"}</span>`;
-    if (a === b) return `Stable<small>${fmt(a)} ${unit} les deux jours</small>`;
-    if (a === 0 || b === 0) return `${fmt(a)} → ${fmt(b)}<small>${unit}</small>`;
-    const r = b / a;
-    if (r >= 1.5) return `× ${(r).toLocaleString("fr-FR", { maximumFractionDigits: 1 })}<small>par rapport au 17/10</small>`;
+  function ratioText(p, unit) {
+    const a = p.a, d = p.d;
+    if (d === null) return `<span>Bilan du 5/11 attendu</span>`;
+    if (a == null || d == null) return `${d == null ? "—" : fmt(d)}<small>${d == null ? "" : unit + " le 5/11"}</small>`;
+    if (a === d) return `Stable<small>${fmt(a)} ${unit} le 17/10 et le 5/11</small>`;
+    if (a === 0 || d === 0) return `${fmt(a)} → ${fmt(d)}<small>${unit}, du 17/10 au 5/11</small>`;
+    const r = d / a;
+    if (r >= 1.5) return `× ${r.toLocaleString("fr-FR", { maximumFractionDigits: 1 })}<small>le 5/11 par rapport au 17/10</small>`;
     const pct = Math.round((r - 1) * 100);
-    return `${pct > 0 ? "+" : "−"}${Math.abs(pct)} %<small>par rapport au 17/10</small>`;
+    return `${pct > 0 ? "+" : "−"}${Math.abs(pct)} %<small>le 5/11 par rapport au 17/10</small>`;
   }
   function renderCards() {
     const html = B.compare.map((m) => {
       const p = pick(m);
-      const max = Math.max(p.a || 0, p.b || 0) || 1;
-      const row = (k, day, color, v, src, approx) => {
-        const pending = v == null;
+      const max = Math.max(...DAYS.map(({ k }) => p[k] || 0)) || 1;
+      const rows = DAYS.filter(({ k }) => k in p).map(({ k, short, label, color }) => {
+        const v = p[k], pending = v == null;
         const w = pending ? 100 : Math.max(v === 0 ? 0 : 1.5, (v / max) * 100);
-        return `<div class="row"><div class="d">${day}</div>
-          <div class="track" tabindex="0" data-tip="${esc(tipHtml(day === "17/10" ? "17 octobre" : "24 octobre", color, v, src, approx))}" aria-label="${day} : ${pending ? "en attente" : fmt(v)}">
+        return `<div class="row"><div class="d">${short}</div>
+          <div class="track" tabindex="0" data-tip="${esc(tipHtml(label, color, v, p[k + "Src"]))}" aria-label="${short} : ${pending ? "en attente" : fmt(v)}">
             <div class="bar ${k}${pending ? " pending" : ""}" style="width:${w}%"></div></div>
-          <div class="v">${pending ? "?" : (approx ? "≈" : "") + fmt(v)}</div></div>`;
-      };
-      return `<article class="card"><div class="l">${esc(m.label)}</div><div class="ratio">${ratioText(p.a, p.b, m.unit)}</div>
-        ${row("a", "17/10", "var(--d17)", p.a, p.aSrc)}
-        ${row("b", "24/10", "var(--d24)", p.b, p.bSrc, p.bApprox)}
+          <div class="v">${pending ? "?" : fmt(v)}</div></div>`;
+      }).join("");
+      return `<article class="card"><div class="l">${esc(m.label)}</div><div class="ratio">${ratioText(p, m.unit)}</div>${rows}
         ${m.note ? `<div class="n">${esc(m.note)}</div>` : ""}</article>`;
     }).join("");
     const pol = B.police;
-    const hero = `<article class="card hero"><div class="l">Policiers et gendarmes mobilisés le 24/10</div>
-      <div class="big" tabindex="0" data-tip="${esc(tipHtml("24 octobre", "var(--d24)", pol.b, pol.src))}"><em>${fmt(pol.b)}</em></div>
+    const hero = `<article class="card hero"><div class="l">Policiers et gendarmes mobilisés le 5/11</div>
+      <div class="big" tabindex="0" data-tip="${esc(tipHtml("5 novembre", "var(--d05)", pol.d, pol.src))}"><em>${fmt(pol.d)}</em></div>
       <div class="n">${esc(pol.delta)} · ${esc(pol.src)}</div></article>`;
     $("#cards").innerHTML = html + hero;
     bindTips($("#cards"));
     // tableau
-    $("#cmpTable").innerHTML = `<thead><tr><th>Indicateur</th><th>17 octobre</th><th>24 octobre</th></tr></thead><tbody>` +
-      B.compare.map((m) => { const p = pick(m); return `<tr><td>${esc(m.label)}</td><td class="num">${fmt(p.a)}<div class="s">${esc(p.aSrc)}</div></td><td class="num">${p.b == null ? "en attente" : (p.bApprox ? "≈" : "") + fmt(p.b)}<div class="s">${esc(p.bSrc)}</div></td></tr>`; }).join("") +
-      `<tr><td>Policiers et gendarmes mobilisés</td><td class="num">—</td><td class="num">${fmt(pol.b)}<div class="s">${esc(pol.delta)}</div></td></tr></tbody>`;
+    const cell = (p, k) => !(k in p) ? `<td class="num">—</td>` : `<td class="num">${p[k] == null ? "en attente" : fmt(p[k])}<div class="s">${esc(p[k + "Src"])}</div></td>`;
+    $("#cmpTable").innerHTML = `<thead><tr><th>Indicateur</th>${DAYS.map((x) => `<th>${x.label}</th>`).join("")}</tr></thead><tbody>` +
+      B.compare.map((m) => { const p = pick(m); return `<tr><td>${esc(m.label)}</td>${DAYS.map((x) => cell(p, x.k)).join("")}</tr>`; }).join("") +
+      `<tr><td>Policiers et gendarmes mobilisés</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">${fmt(pol.d)}<div class="s">${esc(pol.delta)}</div></td></tr></tbody>`;
     $("#cards").hidden = view !== "chart"; $("#cmpTable").hidden = view !== "table";
   }
 
+  // moments du 5 novembre
+  $("#moments").innerHTML = B.timeline.map((m) => `<li class="${m.sev >= 3 ? "inc" : ""}"><span class="h">${esc(m.t)}</span><span class="dot"></span><span>${esc(m.text)}<a class="s" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.src)}</a></span></li>`).join("");
+
   // villes : une seule échelle pour toutes
   function renderCities() {
-    const rows = B.cities.map((c) => ({ ...c, chg: (c.b - c.a) / c.a }));
-    rows.sort((x, y) => sortKey === "chg" ? x.chg - y.chg : y[sortKey] - x[sortKey]);
-    const top = Math.max(...rows.flatMap((c) => [c.a, c.b]));
+    const rows = B.cities.map((c) => ({ ...c, chg: c.a != null && c.d != null ? (c.d - c.a) / c.a : null }));
+    const val = (c) => sortKey === "chg" ? c.chg : c[sortKey];
+    rows.sort((x, y) => {
+      const vx = val(x), vy = val(y);
+      if (vx == null || vy == null) return (vx == null) - (vy == null);
+      return vy - vx;
+    });
+    const top = Math.max(...rows.flatMap((c) => DAYS.map(({ k }) => c[k] || 0)));
     const max = top * 1.12; // marge pour l'étiquette de la plus grande barre
     const step = top > 60000 ? 25000 : 10000;
     const ticks = []; for (let t = 0; t <= top; t += step) ticks.push(t);
     const bar = (k, color, day, v, src, approx) =>
       `<div class="track" tabindex="0" data-tip="${esc(tipHtml(day, color, v, src, approx))}" aria-label="${day} : ${fmt(v)}"><div class="bar ${k}" style="width:${(v / max) * 100}%"></div><span class="lab" style="left:${(v / max) * 100}%">${approx ? "≈" : ""}${fmt(v)}</span></div>`;
     $("#cities").innerHTML = rows.map((c) => {
-      const pct = Math.round(c.chg * 100);
-      return `<div class="city"><div class="name">${esc(c.city)}</div><div class="pair">
-        ${bar("a", "var(--d17)", "17 octobre · " + c.city, c.a, c.aSrc)}
-        ${bar("b", "var(--d24)", "24 octobre · " + c.city, c.b, c.bSrc, c.bApprox)}</div>
-        <div class="chg" style="color:${pct === 0 ? "var(--muted)" : "var(--fg)"}">${pct === 0 ? "=" : (pct > 0 ? "+" : "−") + Math.abs(pct) + " %"}</div></div>`;
+      const pct = c.chg == null ? null : Math.round(c.chg * 100);
+      const bars = DAYS.filter(({ k }) => c[k] != null).map(({ k, label, color }) => bar(k, color, label + " · " + c.city, c[k], c[k + "Src"], c[k + "Approx"])).join("");
+      return `<div class="city"><div class="name">${esc(c.city)}</div><div class="pair">${bars}</div>
+        <div class="chg" title="Du 17/10 au 5/11" style="color:${pct ? "var(--fg)" : "var(--muted)"}">${pct == null ? "—" : pct === 0 ? "=" : (pct > 0 ? "+" : "−") + Math.abs(pct) + " %"}</div></div>`;
     }).join("") + `<div class="axis" aria-hidden="true"><span></span><div class="ticks">${ticks.map((t) => `<span style="left:${(t / max) * 100}%">${t === 0 ? "0" : fmt(t / 1000) + " k"}</span>`).join("")}</div><span></span></div>`;
     bindTips($("#cities"));
   }
   $("#cityNote").textContent = B.citiesNote;
 
   // contrastes
-  $("#contrast").innerHTML = `<thead><tr><th></th><th><i style="background:var(--d17)"></i>17 octobre</th><th><i style="background:var(--d24)"></i>24 octobre</th></tr></thead><tbody>` +
-    B.contrasts.map((c) => `<tr><td class="k">${esc(c.k)}</td><td data-d="17 octobre">${esc(c.a)}<span class="s">${esc(c.aSrc)}</span></td><td data-d="24 octobre">${esc(c.b)}${c.bSrc ? `<span class="s">${esc(c.bSrc)}</span>` : ""}</td></tr>`).join("") + `</tbody>`;
+  const CD = DAYS.filter((x) => x.k !== "c"); // peu de faits sourcés pour le 31/10 : colonne non affichée
+  $("#contrast").innerHTML = `<thead><tr><th></th>${CD.map((x) => `<th><i style="background:${x.color}"></i>${x.label}</th>`).join("")}</tr></thead><tbody>` +
+    B.contrasts.map((c) => `<tr><td class="k">${esc(c.k)}</td>${CD.map((x) => c[x.k] ? `<td data-d="${x.label}">${esc(c[x.k])}${c[x.k + "Src"] ? `<span class="s">${esc(c[x.k + "Src"])}</span>` : ""}</td>` : `<td data-d="${x.label}" style="color:var(--muted)">—</td>`).join("")}</tr>`).join("") + `</tbody>`;
 
   $("#sources").innerHTML = B.sources.map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a></li>`).join("");
 
