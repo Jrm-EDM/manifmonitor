@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T20:41:00+01:00",
+    updated: "2026-11-05T20:43:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "20:43", cat: "justice", sev: 2, text: "La Courneuve : l'auteur présumé du coup de couteau, un élève majeur de 20 ans, a été « immédiatement interpellé » (préfecture de police).", src: "La DH", url: "https://www.dhnet.be/actu/monde/2026/11/05/mobilisation-en-france-270000-manifestants-dans-180-corteges-hors-paris-a-13h00-selon-lentourage-de-nunez-P7J73ETISZCJ5BPYBYIEDRXK7A/", approx: true },
     { t: "20:41", cat: "securite", sev: 2, text: "Reda Belhaj, syndicaliste policier, sur Europe 1 : « ce matin, en banlieue, des collègues se sont pris des cocktails Molotov » (déclaration, lieu non précisé).", src: "Europe 1", url: "https://www.europe1.fr/societe/mobilisation-du-5-novembre-ce-matin-en-banlieue-des-collegues-se-sont-pris-des-cocktails-molotov-condamne-reda-belhaj-syndicaliste-policier-1210955", approx: true },
     { t: "19:39", cat: "securite", sev: 2, text: "Le ministère de l'Intérieur signale des « groupes à risque » de militants radicaux et d'ultra-gauche dans son point sur la journée.", src: "Boursorama", url: "https://boursorama.com/bourse/actualites/en-direct-nouvelle-mobilisation-sociale-massive-en-france-quelques-incidents-a-la-marge-0edb79453de48dd13cc2240f4828f0fb" },
     { t: "20:01", cat: "justice", sev: 2, text: "Strasbourg : le préfet du Bas-Rhin va saisir la justice après qu'un « mannequin géant » à l'effigie d'un CRS a été brûlé pendant la manifestation, qui a réuni de 10 000 à 26 000 personnes.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
