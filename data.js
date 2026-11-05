@@ -7,9 +7,9 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T23:46:00+01:00",
+    updated: "2026-11-05T23:51:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
+    tensionNote: "Marseille : CRS grièvement blessé au thorax, dix policiers blessés ; Paris : charges et incendie place de la Nation (19h06) ; Lyon : 40 blessés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
     march: { start: "14:10", end: "16:47" }, // départ réel, arrivée de la tête
     curfew: null,
@@ -26,6 +26,12 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "23:19", cat: "politique", sev: 2, text: "Fin du direct de BFMTV : Marine Tondelier et Sandrine Rousseau, entre autres, évoquent la démission de Sébastien Lecornu ; la mobilisation est décrite comme la plus importante de cet automne.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
+    { t: "22:05", cat: "securite", sev: 3, text: "Beauvau déplore que dans de nombreuses villes (Rennes, Marseille, Nantes, Lyon, Bordeaux, Strasbourg…), des groupes de « plusieurs centaines de militants radicaux et d'ultra-gauche » aient tenté de faire dégénérer les cortèges ou d'entrer dans les périmètres interdits.", src: "CNews", url: "https://www.cnews.fr/france/2026-11-05/manifestations-du-5-novembre-le-cortege-parisien-arrive-place-de-la-nation-600000" },
+    { t: "21:56", cat: "securite", sev: 2, text: "Lycée incendié près de Toulouse : fermé « pendant au moins dix jours », annonce Kamel Chibli, vice-président de la région Occitanie ; une trentaine de personnes cagoulées avaient agi peu avant 8h, avec des mortiers contre le personnel.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
+    { t: "21:38", cat: "securite", sev: 4, incident: true, text: "Marseille : un CRS grièvement touché au thorax par un projectile, en détresse respiratoire ; dix policiers blessés, vingt interpellations, dix-sept lycées bloqués (préfecture des Bouches-du-Rhône).", src: "CNews", url: "https://www.cnews.fr/france/2026-11-05/manifestations-du-5-novembre-le-cortege-parisien-arrive-place-de-la-nation-600000" },
+    { t: "21:14", cat: "securite", sev: 2, incident: true, text: "Toulouse : un manifestant blessé à la mâchoire par un projectile non identifié, pris en charge en urgence relative (préfet de la Haute-Garonne).", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
+    { t: "21:10", cat: "politique", sev: 2, text: "Marine Tondelier, sur BFMTV : « La question du départ de Lecornu se pose » ; elle réclame un « débouché politique » au mouvement.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
     { t: "23:43", cat: "politique", sev: 1, text: "Enquête de L'Œil du 20 Heures : le nouveau logiciel de surveillance des réseaux sociaux de l'exécutif peine à repérer les vidéos virales sur TikTok.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "12:32", cat: "securite", sev: 2, incident: true, text: "Paris, rue de Rivoli / rue Saint-Paul : tensions entre manifestants et policiers lors d'une interpellation devant une boutique ; un journaliste de Frontières est hué (heure de publication de la vidéo).", src: "Boursorama / AFP Video", url: "https://www.boursorama.com/videos/actualites/journee-de-mobilisation-tensions-avec-la-police-rue-de-rivoli-a-paris-627c629953340a6799ba6ea2e72d4d52", approx: true },
     { t: "22:19", cat: "cortege", sev: 2, text: "Lycées et universités : 81 lycées bloqués ou fermés sur 3 700 selon Matignon, près de mille selon le Snes-FSU ; un tiers des établissements du supérieur « perturbés » selon le gouvernement.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
@@ -231,7 +237,7 @@ window.MANIF_DATA = {
     { city: "Angers", state: "autorisé", text: "15 000 à 20 000 selon la CFDT" },
     { city: "Toulouse", state: "interdit", text: "Centre-ville interdit, recours rejeté, syndicats maintenus sur leur parcours ; lycée incendié à Tournefeuille" },
     { city: "Lille", state: "vigilance", text: "Feu et fuite de gaz devant le lycée César-Baggio, habitants évacués" },
-    { city: "Marseille", state: "autorisé", text: "14 000 selon la préfecture, 150 000 selon la CGT ; cortège dans le calme" },
+    { city: "Marseille", state: "autorisé", text: "CRS grièvement blessé au thorax, 10 policiers blessés, 20 interpellations, 17 lycées bloqués ; 14 000 selon la préfecture, 150 000 selon la CGT ; cortège dans le calme" },
     { city: "Nice", state: "autorisé", text: "Gare SNCF → Masséna, cœur commerçant contourné" },
     { city: "Bordeaux", state: "autorisé", text: "21 000 selon la préfecture, 120 000 selon la CGT ; ambiance bon enfant ; lycée Montaigne bloqué le matin" },
     { city: "Strasbourg", state: "vigilance", text: "10 000 à 26 000 selon franceinfo ; 25 000 à 30 000 selon la CGT, 25 000 selon la CFDT ; tentative de blocage du lycée Marie-Curie dispersée ; mannequin de CRS brûlé, justice saisie" }
