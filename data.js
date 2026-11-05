@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T21:13:00+01:00",
+    updated: "2026-11-05T21:17:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,10 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "20:37", cat: "politique", sev: 2, text: "Sophie Binet (CGT) juge la journée un « succès » ; Marylise Léon (CFDT) réclame un coup de pouce de 100 euros au Smic. L'exécutif se dit ouvert à un coup de pouce.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
+    { t: "20:37", cat: "politique", sev: 2, text: "Suite du mouvement : l'Unef donne « rendez-vous le 7 novembre » ; organisations de jeunesse et gilets jaunes annoncent de nouvelles actions samedi, l'« Acte IV » de ces derniers.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
+    { t: "20:37", cat: "securite", sev: 3, incident: true, text: "Paris, début de soirée : détonations et projectiles lancés vers les forces de l'ordre, alors que beaucoup de manifestants étaient déjà partis.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
+    { t: "20:37", cat: "securite", sev: 3, incident: true, text: "Lyon : un photographe de l'AFP a reçu cinq coups de matraque lors des violences.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
     { t: "21:11", cat: "securite", sev: 2, incident: true, text: "Bilan des violences de la journée selon Europe 1 : incendie, coup de couteau et « jets de boules de pétanque » (titre de l'article). Selon ICI, ces jets ont visé des policiers à Rennes, devant le lycée Bréquigny.", src: "Europe 1", url: "https://www.europe1.fr/societe/greve-du-5-novembre-incendie-coup-de-couteau-jets-de-boules-de-petanque-le-bilan-des-violences-de-la-journee-1211165", approx: true },
     { t: "17:56", cat: "securite", sev: 3, incident: true, text: "Paris, boulevard Voltaire : plusieurs personnes blessées lors de la charge policière, selon Le Monde cité par Euronews (nombre non précisé).", src: "Euronews", url: "https://fr.euronews.com/2026/11/05/en-france-une-journee-de-greve-nationale-a-lappel-des-organisations-syndicales", approx: true },
     { t: "20:46", cat: "cortege", sev: 1, text: "Paris : la tour Eiffel est restée fermée « en raison de la grève nationale » (heure de l'annonce non précisée).", src: "La Libre", url: "https://www.lalibre.be/international/europe/2026/11/05/greve-nationale-en-france-270000-manifestants-dans-180-corteges-hors-paris-ME6PQRIITZB2ZN5DOG2UBDE4JM/", approx: true },
@@ -225,6 +229,7 @@ window.MANIF_DATA = {
 
   agenda: [
     { d: "dim. 08/11", text: "Fin des concertations du ministre du Travail" },
+    { d: "sam. 07/11", text: "Nouvelles actions annoncées : jeunesse, gilets jaunes (Acte IV)" },
     { d: "lun. 09/11", text: "Conférence sociale à Matignon" }
   ],
 
