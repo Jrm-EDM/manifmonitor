@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T18:25:00+01:00",
+    updated: "2026-11-05T18:28:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charge boulevard Voltaire après des dégradations ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "18:26", cat: "justice", sev: 2, incident: true, text: "Strasbourg : un mannequin à l'effigie d'un CRS brûlé lors de la manifestation ; Laurent Nuñez demande au préfet du Bas-Rhin de saisir la justice (article 40).", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
     { t: "18:25", cat: "cortege", sev: 1, text: "Brest et Rennes : les manifestants disent défiler pour leurs conditions de travail, contre la vie chère et la « peur » de la police.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "18:15", cat: "securite", sev: 3, incident: true, text: "Argenteuil (Val-d'Oise) : trois employés d'un lycée, dont une enseignante, blessés par des tirs de mortiers ; le rectorat porte plainte.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-5-novembre-a-paris-avant-un-parcours-impose-republique-nation-plusieurs-blocages-de-lycees-suivez-les-derniers-evenements-3444756.html", approx: true },
     { t: "18:15", cat: "securite", sev: 3, incident: true, text: "La Courneuve (Seine-Saint-Denis) : un lycéen de 16 ans poignardé non loin d'un établissement bloqué ; lien avec la mobilisation non établi.", src: "France 3 Paris IDF", url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/direct-manifestation-du-5-novembre-a-paris-avant-un-parcours-impose-republique-nation-plusieurs-blocages-de-lycees-suivez-les-derniers-evenements-3444756.html", approx: true },
@@ -196,7 +197,7 @@ window.MANIF_DATA = {
     { city: "Marseille", state: "autorisé", text: "Cortège dans le calme (Réformés → Castellane)" },
     { city: "Nice", state: "autorisé", text: "Gare SNCF → Masséna, cœur commerçant contourné" },
     { city: "Bordeaux", state: "autorisé", text: "21 000 selon la préfecture, 120 000 selon la CGT ; ambiance bon enfant ; lycée Montaigne bloqué le matin" },
-    { city: "Strasbourg", state: "vigilance", text: "25 000 à 30 000 selon la CGT, 25 000 selon la CFDT ; tentative de blocage du lycée Marie-Curie dispersée" }
+    { city: "Strasbourg", state: "vigilance", text: "25 000 à 30 000 selon la CGT, 25 000 selon la CFDT ; tentative de blocage du lycée Marie-Curie dispersée ; mannequin de CRS brûlé, justice saisie" }
   ],
 
   agenda: [
