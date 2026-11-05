@@ -7,9 +7,9 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T18:40:00+01:00",
+    updated: "2026-11-05T18:44:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Paris : charge boulevard Voltaire après des dégradations ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
+    tensionNote: "Paris : quelques tensions à Nation (BFMTV), charge boulevard Voltaire plus tôt ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
     march: { start: "14:10", end: "16:47" }, // départ réel, arrivée de la tête
     curfew: null,
@@ -26,6 +26,10 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "18:44", cat: "securite", sev: 2, incident: true, text: "Paris : BFMTV titre sur « quelques tensions place de la Nation », sans détail pour l'instant.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html", approx: true },
+    { t: "18:44", cat: "securite", sev: 3, incident: true, text: "Orléans : un directeur délégué à la formation de l'Éducation nationale blessé par un tir de mortier devant un lycée, jeudi matin.", src: "ICI", url: "https://www.ici.fr/infos/economie-social/direct-greve-du-5-novembre-les-syndicats-dans-la-rue-ce-jeudi-pour-les-salaires-et-contre-la-vie-chere-7257620", approx: true },
+    { t: "18:44", cat: "cortege", sev: 2, text: "Marseille : 14 000 manifestants selon la préfecture de police, 150 000 selon la CGT. Clermont-Ferrand : 5 200 selon la préfecture. Perpignan : 3 500 selon la police, 6 000 selon la CGT.", src: "ICI", url: "https://www.ici.fr/infos/economie-social/direct-greve-du-5-novembre-les-syndicats-dans-la-rue-ce-jeudi-pour-les-salaires-et-contre-la-vie-chere-7257620", approx: true },
+    { t: "07:30", cat: "securite", sev: 3, incident: true, text: "Tournefeuille : une trentaine de personnes encagoulées sont entrées dans le lycée et ont provoqué l'incendie ; un intrus interpellé, une vingtaine en fuite.", src: "La Libre", url: "https://www.lalibre.be/international/europe/2026/11/05/greve-nationale-en-france-270000-manifestants-dans-180-corteges-hors-paris-ME6PQRIITZB2ZN5DOG2UBDE4JM/", approx: true },
     { t: "18:26", cat: "justice", sev: 2, incident: true, text: "Strasbourg : un mannequin à l'effigie d'un CRS brûlé lors de la manifestation ; Laurent Nuñez demande au préfet du Bas-Rhin de saisir la justice (article 40).", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
     { t: "18:25", cat: "cortege", sev: 1, text: "Brest et Rennes : les manifestants disent défiler pour leurs conditions de travail, contre la vie chère et la « peur » de la police.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "18:15", cat: "securite", sev: 3, incident: true, text: "Argenteuil (Val-d'Oise) : trois employés d'un lycée blessés par des tirs de mortiers ; une enseignante touchée à la tête, brièvement hospitalisée ; le rectorat porte plainte.", src: "ICI / France 3", url: "https://www.ici.fr/infos/economie-social/greve-du-5-novembre-manifestation-parisienne-entre-republique-a-nation-les-transports-perturbes-9313057", approx: true },
@@ -137,6 +141,7 @@ window.MANIF_DATA = {
 
   // Évaluation éditoriale : heat 1 tension · 2 affrontements (lacrymos nourris, projectiles, charges) · 3 émeutes (incendies, pillages, barricades).
   hotZones: [
+    { name: "Place de la Nation", ll: [48.8483, 2.3958], r: 350, heat: 1, note: "« Quelques tensions place de la Nation » selon le titre du direct BFMTV vers 18h45, sans détail." },
     { name: "Boulevard Voltaire / rue de Charonne", ll: [48.85474, 2.3853], r: 350, heat: 2, note: "Dégradations par des individus cagoulés et charge des forces de l'ordre vers 16h (préfecture via BFMTV, France 3 Paris IDF)." }
   ],
 
@@ -173,6 +178,7 @@ window.MANIF_DATA = {
   ],
 
   incidents: [
+    { t: "18:44", ll: [48.8483, 2.3958], sev: 2, text: "Quelques tensions place de la Nation (titre du direct BFMTV, sans détail)" },
     { t: "16:08", ll: [48.85474, 2.3853], sev: 3, text: "Dégradations par des individus cagoulés, charge des forces de l'ordre, boulevard Voltaire / rue de Charonne (préfecture via BFMTV, France 3)" },
     { t: "10:55", ll: [48.8601, 2.3432], sev: 2, text: "Rue de Rivoli : cortège bloquant l'artère dispersé par les forces de l'ordre (CLPress via BFMTV, position approximative)" },
     { t: "10:30", ll: [48.8961, 2.3157], sev: 2, text: "Lycée Honoré-de-Balzac : élèves disant avoir été chargés, lacrymogène (BFMTV, position approximative)" },
@@ -191,10 +197,12 @@ window.MANIF_DATA = {
     { city: "Caen", state: "autorisé", text: "12 500 manifestants ; dégradations dans les lycées Rostand et Fresnel" },
     { city: "Tours", state: "autorisé", text: "16 200 selon la préfecture, 22 000 selon la CGT ; 3 interpellations, heurts après la manifestation" },
     { city: "Montpellier", state: "autorisé", text: "3 500 selon la préfecture, dans le calme" },
+    { city: "Clermont-Ferrand", state: "autorisé", text: "5 200 selon la préfecture" },
+    { city: "Orléans", state: "vigilance", text: "Un cadre de l'Éducation nationale blessé par un tir de mortier devant un lycée" },
     { city: "Angers", state: "autorisé", text: "15 000 à 20 000 selon la CFDT" },
     { city: "Toulouse", state: "interdit", text: "Centre-ville interdit, recours rejeté, syndicats maintenus sur leur parcours ; lycée incendié à Tournefeuille" },
     { city: "Lille", state: "vigilance", text: "Feu et fuite de gaz devant le lycée César-Baggio, habitants évacués" },
-    { city: "Marseille", state: "autorisé", text: "Cortège dans le calme (Réformés → Castellane)" },
+    { city: "Marseille", state: "autorisé", text: "14 000 selon la préfecture, 150 000 selon la CGT ; cortège dans le calme" },
     { city: "Nice", state: "autorisé", text: "Gare SNCF → Masséna, cœur commerçant contourné" },
     { city: "Bordeaux", state: "autorisé", text: "21 000 selon la préfecture, 120 000 selon la CGT ; ambiance bon enfant ; lycée Montaigne bloqué le matin" },
     { city: "Strasbourg", state: "vigilance", text: "25 000 à 30 000 selon la CGT, 25 000 selon la CFDT ; tentative de blocage du lycée Marie-Curie dispersée ; mannequin de CRS brûlé, justice saisie" }
@@ -227,6 +235,8 @@ window.MANIF_DATA = {
     { name: "France 3 Lyon — direct", url: "https://france3-regions.franceinfo.fr/auvergne-rhone-alpes/rhone/lyon/direct-manifestation-du-5-novembre-a-lyon-aucun-metro-le-centre-ville-deja-sous-cloche-30-000-manifestants-attendus-3444585.html" },
     { name: "France 3 Pays de la Loire — direct", url: "https://france3-regions.franceinfo.fr/pays-de-la-loire/loire-atlantique/nantes/direct-manifestation-du-5-novembre-parcours-transports-perturbes-greve-suivez-les-mobilisations-a-nantes-angers-le-mans-ou-encore-laval-3444654.html" },
     { name: "ICI Touraine — direct", url: "https://www.ici.fr/infos/societe/direct-greve-du-5-novembre-suivez-la-mobilisation-contre-la-vie-chere-a-tours-2516270" },
+    { name: "ICI — direct national", url: "https://www.ici.fr/infos/economie-social/direct-greve-du-5-novembre-les-syndicats-dans-la-rue-ce-jeudi-pour-les-salaires-et-contre-la-vie-chere-7257620" },
+    { name: "La Libre — direct", url: "https://www.lalibre.be/international/europe/2026/11/05/greve-nationale-en-france-270000-manifestants-dans-180-corteges-hors-paris-ME6PQRIITZB2ZN5DOG2UBDE4JM/" },
     { name: "Sortiraparis — stations fermées", url: "https://www.sortiraparis.com/actualites/a-paris/articles/357062-manifestation-du-5-novembre-a-paris-25-stations-de-metro-fermees-ce-jeudi" },
     { name: "Sortiraparis — parcours", url: "https://www.sortiraparis.com/actualites/a-paris/articles/357052-manifestation-du-5-novembre-a-paris-le-parcours-impose-par-la-prefecture-confirme" },
     { name: "Préfecture de police (X)", url: "https://x.com/prefpolice" },
