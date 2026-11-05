@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T17:58:00+01:00",
+    updated: "2026-11-05T18:02:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charge boulevard Voltaire après des dégradations ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,11 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "18:00", cat: "cortege", sev: 2, text: "La CGT salue « un nouveau cap dans la mobilisation » : 1,6 million revendiqués, contre 800 000 au plus pour les organisateurs les 17 et 24 octobre.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
+    { t: "13:47", cat: "politique", sev: 1, text: "Marine Le Pen (RN) juge qu'une hausse du Smic de 10 % pourrait entraîner des « vagues de licenciement » et propose d'exonérer de charges les hausses de salaires.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
+    { t: "13:33", cat: "politique", sev: 1, text: "L'Assemblée nationale lance une mission d'information sur la coordination entre l'État et les collectivités après les violences du 17 octobre.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
+    { t: "13:29", cat: "politique", sev: 1, text: "Marylise Léon (CFDT) demande un échange avec les responsables politiques sur le Smic et réclame 100 euros nets de plus.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
+    { t: "11:18", cat: "politique", sev: 1, text: "Le Snes-FSU réunit son bureau national en fin d'après-midi et veut « construire la poursuite de la mobilisation » avec l'intersyndicale.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
     { t: "17:58", cat: "cortege", sev: 1, text: "Montpellier : 3 500 manifestants selon la préfecture, dans le calme et sans intervention des forces de l'ordre.", src: "franceinfo / France 3", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "17:46", cat: "cortege", sev: 2, text: "Paris : selon Manon Aubry (LFI), les derniers manifestants ont quitté République à 17h30 après plus de 2h30 de défilé ; elle appelle le gouvernement à « céder aux revendications sociales » ou « partir ».", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
     { t: "17:40", cat: "cortege", sev: 2, text: "Bordeaux : 21 000 manifestants selon la préfecture, 120 000 selon la CGT, « ambiance bon enfant et sans incident majeur ».", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
