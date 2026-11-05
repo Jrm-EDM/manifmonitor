@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T23:13:00+01:00",
+    updated: "2026-11-05T23:17:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "12:32", cat: "securite", sev: 2, incident: true, text: "Paris, rue de Rivoli / rue Saint-Paul : tensions entre manifestants et policiers lors d'une interpellation devant une boutique ; un journaliste de Frontières est hué (heure de publication de la vidéo).", src: "Boursorama / AFP Video", url: "https://www.boursorama.com/videos/actualites/journee-de-mobilisation-tensions-avec-la-police-rue-de-rivoli-a-paris-627c629953340a6799ba6ea2e72d4d52", approx: true },
     { t: "22:19", cat: "cortege", sev: 2, text: "Lycées et universités : 81 lycées bloqués ou fermés sur 3 700 selon Matignon, près de mille selon le Snes-FSU ; un tiers des établissements du supérieur « perturbés » selon le gouvernement.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
     { t: "22:19", cat: "transports", sev: 1, text: "SNCF : plus d'un cheminot sur trois en grève selon la CGT Cheminots ; transports peu perturbés selon l'AFP.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
     { t: "22:19", cat: "cortege", sev: 1, text: "Le ministère de l'Intérieur juge que les cortèges se sont « globalement bien déroulés ».", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
@@ -206,6 +207,7 @@ window.MANIF_DATA = {
     { t: "19:06", ll: [48.8483, 2.3958], sev: 3, text: "Place de la Nation : charges de CRS, incendie allumé, détonations (CNews)" },
     { t: "17:15", ll: [48.85474, 2.3853], sev: 3, text: "Boulevard Voltaire : lacrymogènes et charge pour scinder la tête du cortège, blessures à la tête soignées par des street medics (AFP via La Libre, heure de la dépêche)" },
     { t: "16:08", ll: [48.85474, 2.3853], sev: 3, text: "Dégradations par des individus cagoulés, charge des forces de l'ordre, boulevard Voltaire / rue de Charonne (préfecture via BFMTV, France 3)" },
+    { t: "12:32", ll: [48.8552, 2.3610], sev: 2, text: "Rivoli / Saint-Paul : tensions lors d'une interpellation devant une boutique (AFP Video, heure de publication, position approximative)" },
     { t: "10:55", ll: [48.8601, 2.3432], sev: 2, text: "Rue de Rivoli : cortège bloquant l'artère dispersé par les forces de l'ordre (CLPress via BFMTV, position approximative)" },
     { t: "10:30", ll: [48.8961, 2.3157], sev: 2, text: "Lycée Honoré-de-Balzac : élèves disant avoir été chargés, lacrymogène (BFMTV, position approximative)" },
     { t: "08:09", ll: [48.8479, 2.4056], sev: 2, text: "Tensions devant le lycée Hélène-Boucher, calme revenu vers 9h40 (CNews, position approximative)" }
