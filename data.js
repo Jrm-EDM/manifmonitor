@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T23:40:00+01:00",
+    updated: "2026-11-05T23:43:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "23:43", cat: "politique", sev: 1, text: "Enquête de L'Œil du 20 Heures : le nouveau logiciel de surveillance des réseaux sociaux de l'exécutif peine à repérer les vidéos virales sur TikTok.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "12:32", cat: "securite", sev: 2, incident: true, text: "Paris, rue de Rivoli / rue Saint-Paul : tensions entre manifestants et policiers lors d'une interpellation devant une boutique ; un journaliste de Frontières est hué (heure de publication de la vidéo).", src: "Boursorama / AFP Video", url: "https://www.boursorama.com/videos/actualites/journee-de-mobilisation-tensions-avec-la-police-rue-de-rivoli-a-paris-627c629953340a6799ba6ea2e72d4d52", approx: true },
     { t: "22:19", cat: "cortege", sev: 2, text: "Lycées et universités : 81 lycées bloqués ou fermés sur 3 700 selon Matignon, près de mille selon le Snes-FSU ; un tiers des établissements du supérieur « perturbés » selon le gouvernement.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
     { t: "22:19", cat: "transports", sev: 1, text: "SNCF : plus d'un cheminot sur trois en grève selon la CGT Cheminots ; transports peu perturbés selon l'AFP.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
