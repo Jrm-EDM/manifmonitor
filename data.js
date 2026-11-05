@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T20:01:00+01:00",
+    updated: "2026-11-05T20:02:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -214,7 +214,7 @@ window.MANIF_DATA = {
     { city: "Marseille", state: "autorisé", text: "14 000 selon la préfecture, 150 000 selon la CGT ; cortège dans le calme" },
     { city: "Nice", state: "autorisé", text: "Gare SNCF → Masséna, cœur commerçant contourné" },
     { city: "Bordeaux", state: "autorisé", text: "21 000 selon la préfecture, 120 000 selon la CGT ; ambiance bon enfant ; lycée Montaigne bloqué le matin" },
-    { city: "Strasbourg", state: "vigilance", text: "25 000 à 30 000 selon la CGT, 25 000 selon la CFDT ; tentative de blocage du lycée Marie-Curie dispersée ; mannequin de CRS brûlé, justice saisie" }
+    { city: "Strasbourg", state: "vigilance", text: "10 000 à 26 000 selon franceinfo ; 25 000 à 30 000 selon la CGT, 25 000 selon la CFDT ; tentative de blocage du lycée Marie-Curie dispersée ; mannequin de CRS brûlé, justice saisie" }
   ],
 
   agenda: [
