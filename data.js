@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T21:19:00+01:00",
+    updated: "2026-11-05T21:23:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "17:15", cat: "securite", sev: 3, incident: true, text: "Paris, boulevard Voltaire : au moment de scinder la tête du cortège en deux, les forces de l'ordre tirent des gaz lacrymogènes et chargent, matraque en main (journaliste de l'AFP) ; des street medics soignent plusieurs blessures à la tête (heure de la dépêche, faits antérieurs).", src: "La Libre / Belga", url: "https://www.lalibre.be/dernieres-depeches/2026/11/05/manifestations-en-france-breves-tensions-et-degradations-sur-le-parcours-du-cortege-a-paris-WFNTPCC6NRE4VATCY4ZNGOUPGE/", approx: true },
     { t: "20:37", cat: "politique", sev: 2, text: "Sophie Binet (CGT) juge la journée un « succès » ; Marylise Léon (CFDT) réclame un coup de pouce de 100 euros au Smic. L'exécutif se dit ouvert à un coup de pouce.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
     { t: "20:37", cat: "politique", sev: 2, text: "Suite du mouvement : l'Unef donne « rendez-vous le 7 novembre » ; organisations de jeunesse et gilets jaunes annoncent de nouvelles actions samedi, l'« Acte IV » de ces derniers.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
     { t: "20:37", cat: "securite", sev: 3, incident: true, text: "Paris, début de soirée : détonations et projectiles lancés vers les forces de l'ordre, alors que beaucoup de manifestants étaient déjà partis.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
@@ -198,6 +199,7 @@ window.MANIF_DATA = {
 
   incidents: [
     { t: "19:06", ll: [48.8483, 2.3958], sev: 3, text: "Place de la Nation : charges de CRS, incendie allumé, détonations (CNews)" },
+    { t: "17:15", ll: [48.85474, 2.3853], sev: 3, text: "Boulevard Voltaire : lacrymogènes et charge pour scinder la tête du cortège, blessures à la tête soignées par des street medics (AFP via La Libre, heure de la dépêche)" },
     { t: "16:08", ll: [48.85474, 2.3853], sev: 3, text: "Dégradations par des individus cagoulés, charge des forces de l'ordre, boulevard Voltaire / rue de Charonne (préfecture via BFMTV, France 3)" },
     { t: "10:55", ll: [48.8601, 2.3432], sev: 2, text: "Rue de Rivoli : cortège bloquant l'artère dispersé par les forces de l'ordre (CLPress via BFMTV, position approximative)" },
     { t: "10:30", ll: [48.8961, 2.3157], sev: 2, text: "Lycée Honoré-de-Balzac : élèves disant avoir été chargés, lacrymogène (BFMTV, position approximative)" },
