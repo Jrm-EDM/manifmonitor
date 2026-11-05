@@ -7,9 +7,9 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T19:08:00+01:00",
+    updated: "2026-11-05T19:11:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
-    tensionNote: "Paris : quelques tensions à Nation (BFMTV), charge boulevard Voltaire plus tôt ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
+    tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
     march: { start: "14:10", end: "16:47" }, // départ réel, arrivée de la tête
     curfew: null,
@@ -26,6 +26,8 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "19:06", cat: "securite", sev: 3, incident: true, text: "Paris, place de la Nation : plusieurs charges de CRS pour permettre aux pompiers d'intervenir sur un incendie allumé ; des détonations entendues.", src: "CNews", url: "https://www.cnews.fr/france/2026-11-05/manifestations-du-5-novembre-les-premieres-tensions-eclatent-dans-lest-de-paris" },
+    { t: "19:11", cat: "politique", sev: 1, text: "Une étude du Cepremap, publiée mardi, nuance le rôle de TikTok dans la mobilisation, alors que l'exécutif a envisagé de suspendre l'accès aux réseaux sociaux.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "18:59", cat: "securite", sev: 2, incident: true, text: "Lyon : la seule voiture brûlée appartenait à un homme de 50 ans sans domicile fixe, qui dormait dans sa tente à proximité et dit avoir « tout perdu » (AFP, Le Progrès).", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "18:44", cat: "securite", sev: 2, incident: true, text: "Paris : BFMTV titre sur « quelques tensions place de la Nation », sans détail pour l'instant.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html", approx: true },
     { t: "18:44", cat: "securite", sev: 3, incident: true, text: "Orléans : un directeur délégué à la formation de l'Éducation nationale blessé par un tir de mortier devant un lycée, jeudi matin.", src: "ICI", url: "https://www.ici.fr/infos/economie-social/direct-greve-du-5-novembre-les-syndicats-dans-la-rue-ce-jeudi-pour-les-salaires-et-contre-la-vie-chere-7257620", approx: true },
@@ -142,7 +144,7 @@ window.MANIF_DATA = {
 
   // Évaluation éditoriale : heat 1 tension · 2 affrontements (lacrymos nourris, projectiles, charges) · 3 émeutes (incendies, pillages, barricades).
   hotZones: [
-    { name: "Place de la Nation", ll: [48.8483, 2.3958], r: 350, heat: 1, note: "« Quelques tensions place de la Nation » selon le titre du direct BFMTV vers 18h45, sans détail." },
+    { name: "Place de la Nation", ll: [48.8483, 2.3958], r: 350, heat: 2, note: "19h06 : charges de CRS pour faire intervenir les pompiers sur un incendie, détonations entendues (CNews)." },
     { name: "Boulevard Voltaire / rue de Charonne", ll: [48.85474, 2.3853], r: 350, heat: 2, note: "Dégradations par des individus cagoulés et charge des forces de l'ordre vers 16h (préfecture via BFMTV, France 3 Paris IDF)." }
   ],
 
@@ -179,7 +181,7 @@ window.MANIF_DATA = {
   ],
 
   incidents: [
-    { t: "18:44", ll: [48.8483, 2.3958], sev: 2, text: "Quelques tensions place de la Nation (titre du direct BFMTV, sans détail)" },
+    { t: "19:06", ll: [48.8483, 2.3958], sev: 3, text: "Place de la Nation : charges de CRS, incendie allumé, détonations (CNews)" },
     { t: "16:08", ll: [48.85474, 2.3853], sev: 3, text: "Dégradations par des individus cagoulés, charge des forces de l'ordre, boulevard Voltaire / rue de Charonne (préfecture via BFMTV, France 3)" },
     { t: "10:55", ll: [48.8601, 2.3432], sev: 2, text: "Rue de Rivoli : cortège bloquant l'artère dispersé par les forces de l'ordre (CLPress via BFMTV, position approximative)" },
     { t: "10:30", ll: [48.8961, 2.3157], sev: 2, text: "Lycée Honoré-de-Balzac : élèves disant avoir été chargés, lacrymogène (BFMTV, position approximative)" },
