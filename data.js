@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T19:58:00+01:00",
+    updated: "2026-11-05T20:01:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "20:01", cat: "justice", sev: 2, text: "Strasbourg : le préfet du Bas-Rhin va saisir la justice après qu'un « mannequin géant » à l'effigie d'un CRS a été brûlé pendant la manifestation, qui a réuni de 10 000 à 26 000 personnes.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "19:58", cat: "securite", sev: 1, text: "Nancy : l'entourage du ministre évoque des « incidents signalés » lors de la dispersion du cortège ; ICI Lorraine le conteste, sans tension signalée et avec un cortège qui se poursuivait (heure de ces déclarations non précisée).", src: "ICI", url: "https://www.ici.fr/infos/economie-social/direct-greve-du-5-novembre-les-syndicats-dans-la-rue-ce-jeudi-pour-les-salaires-et-contre-la-vie-chere-7257620", approx: true },
     { t: "19:50", cat: "securite", sev: 3, incident: true, text: "Bilan provisoire de 18h du ministère de l'Intérieur : 448 interpellations, 53 membres des forces de l'ordre blessés, 86 interventions pour incendies ; bilan encore à consolider.", src: "franceinfo / ICI", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "19:50", cat: "cortege", sev: 3, text: "Chiffre revu par l'Intérieur : 575 000 manifestants en France dans 193 cortèges (contre « près de 600 000 » à 17h), dont 65 000 à Paris. La CGT maintient près de 1,6 million, dont 350 000 à Paris.", src: "franceinfo / ICI", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
