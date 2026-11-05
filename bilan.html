@@ -264,7 +264,7 @@ footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30
   const nx = B.next;
   $("#nxTitle").textContent = nx.label + " · " + nx.title;
   $("#nxText").textContent = nx.text;
-  $("#nxMeta").innerHTML = `Avant cela, <b>${esc(nx.before.label)}</b> : ${esc(nx.before.text)} <a href="${esc(nx.before.url)}" target="_blank" rel="noopener">${esc(nx.before.src)}</a>. · Source : <a href="${esc(nx.url)}" target="_blank" rel="noopener">${esc(nx.src)}</a>. <a href="index.html"><b>Suivre le direct du 5 novembre →</b></a>`;
+  $("#nxMeta").innerHTML = `Ensuite, <b>${esc(nx.before.label)}</b> : ${esc(nx.before.text)} <a href="${esc(nx.before.url)}" target="_blank" rel="noopener">${esc(nx.before.src)}</a>. · Source : <a href="${esc(nx.url)}" target="_blank" rel="noopener">${esc(nx.src)}</a>. <a href="index.html"><b>Suivre le direct du 5 novembre →</b></a>`;
   function countdown() {
     const ms = new Date(nx.date) - new Date();
     const d = Math.ceil(ms / 864e5);
