@@ -16,10 +16,9 @@
 - [ ] Courbe des interpellations et des manifestants dans la journée
 - [ ] Hébergement (GitHub Pages / Vercel) pour partager le lien
 
-## Entre deux manifs (depuis le 24/10 au soir)
-- `index.html` = page bilan (bandeau prochain rendez-vous + infographie 17/10 vs 24/10), données dans `bilan.js`.
-- `live.html` = modèle du direct (lit `data.js`, archive du 24/10). Pour la prochaine manif (5 novembre), 24 h avant :
-  1. copier `data.js` en `archive/2026-10-24-data.js`, puis vider/adapter `data.js` (meta, parcours, stations, zones, feed) ;
-  2. retirer `meta.archived` de data.js (sinon la page reste en mode archive), puis `cp live.html index.html` (garder l'ancienne page bilan en `bilan.html` si besoin) ;
-  3. relancer la tâche de veille toutes les 3 min (BFMTV via Claude in Chrome en priorité) et publier avec `sh publish.sh`.
-- [ ] Dimanche 25/10 au matin : réactualiser les chiffres du 24/10 dans `bilan.js` (bilans définitifs : interpellations, GAV, blessés FdO, commerces), puis `provisional: false`.
+## Organisation des pages
+- `index.html` = direct en cours (copie de `live.html`, lit `data.js`). Depuis le 5/11, plus rien de propre à une journée n'est en dur : tout est dans `meta` (`routeLabel`, `dayLabel`, `curfew` ou `restrictions`).
+- `bilan.html` + `bilan.js` = bilan 17/10 vs 24/10.
+- `archive-24-octobre.html` + `data-2026-10-24.js` = archive figée du 24/10.
+- Pour archiver le direct en fin de journée : `meta.archived` dans `data.js` (badge ARCHIVE, TV et horloge retirées). Le retirer pour repasser en direct.
+- Prochaine manif : copier `data.js` et `index.html` en archive datée, repartir de `live.html`, réécrire `data.js`, relancer la veille toutes les 3 min.

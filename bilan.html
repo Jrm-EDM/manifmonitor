@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ManifMonitor Bilan</title>
+<meta name="description" content="Bilan comparé des mobilisations du 17 et du 24 octobre 2026, et prochain rendez-vous le 5 novembre.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%221%22%20x2%3D%220%22%20y2%3D%220%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ff2a2a%22/%3E%3Cstop%20offset%3D%22.6%22%20stop-color%3D%22%23ff6a2b%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffc145%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d%3D%22M16.6%202.5c.9%204.6%206.6%207.5%206.6%2014.2A7.4%207.4%200%200%201%2016%2024.3a7.3%207.3%200%200%201-7.4-7.5c0-3.1%201.6-5.3%203.3-6.8.1%202.7%201.2%204.3%202.7%204.9-1-4.6.2-9.2%202-12.4z%22%20fill%3D%22url%28%23g%29%22/%3E%3Cpath%20d%3D%22M16%2029.5c-2.8%200-4.6-1.9-4.6-4.3%200-2.2%201.6-3.6%202.8-4.7%200%201.6.8%202.5%201.8%202.8.1-1.8.8-3.3%202.2-4.6.6%202.4%202.4%203.5%202.4%206.4%200%202.5-1.9%204.4-4.6%204.4z%22%20fill%3D%22%23ffd27a%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Page bilan entre deux mobilisations : bandeau du prochain rendez-vous, puis infographie 17/10 vs 24/10. Le direct est archivé dans live.html. */
+:root {
+  --bg: #0d1117;
+  --panel: #131a23;
+  --panel-2: #18212c;
+  --line: #243041;
+  --grid: #1d2733;
+  --fg: #dfe6ee;
+  --muted: #8593a5;
+  --accent: #4f8dff;
+  --d17: #b9783a;         /* série 17 octobre (validée sur --panel) */
+  --d24: #12a87c;         /* série 24 octobre */
+  --march: #2cf5b8;       /* menthe du direct : bandeau prochain rendez-vous */
+  --warn: #e2b340;
+  --s4: #ff3b4f;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--body); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+
+header { border-bottom: 1px solid var(--line); background: var(--panel); }
+header .wrap { display: flex; align-items: center; gap: 16px; padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; }
+.brand { font: 700 22px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; }
+.brand b { color: var(--s4); }
+.sub { color: var(--muted); font-size: 13px; }
+.spacer { flex: 1; }
+.archive { font: 600 13px var(--display); letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; color: var(--fg); }
+.archive:hover { border-color: var(--accent); text-decoration: none; }
+
+/* bandeau du prochain rendez-vous */
+.next { border-bottom: 1px solid var(--line); background:
+  radial-gradient(1200px 260px at 10% -40%, color-mix(in srgb, var(--march) 22%, transparent), transparent 70%), var(--panel-2); }
+.next .wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 28px; align-items: center; padding-top: 22px; padding-bottom: 22px; }
+.count { text-align: center; border: 1px solid color-mix(in srgb, var(--march) 55%, var(--line)); border-radius: 10px; padding: 10px 18px; min-width: 120px; }
+.count .j { font: 700 46px/1 var(--display); color: var(--march); font-variant-numeric: tabular-nums; }
+.count .u { font: 600 12px var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.next .kicker { font: 600 13px var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--march); }
+.next h1 { margin: 2px 0 6px; font: 700 clamp(26px, 4vw, 40px)/1.05 var(--display); text-transform: uppercase; letter-spacing: .02em; }
+.next p { margin: 0; max-width: 78ch; }
+.next .meta { margin-top: 8px; font-size: 13px; color: var(--muted); }
+.next .meta b { color: var(--fg); font-weight: 600; }
+
+.follow { margin-top: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; font-size: 14px; }
+.xbtn { display: inline-flex; align-items: center; gap: 8px; background: var(--fg); color: #0a0e13; font: 700 15px var(--display); letter-spacing: .06em; text-transform: uppercase; padding: 9px 16px; border-radius: 999px; }
+.xbtn:hover { text-decoration: none; background: #fff; }
+.notice { margin: 20px 0 0; display: flex; gap: 10px; align-items: flex-start; border: 1px solid color-mix(in srgb, var(--warn) 50%, var(--line)); background: color-mix(in srgb, var(--warn) 9%, var(--panel)); border-radius: 8px; padding: 10px 14px; font-size: 14px; }
+.notice svg { flex: none; margin-top: 2px; color: var(--warn); }
+
+section { margin: 28px 0; }
+.sh { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+h2 { margin: 0; font: 700 24px/1.1 var(--display); letter-spacing: .06em; text-transform: uppercase; }
+.lede { margin: 4px 0 0; color: var(--muted); font-size: 14px; max-width: 70ch; }
+
+/* légende + contrôles, sur une ligne au-dessus des graphiques */
+.controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.legend { display: flex; gap: 14px; font-size: 13px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+.seg button { font: 600 13px var(--display); letter-spacing: .06em; text-transform: uppercase; background: transparent; color: var(--muted); border: 0; padding: 6px 11px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--panel-2); color: var(--fg); }
+
+/* cartes de comparaison */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px 12px; min-width: 0; }
+.card .l { font: 600 14px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.card .ratio { font: 700 26px/1.1 var(--display); margin: 2px 0 10px; font-variant-numeric: tabular-nums; }
+.card .ratio small { font: 500 13px var(--body); color: var(--muted); margin-left: 6px; }
+.row { display: grid; grid-template-columns: 48px minmax(0, 1fr) 84px; align-items: center; gap: 10px; padding: 3px 0; }
+.row .d { font: 500 12px var(--mono); color: var(--muted); }
+.row .v { font: 600 15px var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+.track { position: relative; height: 22px; cursor: default; }
+.track::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--grid); }
+.bar { position: absolute; left: 0; top: 4px; height: 14px; border-radius: 0 4px 4px 0; transition: width .5s ease; }
+.bar.a { background: var(--d17); }
+.bar.b { background: var(--d24); }
+.bar.pending { background: repeating-linear-gradient(135deg, var(--line) 0 4px, transparent 4px 8px); border: 1px dashed var(--muted); width: 100% !important; opacity: .7; }
+.card .n { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+.hero { display: flex; flex-direction: column; justify-content: center; }
+.hero .big { font: 700 44px/1 var(--display); font-variant-numeric: tabular-nums; }
+.hero .big em { font-style: normal; color: var(--d24); }
+
+/* villes */
+.cities { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.city { display: grid; grid-template-columns: 96px minmax(0, 1fr) 64px; gap: 12px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--grid); }
+.city:last-child { border-bottom: 0; }
+.city .name { font: 600 16px var(--display); letter-spacing: .04em; }
+.city .pair { display: grid; gap: 2px; }
+.city .track { height: 16px; }
+.city .bar { top: 2px; height: 12px; }
+.city .lab { position: absolute; top: 0; font: 500 11.5px/16px var(--mono); color: var(--muted); white-space: nowrap; padding-left: 6px; }
+.city .chg { font: 600 14px var(--mono); text-align: right; }
+.axis { display: grid; grid-template-columns: 96px minmax(0, 1fr) 64px; gap: 12px; font: 11px var(--mono); color: var(--muted); }
+.axis .ticks { position: relative; height: 16px; }
+.axis .ticks span { position: absolute; transform: translateX(-50%); }
+.axis .ticks span:first-child { transform: none; }
+
+/* contrastes */
+.contrast { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.contrast th, .contrast td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.contrast tr:last-child td { border-bottom: 0; }
+.contrast thead th { font: 600 13px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); background: var(--panel-2); }
+.contrast thead th i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: 0; }
+.contrast td.k { font: 700 15px var(--display); letter-spacing: .06em; text-transform: uppercase; width: 130px; }
+.contrast .s { display: block; margin-top: 4px; font: 11px var(--mono); color: var(--muted); }
+
+/* tableau (vue accessible) */
+.tbl { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+.tbl th, .tbl td { padding: 8px 12px; border-bottom: 1px solid var(--line); text-align: left; }
+.tbl td.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.tbl .s { font: 11px var(--mono); color: var(--muted); }
+[hidden] { display: none !important; }
+
+.sources { columns: 2 320px; padding-left: 18px; margin: 0; font-size: 14px; }
+footer { border-top: 1px solid var(--line); margin-top: 36px; padding: 18px 0 30px; color: var(--muted); font-size: 13px; }
+
+#tip { position: fixed; z-index: 50; pointer-events: none; background: #0a0e13; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; max-width: 300px; font-size: 13px; box-shadow: 0 6px 24px rgba(0,0,0,.45); opacity: 0; transition: opacity .12s; }
+#tip.on { opacity: 1; }
+#tip .t { font: 600 12px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+#tip .v { font: 600 17px var(--mono); }
+#tip .s { color: var(--muted); font-size: 12px; margin-top: 2px; }
+#tip i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; }
+
+@media (max-width: 640px) {
+  .next .wrap { grid-template-columns: 1fr; }
+  .count { justify-self: start; display: flex; gap: 10px; align-items: baseline; padding: 6px 14px; }
+  .count .j { font-size: 34px; }
+  .cards { grid-template-columns: 1fr; }
+  .city, .axis { grid-template-columns: 74px minmax(0, 1fr) 54px; gap: 8px; }
+  .contrast thead { display: none; }
+  .contrast tr { display: block; border-bottom: 1px solid var(--line); }
+  .contrast td { display: block; border: 0; padding: 6px 14px; }
+  .contrast td.k { padding-top: 12px; width: auto; }
+  .contrast td[data-d]::before { content: attr(data-d); display: block; font: 600 12px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+}
+@media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">Manif<b>Monitor</b></div>
+    <div class="sub">Bilan des mobilisations des 17 et 24 octobre 2026</div>
+    <div class="spacer"></div>
+    <a class="archive" href="https://x.com/intent/follow?screen_name=Krypt0man" target="_blank" rel="noopener">Suivre @Krypt0man</a>
+    <a class="archive" href="archive-24-octobre.html">Archive du direct du 24/10 →</a>
+  </div>
+</header>
+
+<div class="next" role="region" aria-label="Prochain rendez-vous">
+  <div class="wrap">
+    <div class="count" aria-live="polite"><div class="j" id="cdJ">–</div><div class="u" id="cdU">jours</div></div>
+    <div>
+      <div class="kicker">Aujourd'hui</div>
+      <h1 id="nxTitle"></h1>
+      <p id="nxText"></p>
+      <div class="meta" id="nxMeta"></div>
+      <div class="follow">
+        <a class="xbtn" href="https://x.com/intent/follow?screen_name=Krypt0man" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Suivre @Krypt0man
+        </a>
+        <span>Abonnez-vous pour recevoir le lien des prochains dashboards dès leur mise en ligne.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="notice" id="notice" role="status">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    <div id="noticeText"></div>
+  </div>
+
+  <section aria-labelledby="h-cmp">
+    <div class="sh">
+      <div>
+        <h2 id="h-cmp">Deux samedis en chiffres</h2>
+        <p class="lede">Chaque carte compare les deux journées sur sa propre échelle. Survolez une barre pour voir la source.</p>
+      </div>
+      <div class="controls">
+        <div class="legend" aria-label="Légende">
+          <span><i style="background:var(--d17)"></i>17 octobre</span>
+          <span><i style="background:var(--d24)"></i>24 octobre</span>
+        </div>
+        <div class="seg" role="group" aria-label="Origine des chiffres de manifestants">
+          <button type="button" data-src="off" aria-pressed="true">Autorités</button>
+          <button type="button" data-src="alt" aria-pressed="false">Syndicats</button>
+        </div>
+        <div class="seg" role="group" aria-label="Affichage">
+          <button type="button" data-view="chart" aria-pressed="true">Graphique</button>
+          <button type="button" data-view="table" aria-pressed="false">Tableau</button>
+        </div>
+      </div>
+    </div>
+    <div class="cards" id="cards"></div>
+    <table class="tbl" id="cmpTable" hidden></table>
+  </section>
+
+  <section aria-labelledby="h-city">
+    <div class="sh">
+      <div>
+        <h2 id="h-city">Les cortèges ville par ville</h2>
+        <p class="lede" id="cityNote"></p>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Trier les villes">
+          <button type="button" data-sort="a" aria-pressed="true">Taille au 17/10</button>
+          <button type="button" data-sort="b" aria-pressed="false">Taille au 24/10</button>
+          <button type="button" data-sort="chg" aria-pressed="false">Évolution</button>
+        </div>
+      </div>
+    </div>
+    <div class="cities" id="cities"></div>
+  </section>
+
+  <section aria-labelledby="h-diff">
+    <div class="sh"><div><h2 id="h-diff">Ce qui a changé</h2><p class="lede">Moins de manifestants, deux fois et demie plus d'interpellations à la même heure, et aucun bâtiment public attaqué.</p></div></div>
+    <table class="contrast" id="contrast"></table>
+  </section>
+
+  <section aria-labelledby="h-src">
+    <div class="sh"><h2 id="h-src">Sources</h2></div>
+    <ul class="sources" id="sources"></ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">ManifMonitor, veille indépendante à partir de sources publiques. Mis à jour le <span id="upd"></span>. Le <a href="index.html">direct du 5 novembre</a> est en ligne ; l'archive du 24 octobre reste consultable <a href="archive-24-octobre.html">ici</a>.</div>
+</footer>
+
+<div id="tip" role="tooltip"></div>
+
+<script src="bilan.js"></script>
+<script>
+(function () {
+  const B = window.BILAN;
+  const $ = (s) => document.querySelector(s);
+  const fmt = (n) => n == null ? "—" : n.toLocaleString("fr-FR").replace(/ | /g, " ");
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  let srcMode = "off", view = "chart", sortKey = "a";
+
+  // bandeau
+  const nx = B.next;
+  $("#nxTitle").textContent = nx.label + " · " + nx.title;
+  $("#nxText").textContent = nx.text;
+  $("#nxMeta").innerHTML = `Avant cela, <b>${esc(nx.before.label)}</b> : ${esc(nx.before.text)} <a href="${esc(nx.before.url)}" target="_blank" rel="noopener">${esc(nx.before.src)}</a>. · Source : <a href="${esc(nx.url)}" target="_blank" rel="noopener">${esc(nx.src)}</a>. <a href="index.html"><b>Suivre le direct du 5 novembre →</b></a>`;
+  function countdown() {
+    const ms = new Date(nx.date) - new Date();
+    const d = Math.ceil(ms / 864e5);
+    if (ms <= 0) { $("#cdJ").textContent = "Jour J"; $("#cdU").textContent = ""; return; }
+    $("#cdJ").textContent = "J-" + d;
+    $("#cdU").textContent = d > 1 ? "jours" : "demain";
+  }
+  countdown(); setInterval(countdown, 60000);
+
+  $("#noticeText").textContent = B.provisionalNote;
+  $("#notice").hidden = !B.provisional;
+  $("#upd").textContent = new Date(B.updated).toLocaleString("fr-FR", { dateStyle: "long", timeStyle: "short", timeZone: "Europe/Paris" });
+
+  // infobulle
+  const tip = $("#tip");
+  function showTip(e, html) {
+    tip.innerHTML = html; tip.classList.add("on");
+    const r = tip.getBoundingClientRect();
+    let x, y;
+    if (e.clientX != null && e.type !== "focus") { x = e.clientX + 14; y = e.clientY + 14; }
+    else { const b = e.target.getBoundingClientRect(); x = b.left; y = b.bottom + 8; }
+    x = Math.min(x, innerWidth - r.width - 8); y = Math.min(y, innerHeight - r.height - 8);
+    tip.style.left = Math.max(8, x) + "px"; tip.style.top = Math.max(8, y) + "px";
+  }
+  const hideTip = () => tip.classList.remove("on");
+  function bindTips(root) {
+    root.querySelectorAll("[data-tip]").forEach((el) => {
+      const h = (e) => showTip(e, el.dataset.tip);
+      el.addEventListener("pointermove", h); el.addEventListener("focus", h);
+      el.addEventListener("pointerleave", hideTip); el.addEventListener("blur", hideTip);
+    });
+  }
+  const tipHtml = (day, color, v, src, approx) =>
+    `<div class="t"><i style="background:${color}"></i>${day}</div><div class="v">${v == null ? "En attente" : (approx ? "≈ " : "") + fmt(v)}</div><div class="s">${esc(src)}</div>`;
+
+  // cartes de comparaison
+  function pick(m) {
+    if (srcMode === "alt" && m.alt) return { a: m.alt.a, b: m.alt.b, aSrc: m.alt.aSrc, bSrc: m.alt.bSrc, bApprox: false };
+    return m;
+  }
+  function ratioText(a, b, unit) {
+    if (a == null || b == null) return `<span>${b == null ? "Bilan du 24/10 attendu" : "—"}</span>`;
+    if (a === b) return `Stable<small>${fmt(a)} ${unit} les deux jours</small>`;
+    if (a === 0 || b === 0) return `${fmt(a)} → ${fmt(b)}<small>${unit}</small>`;
+    const r = b / a;
+    if (r >= 1.5) return `× ${(r).toLocaleString("fr-FR", { maximumFractionDigits: 1 })}<small>par rapport au 17/10</small>`;
+    const pct = Math.round((r - 1) * 100);
+    return `${pct > 0 ? "+" : "−"}${Math.abs(pct)} %<small>par rapport au 17/10</small>`;
+  }
+  function renderCards() {
+    const html = B.compare.map((m) => {
+      const p = pick(m);
+      const max = Math.max(p.a || 0, p.b || 0) || 1;
+      const row = (k, day, color, v, src, approx) => {
+        const pending = v == null;
+        const w = pending ? 100 : Math.max(v === 0 ? 0 : 1.5, (v / max) * 100);
+        return `<div class="row"><div class="d">${day}</div>
+          <div class="track" tabindex="0" data-tip="${esc(tipHtml(day === "17/10" ? "17 octobre" : "24 octobre", color, v, src, approx))}" aria-label="${day} : ${pending ? "en attente" : fmt(v)}">
+            <div class="bar ${k}${pending ? " pending" : ""}" style="width:${w}%"></div></div>
+          <div class="v">${pending ? "?" : (approx ? "≈" : "") + fmt(v)}</div></div>`;
+      };
+      return `<article class="card"><div class="l">${esc(m.label)}</div><div class="ratio">${ratioText(p.a, p.b, m.unit)}</div>
+        ${row("a", "17/10", "var(--d17)", p.a, p.aSrc)}
+        ${row("b", "24/10", "var(--d24)", p.b, p.bSrc, p.bApprox)}
+        ${m.note ? `<div class="n">${esc(m.note)}</div>` : ""}</article>`;
+    }).join("");
+    const pol = B.police;
+    const hero = `<article class="card hero"><div class="l">Policiers et gendarmes mobilisés le 24/10</div>
+      <div class="big" tabindex="0" data-tip="${esc(tipHtml("24 octobre", "var(--d24)", pol.b, pol.src))}"><em>${fmt(pol.b)}</em></div>
+      <div class="n">${esc(pol.delta)} · ${esc(pol.src)}</div></article>`;
+    $("#cards").innerHTML = html + hero;
+    bindTips($("#cards"));
+    // tableau
+    $("#cmpTable").innerHTML = `<thead><tr><th>Indicateur</th><th>17 octobre</th><th>24 octobre</th></tr></thead><tbody>` +
+      B.compare.map((m) => { const p = pick(m); return `<tr><td>${esc(m.label)}</td><td class="num">${fmt(p.a)}<div class="s">${esc(p.aSrc)}</div></td><td class="num">${p.b == null ? "en attente" : (p.bApprox ? "≈" : "") + fmt(p.b)}<div class="s">${esc(p.bSrc)}</div></td></tr>`; }).join("") +
+      `<tr><td>Policiers et gendarmes mobilisés</td><td class="num">—</td><td class="num">${fmt(pol.b)}<div class="s">${esc(pol.delta)}</div></td></tr></tbody>`;
+    $("#cards").hidden = view !== "chart"; $("#cmpTable").hidden = view !== "table";
+  }
+
+  // villes : une seule échelle pour toutes
+  function renderCities() {
+    const rows = B.cities.map((c) => ({ ...c, chg: (c.b - c.a) / c.a }));
+    rows.sort((x, y) => sortKey === "chg" ? x.chg - y.chg : y[sortKey] - x[sortKey]);
+    const top = Math.max(...rows.flatMap((c) => [c.a, c.b]));
+    const max = top * 1.12; // marge pour l'étiquette de la plus grande barre
+    const step = top > 60000 ? 25000 : 10000;
+    const ticks = []; for (let t = 0; t <= top; t += step) ticks.push(t);
+    const bar = (k, color, day, v, src, approx) =>
+      `<div class="track" tabindex="0" data-tip="${esc(tipHtml(day, color, v, src, approx))}" aria-label="${day} : ${fmt(v)}"><div class="bar ${k}" style="width:${(v / max) * 100}%"></div><span class="lab" style="left:${(v / max) * 100}%">${approx ? "≈" : ""}${fmt(v)}</span></div>`;
+    $("#cities").innerHTML = rows.map((c) => {
+      const pct = Math.round(c.chg * 100);
+      return `<div class="city"><div class="name">${esc(c.city)}</div><div class="pair">
+        ${bar("a", "var(--d17)", "17 octobre · " + c.city, c.a, c.aSrc)}
+        ${bar("b", "var(--d24)", "24 octobre · " + c.city, c.b, c.bSrc, c.bApprox)}</div>
+        <div class="chg" style="color:${pct === 0 ? "var(--muted)" : "var(--fg)"}">${pct === 0 ? "=" : (pct > 0 ? "+" : "−") + Math.abs(pct) + " %"}</div></div>`;
+    }).join("") + `<div class="axis" aria-hidden="true"><span></span><div class="ticks">${ticks.map((t) => `<span style="left:${(t / max) * 100}%">${t === 0 ? "0" : fmt(t / 1000) + " k"}</span>`).join("")}</div><span></span></div>`;
+    bindTips($("#cities"));
+  }
+  $("#cityNote").textContent = B.citiesNote;
+
+  // contrastes
+  $("#contrast").innerHTML = `<thead><tr><th></th><th><i style="background:var(--d17)"></i>17 octobre</th><th><i style="background:var(--d24)"></i>24 octobre</th></tr></thead><tbody>` +
+    B.contrasts.map((c) => `<tr><td class="k">${esc(c.k)}</td><td data-d="17 octobre">${esc(c.a)}<span class="s">${esc(c.aSrc)}</span></td><td data-d="24 octobre">${esc(c.b)}${c.bSrc ? `<span class="s">${esc(c.bSrc)}</span>` : ""}</td></tr>`).join("") + `</tbody>`;
+
+  $("#sources").innerHTML = B.sources.map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a></li>`).join("");
+
+  // contrôles
+  function segBind(attr, set) {
+    document.querySelectorAll(`[data-${attr}]`).forEach((btn) => btn.addEventListener("click", () => {
+      btn.parentElement.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      set(btn.dataset[attr]);
+    }));
+  }
+  segBind("src", (v) => { srcMode = v; renderCards(); });
+  segBind("view", (v) => { view = v; renderCards(); });
+  segBind("sort", (v) => { sortKey = v; renderCities(); });
+
+  renderCards(); renderCities();
+})();
+</script>
+</body>
+</html>

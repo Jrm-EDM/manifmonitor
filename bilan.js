@@ -12,7 +12,7 @@ window.BILAN = {
     text: "L'intersyndicale (CGT, CFDT, FO, UNSA, FSU…) appelle salariés du public et du privé, retraités et jeunes à une journée nationale pour les salaires, les services publics, l'emploi et l'industrie. Appel maintenu après la rencontre à Matignon du 21 octobre ; les quatre principaux syndicats de la SNCF appellent aussi à la grève. Les organisations lycéennes appellent à y participer.",
     src: "CNews / SE-UNSA / BFMTV",
     url: "https://www.cnews.fr/france/2026-10-05/salaires-emploi-services-publics-une-intersyndicale-appelle-une-journee-nationale",
-    before: { label: "Vendredi 30 et samedi 31 octobre", text: "« casserolade » des Gilets jaunes devant l'Assemblée nationale vendredi de 18h à 21h (temps fort à 20h), puis sit-in devant l'Assemblée et les mairies samedi dès 14h, pour les libertés publiques. Rassemblement déclaré en préfecture. Les représentants lycéens, déçus des annonces du 26 octobre (Parcoursup, postes), appellent à rejoindre le 31 et le 5.", src: "Sortiraparis / Le Parisien", url: "https://www.sortiraparis.com/actualites/a-paris/articles/356011-casserolades-des-gilets-jaunes-a-paris-le-30-octobre-a-quoi-faut-il-s-attendre" }
+    before: { label: "Lundi 9 novembre", text: "« conférence sociale » à Matignon avec les syndicats et le patronat, annoncée par Sébastien Lecornu.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" }
   },
 
   // Comparaisons chiffrées. a = 17/10, b = 24/10 (null = pas encore connu). alt = chiffres syndicaux.

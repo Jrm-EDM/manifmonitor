@@ -58,6 +58,8 @@ header { display: flex; align-items: center; gap: 20px; padding: 10px max(16px, 
 .tension .lbl { font: 600 13px var(--display); letter-spacing: .08em; text-transform: uppercase; }
 .updated { font: 12px var(--mono); color: var(--muted); }
 .updated.stale { color: var(--s3); }
+.hlink { font: 600 12px var(--display); letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; color: var(--fg); white-space: nowrap; }
+.hlink:hover { border-color: var(--accent); text-decoration: none; }
 /* mode archive (meta.archived dans data.js) */
 .live.archived { color: var(--muted); }
 .live.archived::before { background: var(--muted); animation: none; }
@@ -301,6 +303,8 @@ footer { border-top: 1px solid var(--line); background: var(--panel); padding: 8
     <div class="sub" id="subtitle"></div>
   </div>
   <span class="live" id="livetag">EN DIRECT</span>
+  <a class="hlink" href="bilan.html">Bilan 17 &amp; 24 oct.</a>
+  <a class="hlink" href="https://x.com/intent/follow?screen_name=Krypt0man" target="_blank" rel="noopener">Suivre @Krypt0man</a>
   <div class="spacer"></div>
   <div class="tension" title="Niveau de tension (évaluation éditoriale)">
     <div class="bars" id="tbars"></div>
@@ -342,7 +346,7 @@ footer { border-top: 1px solid var(--line); background: var(--panel); padding: 8
 </main>
 
 <footer>
-  <div class="tl-h"><span>Journée du 24 oct. · 08h → 02h</span><span id="tlwin"></span></div>
+  <div class="tl-h"><span id="tlday"></span><span id="tlwin"></span></div>
   <div class="tl" id="tl"></div>
 </footer>
 
@@ -438,7 +442,7 @@ L.polygon(parisRing, { color: css("--accent"), weight: 2, fill: false, className
 const groups = {
   route:    { label: "Parcours officiel", icon: "start", g: L.layerGroup().addTo(map) },
   banned:   { label: "Lieux / parcours interdits", icon: "banned", g: L.layerGroup().addTo(map) },
-  curfew:   { label: "Couvre-feu 23h–6h", icon: "curfew", g: L.layerGroup().addTo(map) },
+  curfew:   { label: "Couvre-feu", icon: "curfew", g: L.layerGroup().addTo(map) },
   secured:  { label: "Points sécurisés", icon: "secured", g: L.layerGroup() },
   hot:      { label: "Zones chaudes (violences)", icon: "hot", g: L.layerGroup().addTo(map) },
   metroAll: { label: "Stations de métro", icon: "metroAll", g: L.layerGroup() },
@@ -619,7 +623,7 @@ addEventListener("resize", () => frMap && frMap.invalidateSize());
 /* ---------- panneaux ---------- */
 function drawHeader() {
   const m = D.meta;
-  $("subtitle").textContent = `${m.title} · cortège Porte d'Italie → Porte de Vincennes`;
+  $("subtitle").textContent = `${m.title} · ${m.routeLabel}`;
   $("tbars").innerHTML = [1, 2, 3, 4, 5].map(i => `<i style="${i <= m.tension ? `background:${SEVC[Math.min(i, 4)]}` : ""}"></i>`).join("");
   $("tlabel").textContent = `Niveau ${m.tension} · ${TENSION[m.tension]}`;
   $("tlabel").style.color = SEVC[Math.min(m.tension, 4)];
@@ -636,7 +640,7 @@ function drawArchive() {
   tag.textContent = a ? "ARCHIVE" : "EN DIRECT";
   $("feedtitle").textContent = a ? "Fil de la journée" : "Fil en direct";
   const bar = $("archbar"); bar.hidden = !a;
-  if (a) bar.innerHTML = `Archive du direct : <b>${esc(m.archived)}</b>. Le fil n'est plus mis à jour. <a href="index.html">Voir le bilan et le prochain rendez-vous →</a>`;
+  if (a) bar.innerHTML = `Archive du direct : <b>${esc(m.archived)}</b>. Le fil n'est plus mis à jour. <a href="bilan.html">Voir le bilan</a>`;
 }
 function drawKpis() {
   $("kpis").innerHTML = D.kpis.map(k => `<div class="kpi">
@@ -671,22 +675,24 @@ function drawSide() {
   $("agenda").innerHTML = D.agenda.map(a => `<div class="row"><span>${esc(a.d)}</span><span>${esc(a.text)}</span></div>`).join("");
   $("sources").innerHTML = D.sources.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} ↗</a>`).join("");
   const c = D.meta.curfew;
-  $("curfew").innerHTML = `Couvre-feu <b style="color:var(--night)">${c.start}–${c.end}</b> autour de République et des Halles, jusqu'au ${esc(c.until)}. Parcours Bastille–Nation et Bastille–Opéra interdits. Rassemblements av. Gabriel interdits. Participer à un rassemblement non déclaré expose à une amende.`;
+  if (!c) $("curfew").textContent = D.meta.restrictions || "";
+  else $("curfew").innerHTML = `Couvre-feu <b style="color:var(--night)">${c.start}–${c.end}</b> autour de République et des Halles, jusqu'au ${esc(c.until)}. Parcours Bastille–Nation et Bastille–Opéra interdits. Rassemblements av. Gabriel interdits. Participer à un rassemblement non déclaré expose à une amende.`;
 }
 
 /* ---------- frise 08h → 26h ---------- */
-const T0 = 8 * 60, T1 = 26 * 60;
+const T0 = 6 * 60, T1 = 26 * 60;
 const pos = t => { let m = mins(t); if (m < T0) m += 1440; return ((m - T0) / (T1 - T0) * 100).toFixed(2) + "%"; };
 function drawTimeline() {
   const w = D.meta.window, c = D.meta.curfew;
   let h = `<div class="axis"></div>
     <div class="win" style="left:${pos(w.start)};width:calc(${pos(w.end)} - ${pos(w.start)})" title="Fenêtre autorisée"></div>
-    <div class="cf" style="left:${pos(c.start)};right:0" title="Couvre-feu"></div>`;
-  for (let x = 8; x <= 26; x += 2) h += `<span class="tick" style="left:${((x * 60 - T0) / (T1 - T0) * 100)}%">${String(x % 24).padStart(2, "0")}h</span>`;
+    ${c ? `<div class="cf" style="left:${pos(c.start)};right:0" title="Couvre-feu"></div>` : ""}`;
+  for (let x = 6; x <= 26; x += 2) h += `<span class="tick" style="left:${((x * 60 - T0) / (T1 - T0) * 100)}%">${String(x % 24).padStart(2, "0")}h</span>`;
   D.milestones.forEach((m, i) => h += `<span class="ms" style="left:${pos(m.t)};top:${i % 2 ? 0 : 0}px" title="${esc(m.t)}">${esc(m.text)}</span>`);
   D.feed.forEach(f => h += `<span class="ev" style="left:${pos(f.t)};background:${SEVC[f.sev]}" title="${esc(f.t + " · " + f.text)}"></span>`);
   h += `<span class="now" id="now"></span>`;
   $("tl").innerHTML = h;
+  $("tlday").textContent = D.meta.dayLabel;
   $("tlwin").textContent = `Fenêtre autorisée ${w.start}–${w.end}`;
   tickNow();
 }
