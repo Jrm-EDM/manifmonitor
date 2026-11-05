@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T17:40:00+01:00",
+    updated: "2026-11-05T17:43:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : dégradations boulevard Voltaire (préfecture) ; 40 blessés à Lyon, violences à Rennes et Nantes.",
     window: { start: "14:00", end: "19:00" },
