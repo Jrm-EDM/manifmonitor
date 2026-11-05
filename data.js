@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T22:07:00+01:00",
+    updated: "2026-11-05T22:11:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "22:11", cat: "securite", sev: 3, incident: true, text: "Près de Toulouse : des individus cagoulés sont entrés dans un lycée, ont tiré des mortiers d'artifice et détruit les locaux de la vie scolaire, dans la matinée (établissement non nommé par franceinfo).", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "17:15", cat: "securite", sev: 3, incident: true, text: "Paris, boulevard Voltaire : au moment de scinder la tête du cortège en deux, les forces de l'ordre tirent des gaz lacrymogènes et chargent, matraque en main (journaliste de l'AFP) ; des street medics soignent plusieurs blessures à la tête (heure de la dépêche, faits antérieurs).", src: "La Libre / Belga", url: "https://www.lalibre.be/dernieres-depeches/2026/11/05/manifestations-en-france-breves-tensions-et-degradations-sur-le-parcours-du-cortege-a-paris-WFNTPCC6NRE4VATCY4ZNGOUPGE/", approx: true },
     { t: "20:37", cat: "politique", sev: 2, text: "Sophie Binet (CGT) juge la journée un « succès » ; Marylise Léon (CFDT) réclame un coup de pouce de 100 euros au Smic. L'exécutif se dit ouvert à un coup de pouce.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
     { t: "20:37", cat: "politique", sev: 2, text: "Suite du mouvement : l'Unef donne « rendez-vous le 7 novembre » ; organisations de jeunesse et gilets jaunes annoncent de nouvelles actions samedi, l'« Acte IV » de ces derniers.", src: "Boursorama / AFP", url: "https://www.boursorama.com/actualite-economique/actualites/lecornu-convoque-une-conference-sociale-apres-une-journee-de-colere-sociale-68f8c3351ea9fcafb4a769ddb01c28f3" },
