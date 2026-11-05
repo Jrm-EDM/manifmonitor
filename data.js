@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T21:07:00+01:00",
+    updated: "2026-11-05T21:11:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -26,6 +26,7 @@ window.MANIF_DATA = {
   ],
 
   feed: [
+    { t: "21:11", cat: "securite", sev: 2, incident: true, text: "Bilan des violences de la journée selon Europe 1 : incendie, coup de couteau et « jets de boules de pétanque » (titre de l'article ; lieu de ces jets non précisé ici).", src: "Europe 1", url: "https://www.europe1.fr/societe/greve-du-5-novembre-incendie-coup-de-couteau-jets-de-boules-de-petanque-le-bilan-des-violences-de-la-journee-1211165", approx: true },
     { t: "17:56", cat: "securite", sev: 3, incident: true, text: "Paris, boulevard Voltaire : plusieurs personnes blessées lors de la charge policière, selon Le Monde cité par Euronews (nombre non précisé).", src: "Euronews", url: "https://fr.euronews.com/2026/11/05/en-france-une-journee-de-greve-nationale-a-lappel-des-organisations-syndicales", approx: true },
     { t: "20:46", cat: "cortege", sev: 1, text: "Paris : la tour Eiffel est restée fermée « en raison de la grève nationale » (heure de l'annonce non précisée).", src: "La Libre", url: "https://www.lalibre.be/international/europe/2026/11/05/greve-nationale-en-france-270000-manifestants-dans-180-corteges-hors-paris-ME6PQRIITZB2ZN5DOG2UBDE4JM/", approx: true },
     { t: "20:43", cat: "justice", sev: 2, text: "La Courneuve : l'auteur présumé du coup de couteau, un élève majeur de 20 ans, a été « immédiatement interpellé » (préfecture de police).", src: "La DH", url: "https://www.dhnet.be/actu/monde/2026/11/05/mobilisation-en-france-270000-manifestants-dans-180-corteges-hors-paris-a-13h00-selon-lentourage-de-nunez-P7J73ETISZCJ5BPYBYIEDRXK7A/", approx: true },
