@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T17:43:00+01:00",
+    updated: "2026-11-05T17:46:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : dégradations boulevard Voltaire (préfecture) ; 40 blessés à Lyon, violences à Rennes et Nantes.",
     window: { start: "14:00", end: "19:00" },
@@ -17,15 +17,17 @@ window.MANIF_DATA = {
   },
 
   kpis: [
-    { id: "paris", label: "Manifestants Paris", value: "n.c.", delta: "pas encore de comptage ; 40 000 à 80 000 attendus", trend: "flat", src: "BFMTV", at: "06:36" },
+    { id: "paris", label: "Manifestants Paris", value: "350 000", delta: "selon la CGT ; pas encore de chiffre de la préfecture", trend: "up", src: "CGT via CNews", at: "17:43" },
     { id: "arrests", label: "Interpellations Paris", value: "18", delta: "dans les gares, avant le cortège ; pas de bilan national", trend: "up", src: "Préfecture via CNews", at: "13:18" },
-    { id: "crowd", label: "Manifestants France", value: "600 000", delta: "ministère de l'Intérieur, 1re estimation ; CGT : 250 000+ à 13h", trend: "up", src: "Min. Intérieur via BFMTV / CNews", at: "17:04" },
+    { id: "crowd", label: "Manifestants France", value: "600 000", delta: "ministère de l'Intérieur, 1re estimation ; CGT : près de 1,6 million", trend: "up", src: "Min. Intérieur via BFMTV / CNews", at: "17:04" },
     { id: "controls", label: "Contrôles Paris", value: "1 404", delta: "dans les gares de l'agglomération parisienne", trend: "up", src: "Préfecture via CNews", at: "13:18" },
     { id: "stations", label: "Stations de métro fermées", value: "25", delta: "République et Nation restent ouvertes", trend: "flat", src: "Sortiraparis", at: "11:00" },
     { id: "police", label: "Policiers & gendarmes", value: "70 000", delta: "France entière, même dispositif que le 31/10", trend: "flat", src: "L. Nuñez via BFMTV", at: "06:39" }
   ],
 
   feed: [
+    { t: "17:45", cat: "politique", sev: 2, text: "Sophie Binet (CGT) : « la grève est extrêmement efficace », le gouvernement a « trop tardé à répondre » ; elle réclame 10 % de hausse du Smic.", src: "BFMTV", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
+    { t: "17:43", cat: "cortege", sev: 3, text: "La CGT revendique « près de 1,6 million » de manifestants en France, dont 350 000 à Paris.", src: "CNews", url: "https://www.cnews.fr/france/2026-11-05/manifestations-du-5-novembre-les-premieres-tensions-eclatent-dans-lest-de-paris" },
     { t: "17:10", cat: "politique", sev: 3, text: "Sébastien Lecornu annonce une « conférence sociale » lundi 9 novembre à Matignon avec syndicats et patronat ; le ministre du Travail doit finaliser ses concertations d'ici dimanche.", src: "BFMTV / CNews", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
     { t: "17:04", cat: "cortege", sev: 3, text: "Près de 600 000 manifestants en France à 17h, Paris compris, selon une première estimation du ministère de l'Intérieur ; chiffre définitif attendu dans la soirée.", src: "BFMTV / CNews", url: "https://www.bfmtv.com/societe/manifestations/direct-greve-du-5-novembre-jusqu-a-plus-de-700-000-manifestants-attendus-en-france-de-nombreuses-forces-de-l-ordre-mobilisees_LN-202611050121.html" },
     { t: "17:00", cat: "securite", sev: 3, incident: true, text: "Lyon : 40 blessés dont 34 policiers et 6 manifestants, 24 interpellations, 5 commerces dégradés, une voiture de particulier incendiée avenue Berthelot, barricades (préfecture du Rhône). Entre 30 500 et 55 000 manifestants.", src: "France 3 Auvergne-Rhône-Alpes", url: "https://france3-regions.franceinfo.fr/auvergne-rhone-alpes/rhone/lyon/direct-manifestation-du-5-novembre-a-lyon-aucun-metro-le-centre-ville-deja-sous-cloche-30-000-manifestants-attendus-3444585.html", approx: true },
