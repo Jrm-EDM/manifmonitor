@@ -228,8 +228,8 @@ window.MANIF_DATA = {
   ],
 
   agenda: [
-    { d: "dim. 08/11", text: "Fin des concertations du ministre du Travail" },
     { d: "sam. 07/11", text: "Nouvelles actions annoncées : jeunesse, gilets jaunes (Acte IV)" },
+    { d: "dim. 08/11", text: "Fin des concertations du ministre du Travail" },
     { d: "lun. 09/11", text: "Conférence sociale à Matignon" }
   ],
 
