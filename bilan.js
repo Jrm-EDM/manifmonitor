@@ -1,9 +1,9 @@
 // ManifMonitor — bilan comparé des journées du 17 et du 24 octobre 2026 (page index.html).
 // Le direct est archivé dans live.html (lit data.js). Chaque chiffre porte sa source.
 window.BILAN = {
-  updated: "2026-10-25T09:08:00+01:00",
+  updated: "2026-11-05T18:23:00+01:00",
   provisional: true, // 24/10 : bilan provisoire, réactualisé le dimanche 25 au matin
-  provisionalNote: "Réactualisé le dimanche 25 octobre au matin : le bilan parisien de la préfecture de police est intégré (142 interpellations, 120 gardes à vue). Le ministère de l'Intérieur n'a pas encore publié de bilan national définitif (interpellations, policiers blessés) : ces chiffres restent provisoires.",
+  provisionalNote: "Chiffres du 24 octobre mis à jour avec le bilan de l'Intérieur du 25 octobre (1 314 interpellations, 53 membres des forces de l'ordre blessés).",
 
   next: {
     date: "2026-11-05T14:00:00+01:00",
@@ -25,12 +25,12 @@ window.BILAN = {
       alt: { a: null, aSrc: "Pas de chiffre syndical parisien retrouvé", b: 250000, bSrc: "CGT (ICI)" } },
     { id: "arrests1930", label: "Interpellations en France à 19h30", unit: "interpellations",
       a: 385, aSrc: "Laurent Nuñez, le 24/10 (CNews, ICI)", b: 1000, bApprox: true, bSrc: "Laurent Nuñez, « près de 1 000 » (CNews, ICI)",
-      note: "Même heure, même source : le ministre a comparé lui-même les deux journées. Pas de bilan national actualisé au 25/10 au matin. Bilan final du 17/10 : plus de 1 800 (Nuñez) à 2 397 (Wikipédia)." },
+      note: "Même heure, même source : le ministre a comparé lui-même les deux journées. Bilan du 24/10 publié ensuite par l'Intérieur : 1 314 interpellations. Bilan du 17/10 du 17/10 : plus de 1 800 (Nuñez) à 2 397 (Wikipédia)." },
     { id: "arrestsParis", label: "Interpellations à Paris", unit: "interpellations",
       a: 855, aSrc: "Autorités, agglomération parisienne, bilan provisoire (Wikipédia)", b: 142, bSrc: "Préfecture de police, bilan du 25/10 au matin, dont 120 gardes à vue (franceinfo)",
       note: "Périmètres différents : agglomération le 17/10, Paris intra-muros le 24/10." },
     { id: "policeHurt", label: "Policiers et gendarmes blessés", unit: "blessés",
-      a: 997, aSrc: "Bilan final (Wikipédia)", b: null, bSrc: "Pas de bilan national au 25/10 au matin ; 18 blessés à Lyon (préfecture du Rhône), 2 à Pau (préfecture des Pyrénées-Atlantiques)" },
+      a: 997, aSrc: "Bilan final (Wikipédia)", b: 53, bSrc: "Ministère de l'Intérieur, bilan du 25/10 (DH / AFP)" },
     { id: "deaths", label: "Morts", unit: "morts",
       a: 1, aSrc: "Homme de 59 ans, boulevard de Magenta, « arrêt cardiorespiratoire » selon la préfecture (Wikipédia)", b: 0, bSrc: "Aucun décès signalé au 24/10 à 22h30" },
     { id: "buildings", label: "Bâtiments publics attaqués", unit: "bâtiments",
@@ -67,6 +67,7 @@ window.BILAN = {
     { name: "CNews, direct du 24 octobre", url: "https://www.cnews.fr/france/2026-10-24/mobilisation-du-24-octobre-le-cortege-parisien-selance-de-la-porte-ditalie-135" },
     { name: "franceinfo, direct du 24 octobre", url: "https://www.franceinfo.fr/societe/manifestations/manifestations-du-24-octobre-suivez-en-direct-cette-nouvelle-journee-de-mobilisation-sous-tres-haute-securite_8251987.html" },
     { name: "franceinfo : bilan du 25 octobre (Paris)", url: "https://www.franceinfo.fr/societe/manifestations/direct-manifestations-du-24-octobre-142-personnes-ont-ete-interpellees-a-paris-dont-120-ont-ete-placees-en-garde-a-vue-selon-la-prefecture-de-police_8252812.html" },
+    { name: "DH / AFP : bilan de l'Intérieur du 24 octobre", url: "https://www.dhnet.be/dernieres-depeches/2026/10/25/manifestations-de-samedi-en-france-1314-interpellations-53-membres-des-forces-de-lordre-blesses-selon-linterieur-BR7GK5EVZJEB5HDTXDWC3CA6FI/" },
     { name: "SE-UNSA : mobilisation du 5 novembre", url: "https://www.se-unsa.org/2026/10/mobilisation-interprofessionnelle-du-5-novembre-2026/" }
   ]
 };
