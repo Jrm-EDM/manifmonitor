@@ -7,7 +7,7 @@ window.MANIF_DATA = {
     routeLabel: "cortège République → Nation",
     dayLabel: "Journée du 5 nov. · 06h → 02h",
     date: "2026-11-05",
-    updated: "2026-11-05T19:46:00+01:00",
+    updated: "2026-11-05T19:50:00+01:00",
     tension: 3, // 1 calme · 2 vigilance · 3 tendu · 4 émeutes · 5 crise
     tensionNote: "Paris : charges de CRS et incendie place de la Nation (19h06) ; Lyon : 40 blessés, groupes dispersés ; Nantes : canon à eau.",
     window: { start: "14:00", end: "19:00" },
@@ -17,15 +17,17 @@ window.MANIF_DATA = {
   },
 
   kpis: [
-    { id: "paris", label: "Manifestants Paris", value: "350 000", delta: "selon la CGT ; pas encore de chiffre de la préfecture", trend: "up", src: "CGT via CNews", at: "17:43" },
-    { id: "arrests", label: "Interpellations Paris", value: "18", delta: "dans les gares, avant le cortège ; pas de bilan national", trend: "up", src: "Préfecture via CNews", at: "13:18" },
-    { id: "crowd", label: "Manifestants France", value: "600 000", delta: "ministère de l'Intérieur, 1re estimation ; CGT : près de 1,6 million", trend: "up", src: "Min. Intérieur via BFMTV / CNews", at: "17:04" },
+    { id: "paris", label: "Manifestants Paris", value: "65 000", delta: "selon le ministère de l'Intérieur ; CGT : 350 000", trend: "flat", src: "Min. Intérieur via franceinfo / ICI", at: "19:50" },
+    { id: "arrests", label: "Interpellations France", value: "448", delta: "bilan provisoire de 18h ; pas de bilan pour Paris (18 dans les gares avant le cortège)", trend: "up", src: "Min. Intérieur via franceinfo / ICI", at: "19:50" },
+    { id: "crowd", label: "Manifestants France", value: "575 000", delta: "ministère de l'Intérieur, 193 cortèges ; CGT : près de 1,6 million", trend: "flat", src: "Min. Intérieur via franceinfo / ICI", at: "19:50" },
     { id: "controls", label: "Contrôles Paris", value: "1 404", delta: "dans les gares de l'agglomération parisienne", trend: "up", src: "Préfecture via CNews", at: "13:18" },
-    { id: "stations", label: "Stations de métro fermées", value: "25", delta: "République et Nation ouvertes ; 26 fermetures selon ICI", trend: "flat", src: "Sortiraparis", at: "11:00" },
+    { id: "hurt", label: "Forces de l'ordre blessées", value: "53", delta: "France entière, bilan provisoire de 18h ; 86 interventions pour incendies", trend: "up", src: "Min. Intérieur via franceinfo / ICI", at: "19:50" },
     { id: "police", label: "Policiers & gendarmes", value: "70 000", delta: "France entière, même dispositif que le 31/10", trend: "flat", src: "L. Nuñez via BFMTV", at: "06:39" }
   ],
 
   feed: [
+    { t: "19:50", cat: "securite", sev: 3, incident: true, text: "Bilan provisoire de 18h du ministère de l'Intérieur : 448 interpellations, 53 membres des forces de l'ordre blessés, 86 interventions pour incendies ; bilan encore à consolider.", src: "franceinfo / ICI", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
+    { t: "19:50", cat: "cortege", sev: 3, text: "Chiffre revu par l'Intérieur : 575 000 manifestants en France dans 193 cortèges (contre « près de 600 000 » à 17h), dont 65 000 à Paris. La CGT maintient près de 1,6 million, dont 350 000 à Paris.", src: "franceinfo / ICI", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "19:40", cat: "cortege", sev: 1, text: "Charente-Maritime : plus de 5 000 manifestants, une personne interpellée à La Rochelle (circonstances non précisées).", src: "ICI", url: "https://www.ici.fr/infos/economie-social/direct-greve-du-5-novembre-les-syndicats-dans-la-rue-ce-jeudi-pour-les-salaires-et-contre-la-vie-chere-7257620", approx: true },
     { t: "19:20", cat: "securite", sev: 3, incident: true, text: "Paris, place de la Nation : « fin de manifestation un peu électrique » selon un journaliste de franceinfo sur place : après un défilé calme, les forces de l'ordre semblent vouloir disperser des manifestants qu'il décrit comme pacifiques, par des charges.", src: "franceinfo", url: "https://www.franceinfo.fr/societe/manifestations/direct-greve-du-5-novembre-plus-de-250-actions-annoncees-dans-toute-la-france-selon-une-carte-de-la-ggt_8268827.html", approx: true },
     { t: "19:06", cat: "securite", sev: 3, incident: true, text: "Paris, place de la Nation : plusieurs charges de CRS pour permettre aux pompiers d'intervenir sur un incendie allumé ; des détonations entendues.", src: "CNews", url: "https://www.cnews.fr/france/2026-11-05/manifestations-du-5-novembre-les-premieres-tensions-eclatent-dans-lest-de-paris" },
