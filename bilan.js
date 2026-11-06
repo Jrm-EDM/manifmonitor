@@ -13,9 +13,9 @@ const BE31 = "https://www.lalibre.be/dernieres-depeches/2026/11/01/manifestation
 const ME31 = "https://www.mediaterranee.com/0172026-manifestation-du-31-octobre-contre-la-vie-chere-320-000-personnes.html";
 
 window.BILAN = {
-  updated: "2026-11-06T00:05:00+01:00",
-  provisional: true, // 5/11 : bilan provisoire, réactualisé le vendredi 6 au matin
-  provisionalNote: "Chiffres du 5 novembre encore provisoires : le bilan des interpellations et des blessés date de 18h, et la préfecture de police n'a pas publié de bilan pour Paris. Cette page sera réactualisée vendredi 6 novembre au matin.",
+  updated: "2026-11-06T09:08:00+01:00",
+  provisional: true, // 5/11 : pas de bilan consolidé publié au 6/11 à 9h
+  provisionalNote: "Vérifié vendredi 6 novembre à 9h : le ministère de l'Intérieur n'a pas publié le bilan consolidé annoncé, et nous n'avons trouvé aucun bilan parisien. Les chiffres d'interpellations et de blessés du 5 novembre restent ceux de 18h.",
 
   days: [
     { k: "a", short: "17/10", label: "17 octobre", color: "var(--d17)" },
@@ -25,12 +25,12 @@ window.BILAN = {
   ],
 
   next: {
-    date: "2026-11-07T00:00:00+01:00",
+    date: "2026-11-07T14:00:00+01:00",
     label: "Samedi 7 novembre",
-    title: "Nouvelles actions annoncées",
-    text: "Organisations de jeunesse et gilets jaunes, pour leur « Acte IV », annoncent de nouvelles actions samedi ; l'Unef donne « rendez-vous le 7 novembre ». Nous n'avons pas encore retrouvé de parcours ni d'horaires.",
-    src: "AFP via Boursorama",
-    url: AFP5,
+    title: "Rassemblement annoncé à Concorde",
+    text: "La coordination nationale des gilets jaunes appelle à se rassembler place de la Concorde à 14h, même en cas d'interdiction (« nous désobéirons »). Le lieu reste soumis à la préfecture, dont nous n'avons pas trouvé de décision. Organisations de jeunesse et Unef annoncent aussi des actions samedi.",
+    src: "CNews, évous, AFP",
+    url: "https://www.cnews.fr/france/2026-11-03/nous-desobeirons-les-gilets-jaunes-annoncent-quils-manifesteront-concorde-ce",
     before: { label: "Lundi 9 novembre", text: "« conférence sociale » à Matignon avec les syndicats et le patronat.", src: "BFMTV", url: BFM5 }
   },
 
@@ -46,7 +46,7 @@ window.BILAN = {
       b: 110000, bSrc: "Préfecture de police (ICI, France 3)",
       c: 70000, cSrc: "Autorités (La Libre / Belga)",
       d: 65000, dSrc: "Ministère de l'Intérieur (franceinfo, ICI)",
-      alt: { b: 250000, bSrc: "CGT (ICI)", d: 350000, dSrc: "CGT (BFMTV, CNews)" } },
+      alt: { b: 250000, bSrc: "CGT (ICI)", c: 200000, cSrc: "Organisateurs (CNews)", d: 350000, dSrc: "CGT (BFMTV, CNews)" } },
     { id: "arrests", label: "Interpellations en France", unit: "interpellations",
       a: 2397, aSrc: "Wikipédia ; plus de 1 800 selon L. Nuñez",
       b: 1314, bSrc: "Ministère de l'Intérieur, bilan du 25/10 (DH / AFP)",
@@ -140,6 +140,8 @@ window.BILAN = {
     { name: "France 3 Paris, direct du 5 novembre", url: F35 },
     { name: "France 3 Lyon, direct du 5 novembre", url: LY5 },
     { name: "ICI : manifestation parisienne du 5 novembre", url: IC5 },
-    { name: "AFP via Boursorama : conférence sociale", url: AFP5 }
+    { name: "AFP via Boursorama : conférence sociale", url: AFP5 },
+    { name: "CNews : appel des gilets jaunes à Concorde", url: "https://www.cnews.fr/france/2026-11-03/nous-desobeirons-les-gilets-jaunes-annoncent-quils-manifesteront-concorde-ce" },
+    { name: "évous : manifestations à Paris du 2 au 8 novembre", url: "https://paris.evous.fr/citoyen/manifestations/" }
   ]
 };
